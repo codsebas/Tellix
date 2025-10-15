@@ -1,14 +1,18 @@
 package com.umg.controlador;
 
-import com.umg.implementacion.ClienteImp;
+import com.umg.modelo.ModeloLogin;
 import com.umg.modelo.ModeloVistaPrincipal;
+import com.umg.vistas.VistaLogin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class ControladorVistaPrincipal implements ActionListener {
+public class ControladorVistaPrincipal implements ActionListener, WindowListener {
+
+
     ModeloVistaPrincipal modelo;
-    ClienteImp implementacion = new  ClienteImp();
 
     public ControladorVistaPrincipal(ModeloVistaPrincipal modelo) {
         this.modelo = modelo;
@@ -16,8 +20,48 @@ public class ControladorVistaPrincipal implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals(modelo.getVista().btnHola.getActionCommand())){
-            modelo.getVista().lblHola.setText(implementacion.decirHola());
-        }
+        
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        mostrarVistaLogin();
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
+
+    private void mostrarVistaLogin(){
+        ModeloLogin model = new ModeloLogin();
+        VistaLogin vista = new VistaLogin();
+        new ControladorLogin(model, vista, modelo.getVista());
+        modelo.getVista().cambiarPanel(vista);
     }
 }

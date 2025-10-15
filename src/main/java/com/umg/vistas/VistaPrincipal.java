@@ -7,6 +7,8 @@ package com.umg.vistas;
 import com.umg.controlador.ControladorVistaPrincipal;
 import com.umg.modelo.ModeloVistaPrincipal;
 
+import javax.swing.*;
+
 /**
  *
  * @author axels
@@ -24,6 +26,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         setControlador(controlador);
     }
 
+    public void cambiarPanel(JPanel panel) {
+        contenedor.removeAll();
+        contenedor.add(panel);
+        contenedor.revalidate();
+        contenedor.repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,35 +42,26 @@ public class VistaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblHola = new javax.swing.JLabel();
-        btnHola = new javax.swing.JButton();
+        contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setResizable(false);
 
-        btnHola.setText("Hola");
+        contenedor.setBackground(new java.awt.Color(245, 247, 250));
+        contenedor.setMinimumSize(new java.awt.Dimension(1280, 720));
+        contenedor.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(579, 579, 579)
-                        .addComponent(btnHola))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(266, 266, 266)
-                        .addComponent(lblHola, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(625, Short.MAX_VALUE))
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(211, 211, 211)
-                .addComponent(lblHola, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnHola)
-                .addContainerGap(402, Short.MAX_VALUE))
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -103,11 +103,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnHola;
-    public javax.swing.JLabel lblHola;
+    private javax.swing.JPanel contenedor;
     // End of variables declaration//GEN-END:variables
 
     public void setControlador(ControladorVistaPrincipal controlador) {
-        btnHola.addActionListener(controlador);
+        this.addWindowListener(controlador);
     }
 }
