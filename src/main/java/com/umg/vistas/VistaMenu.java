@@ -4,6 +4,11 @@
  */
 package com.umg.vistas;
 
+import com.umg.controlador.ControladorMenu;
+import com.umg.modelo.ModeloMenu;
+
+import javax.swing.*;
+
 /**
  *
  * @author axels
@@ -15,6 +20,14 @@ public class VistaMenu extends javax.swing.JPanel {
      */
     public VistaMenu() {
         initComponents();
+    }
+
+    public JPanel getBtnCerrarSesion() {
+        return btnCerrarSesion;
+    }
+
+    public void setBtnCerrarSesion(JPanel btnCerrarSesion) {
+        this.btnCerrarSesion = btnCerrarSesion;
     }
 
     /**
@@ -29,6 +42,7 @@ public class VistaMenu extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JPanel();
         contenedor = new javax.swing.JPanel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -42,6 +56,19 @@ public class VistaMenu extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menú");
         panelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
+
+        javax.swing.GroupLayout btnCerrarSesionLayout = new javax.swing.GroupLayout(btnCerrarSesion);
+        btnCerrarSesion.setLayout(btnCerrarSesionLayout);
+        btnCerrarSesionLayout.setHorizontalGroup(
+            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+        btnCerrarSesionLayout.setVerticalGroup(
+            btnCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        panelMenu.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, 200, 50));
 
         jPanel1.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
@@ -63,6 +90,7 @@ public class VistaMenu extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel btnCerrarSesion;
     private javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
