@@ -71,7 +71,7 @@ public class VistaLogin extends javax.swing.JPanel {
         panelFondo.setMaximumSize(new java.awt.Dimension(1280, 720));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Skoda Pro", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 117, 125));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Inicio de Sesión");
@@ -80,7 +80,7 @@ public class VistaLogin extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(245, 247, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(33, 37, 41));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Usuario");
@@ -90,7 +90,7 @@ public class VistaLogin extends javax.swing.JPanel {
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
         jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(33, 37, 41));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel3.setText("Contraseña");
@@ -103,7 +103,7 @@ public class VistaLogin extends javax.swing.JPanel {
         btnIniciarSesion.setBackground(new java.awt.Color(0, 123, 255));
         btnIniciarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Iniciar Sesión");
@@ -113,7 +113,7 @@ public class VistaLogin extends javax.swing.JPanel {
 
         panelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 180, 320));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 80)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Tellix");
         panelFondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 570, -1, -1));
