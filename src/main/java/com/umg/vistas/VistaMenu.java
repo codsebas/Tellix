@@ -90,6 +90,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
 
         btnCerrarSesion.setBackground(new java.awt.Color(245, 247, 250));
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCerrarSesion.png"))); // NOI18N
@@ -107,6 +108,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 670, 180, 40));
 
         btnInicio.setBackground(new java.awt.Color(245, 247, 250));
+        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInicio.png"))); // NOI18N
@@ -124,6 +126,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
 
         btnClientes.setBackground(new java.awt.Color(245, 247, 250));
+        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
@@ -141,6 +144,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 40));
 
         btnVentas.setBackground(new java.awt.Color(245, 247, 250));
+        btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoVentas.png"))); // NOI18N
@@ -158,6 +162,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, 40));
 
         btnProductos.setBackground(new java.awt.Color(245, 247, 250));
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoProductos.png"))); // NOI18N
@@ -175,6 +180,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 40));
 
         btnCompras.setBackground(new java.awt.Color(245, 247, 250));
+        btnCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCompras.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCompras.png"))); // NOI18N
@@ -192,6 +198,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
 
         btnCuentasPorCoPa.setBackground(new java.awt.Color(245, 247, 250));
+        btnCuentasPorCoPa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCuentasPorCoPa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoCuentasPorCoPa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCuentasPorCoPa.png"))); // NOI18N
@@ -209,6 +216,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnCuentasPorCoPa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 180, 40));
 
         btnUsuariosYRoles.setBackground(new java.awt.Color(245, 247, 250));
+        btnUsuariosYRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuariosYRoles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoUsuarioYRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoUsuariosYRoles.png"))); // NOI18N
@@ -226,6 +234,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnUsuariosYRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 180, 40));
 
         btnReportes.setBackground(new java.awt.Color(245, 247, 250));
+        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoReportes.png"))); // NOI18N
@@ -243,6 +252,7 @@ public class VistaMenu extends javax.swing.JPanel {
         panelMenu.add(btnReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 180, 40));
 
         btnInventario.setBackground(new java.awt.Color(245, 247, 250));
+        btnInventario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInventario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInventario.png"))); // NOI18N

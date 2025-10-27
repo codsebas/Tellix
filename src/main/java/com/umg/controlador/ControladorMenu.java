@@ -2,10 +2,7 @@ package com.umg.controlador;
 
 import com.umg.modelo.ModeloLogin;
 import com.umg.modelo.ModeloMenu;
-import com.umg.vistas.VistaInicio;
-import com.umg.vistas.VistaLogin;
-import com.umg.vistas.VistaMenu;
-import com.umg.vistas.VistaPrincipal;
+import com.umg.vistas.*;
 
 import java.awt.*;
 
@@ -183,6 +180,7 @@ public class ControladorMenu implements MouseListener {
 
     // Vistas
     VistaInicio vistaInicio = new  VistaInicio();
+    VistaProductos vistaProductos = new  VistaProductos();
 
 
     @Override
@@ -191,6 +189,8 @@ public class ControladorMenu implements MouseListener {
 
         if (source.equals(btnInicio)) {
             accionBotones(btnInicio, e, vistaInicio);
+        } else if(source.equals(btnProductos)) {
+            accionBotones(btnProductos, e, vistaProductos);
         } else if (source.equals(btnCerrarSesion)) {
             reiniciarColores();
             vistaLogin();
@@ -312,7 +312,7 @@ public class ControladorMenu implements MouseListener {
 
             JLabel icono = obtenerLabelPorNombre(boton, "icono");
             JLabel texto = obtenerLabelPorNombre(boton, "texto");
-            JLabel efecto = obtenerLabelPorNombre(btnInicio, "efecto");
+            JLabel efecto = obtenerLabelPorNombre(boton, "efecto");
 
             boton.setBackground(grisFondo);
 
