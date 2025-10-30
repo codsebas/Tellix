@@ -4,6 +4,9 @@
  */
 package com.umg.vistas;
 
+import com.umg.controlador.ControladoProductos;
+import com.umg.modelo.ModeloProductos;
+
 /**
  *
  * @author axels
@@ -15,6 +18,10 @@ public class VistaProductos extends javax.swing.JPanel {
      */
     public VistaProductos() {
         initComponents();
+
+        ModeloProductos modelo = new ModeloProductos(this);
+        ControladoProductos controlador =  new ControladoProductos(modelo);
+        setControlador(controlador);
     }
 
     /**
@@ -61,9 +68,9 @@ public class VistaProductos extends javax.swing.JPanel {
         cmbMarca = new javax.swing.JComboBox<>();
         txtCantidad1 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        btnBuscar1 = new javax.swing.JPanel();
+        btnLimpiar = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        lblBuscar1 = new javax.swing.JLabel();
+        lblLimpiar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JPanel();
@@ -107,6 +114,7 @@ public class VistaProductos extends javax.swing.JPanel {
         panelFondo.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 660, 530));
 
         btnNuevo.setBackground(new java.awt.Color(245, 247, 250));
+        btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -121,6 +129,7 @@ public class VistaProductos extends javax.swing.JPanel {
         panelFondo.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 630, 100, 30));
 
         btnEliminar.setBackground(new java.awt.Color(245, 247, 250));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -135,6 +144,7 @@ public class VistaProductos extends javax.swing.JPanel {
         panelFondo.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 630, 100, 30));
 
         btnActualizar.setBackground(new java.awt.Color(245, 247, 250));
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -229,13 +239,22 @@ public class VistaProductos extends javax.swing.JPanel {
         jLabel13.setText("Marca");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, 20));
 
+        cmbMedida.setBackground(new java.awt.Color(255, 255, 255));
+        cmbMedida.setForeground(new java.awt.Color(108, 117, 125));
         cmbMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMedida.setBorder(null);
         jPanel2.add(cmbMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 200, 30));
 
+        cmbCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        cmbCategoria.setForeground(new java.awt.Color(108, 117, 125));
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setBorder(null);
         jPanel2.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
 
+        cmbMarca.setBackground(new java.awt.Color(255, 255, 255));
+        cmbMarca.setForeground(new java.awt.Color(108, 117, 125));
         cmbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMarca.setBorder(null);
         jPanel2.add(cmbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 200, 30));
 
         txtCantidad1.setBackground(new java.awt.Color(255, 255, 255));
@@ -248,19 +267,20 @@ public class VistaProductos extends javax.swing.JPanel {
         jLabel17.setText("Precio");
         jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 200, 20));
 
-        btnBuscar1.setBackground(new java.awt.Color(245, 247, 250));
-        btnBuscar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnLimpiar.setBackground(new java.awt.Color(245, 247, 250));
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Limpiar");
-        btnBuscar1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+        btnLimpiar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        lblBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnBuscar1.add(lblBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+        lblLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
+        btnLimpiar.add(lblLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        jPanel2.add(btnBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 100, 30));
+        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 100, 30));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 360, 560));
 
@@ -275,6 +295,7 @@ public class VistaProductos extends javax.swing.JPanel {
         panelFondo.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
 
         btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -298,7 +319,7 @@ public class VistaProductos extends javax.swing.JPanel {
         cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
         cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Categoría", "Stock", "Precio" }));
-        cmbOrdenarPor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        cmbOrdenarPor.setBorder(null);
         panelFondo.add(cmbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 200, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -317,8 +338,8 @@ public class VistaProductos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel btnActualizar;
     public javax.swing.JPanel btnBuscar;
-    public javax.swing.JPanel btnBuscar1;
     public javax.swing.JPanel btnEliminar;
+    public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbMarca;
@@ -346,8 +367,8 @@ public class VistaProductos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblActualizar;
     public javax.swing.JLabel lblBuscar;
-    public javax.swing.JLabel lblBuscar1;
     public javax.swing.JLabel lblEliminar;
+    public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTabla;
@@ -361,4 +382,12 @@ public class VistaProductos extends javax.swing.JPanel {
     public javax.swing.JTextField txtStockActual;
     public javax.swing.JTextField txtStockMinimo;
     // End of variables declaration//GEN-END:variables
+
+    public void setControlador (ControladoProductos controlador) {
+        this.btnActualizar.addMouseListener(controlador);
+        this.btnEliminar.addMouseListener(controlador);
+        this.btnNuevo.addMouseListener(controlador);
+        this.btnBuscar.addMouseListener(controlador);
+        this.btnLimpiar.addMouseListener(controlador);
+    }
 }
