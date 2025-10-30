@@ -4,8 +4,10 @@
  */
 package com.umg.vistas;
 
-import com.umg.controlador.ControladoProductos;
-import com.umg.modelo.ModeloProductos;
+import com.umg.controlador.ControladorProductos;
+import com.umg.modelo.ModeloProducto;
+
+import javax.swing.*;
 
 /**
  *
@@ -18,9 +20,13 @@ public class VistaProductos extends javax.swing.JPanel {
      */
     public VistaProductos() {
         initComponents();
+        inicializarControlador();
 
-        ModeloProductos modelo = new ModeloProductos(this);
-        ControladoProductos controlador =  new ControladoProductos(modelo);
+
+    }
+    private void inicializarControlador() {
+        ModeloProducto modelo = new ModeloProducto(this);
+        ControladorProductos controlador = new ControladorProductos(modelo);
         setControlador(controlador);
     }
 
@@ -341,9 +347,9 @@ public class VistaProductos extends javax.swing.JPanel {
     public javax.swing.JPanel btnEliminar;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JComboBox<String> cmbMarca;
-    private javax.swing.JComboBox<String> cmbMedida;
+    public javax.swing.JComboBox<String> cmbCategoria;
+    public javax.swing.JComboBox<String> cmbMarca;
+    public javax.swing.JComboBox<String> cmbMedida;
     private javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -372,7 +378,7 @@ public class VistaProductos extends javax.swing.JPanel {
     public javax.swing.JLabel lblNuevo;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JTable tblProductos;
+    public javax.swing.JTable tblProductos;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCantidad;
     public javax.swing.JTextField txtCantidad1;
@@ -383,11 +389,24 @@ public class VistaProductos extends javax.swing.JPanel {
     public javax.swing.JTextField txtStockMinimo;
     // End of variables declaration//GEN-END:variables
 
-    public void setControlador (ControladoProductos controlador) {
+    public void setControlador (ControladorProductos controlador) {
         this.btnActualizar.addMouseListener(controlador);
         this.btnEliminar.addMouseListener(controlador);
         this.btnNuevo.addMouseListener(controlador);
         this.btnBuscar.addMouseListener(controlador);
         this.btnLimpiar.addMouseListener(controlador);
+    }
+    public JTable getTblProductos() {
+        return tblProductos;
+    }
+
+    public JComboBox<String> getCmbCategoria() {
+        return cmbCategoria;
+    }
+    public JComboBox<String> getCmbMarca() {
+        return cmbMarca;
+    }
+    public JComboBox<String> getCmbMedida() {
+        return cmbMedida;
     }
 }
