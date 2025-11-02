@@ -39,6 +39,7 @@ public class ControladorMenu implements MouseListener {
         vista.btnUsuariosYRoles.addMouseListener(this);
         vista.btnReportes.addMouseListener(this);
         vista.btnInventario.addMouseListener(this);
+        vista.btnConfiguracion.addMouseListener(this);
 
         btnCerrarSesion = vista.btnCerrarSesion;
         btnInicio = vista.btnInicio;
@@ -50,6 +51,7 @@ public class ControladorMenu implements MouseListener {
         btnUsuariosYRoles = vista.btnUsuariosYRoles;
         btnReportes = vista.btnReportes;
         btnInventario = vista.btnInventario;
+        btnConfiguracion = vista.btnConfiguracion;
 
         lblCerrarSesion = vista.lblCerrarSesion;
         lblInicio = vista.lblInicio;
@@ -61,6 +63,7 @@ public class ControladorMenu implements MouseListener {
         lblUsuariosYRoles = vista.lblUsuariosYRoles;
         lblReportes = vista.lblReportes;
         lblInventario = vista.lblInventario;
+        lblConfiguracion = vista.lblConfiguracion;
 
         lblCerrarSesion.setName("texto");
         lblInicio.setName("texto");
@@ -72,6 +75,7 @@ public class ControladorMenu implements MouseListener {
         lblUsuariosYRoles.setName("texto");
         lblReportes.setName("texto");
         lblInventario.setName("texto");
+        lblConfiguracion.setName("texto");
 
         lblIconoCerrarSesion = vista.lblIconoCerrarSesion;
         lblIconoInicio = vista.lblIconoInicio;
@@ -83,6 +87,7 @@ public class ControladorMenu implements MouseListener {
         lblIconoUsuariosYRoles = vista.lblIconoUsuarioYRoles;
         lblIconoReportes = vista.lblIconoReportes;
         lblIconoInventario = vista.lblIconoInventario;
+        lblIconoConfiguracion = vista.lblIconoConfiguracion;
 
         lblIconoCerrarSesion.setName("icono");
         lblIconoInicio.setName("icono");
@@ -94,6 +99,7 @@ public class ControladorMenu implements MouseListener {
         lblIconoUsuariosYRoles.setName("icono");
         lblIconoReportes.setName("icono");
         lblIconoInventario.setName("icono");
+        lblIconoConfiguracion.setName("icono");
 
         lblCerrarSesionSeleccionado = vista.lblCerrarSesionSeleccionado;
         lblInicioSeleccionado = vista.lblInicioSeleccionado;
@@ -105,6 +111,7 @@ public class ControladorMenu implements MouseListener {
         lblUsuariosYRolesSeleccionado = vista.lblUsuariosYRolesSeleccionado;
         lblReportesSeleccionado = vista.lblReportesSeleccionado;
         lblInventarioSeleccionado = vista.lblInventarioSeleccionado;
+        lblConfiguracionSeleccionado = vista.lblConfiguracionSeleccionado;
 
         lblCerrarSesionSeleccionado.setName("efecto");
         lblInicioSeleccionado.setName("efecto");
@@ -116,6 +123,7 @@ public class ControladorMenu implements MouseListener {
         lblUsuariosYRolesSeleccionado.setName("efecto");
         lblReportesSeleccionado.setName("efecto");
         lblInventarioSeleccionado.setName("efecto");
+        lblConfiguracionSeleccionado.setName("efecto");
 
         lblCerrarSesionSeleccionado.setVisible(false);
         lblInicioSeleccionado.setVisible(false);
@@ -127,6 +135,7 @@ public class ControladorMenu implements MouseListener {
         lblUsuariosYRolesSeleccionado.setVisible(false);
         lblReportesSeleccionado.setVisible(false);
         lblInventarioSeleccionado.setVisible(false);
+        lblConfiguracionSeleccionado.setVisible(false);
 
         inicializarIconos();
     }
@@ -142,6 +151,7 @@ public class ControladorMenu implements MouseListener {
     private JPanel btnUsuariosYRoles;
     private JPanel btnReportes;
     private JPanel btnInventario;
+    private JPanel btnConfiguracion;
 
     private JLabel lblCerrarSesion;
     private JLabel lblInicio;
@@ -153,6 +163,7 @@ public class ControladorMenu implements MouseListener {
     private JLabel lblUsuariosYRoles;
     private JLabel lblReportes;
     private JLabel lblInventario;
+    private JLabel lblConfiguracion;
 
     private JLabel lblIconoCerrarSesion;
     private JLabel lblIconoInicio;
@@ -164,6 +175,7 @@ public class ControladorMenu implements MouseListener {
     private JLabel lblIconoUsuariosYRoles;
     private JLabel lblIconoReportes;
     private JLabel lblIconoInventario;
+    private JLabel lblIconoConfiguracion;
 
     private JLabel lblCerrarSesionSeleccionado;
     private JLabel lblInicioSeleccionado;
@@ -175,6 +187,7 @@ public class ControladorMenu implements MouseListener {
     private JLabel lblUsuariosYRolesSeleccionado;
     private JLabel lblReportesSeleccionado;
     private JLabel lblInventarioSeleccionado;
+    private JLabel lblConfiguracionSeleccionado;
 
     private JPanel botonSeleccionado = null;
 
@@ -182,6 +195,9 @@ public class ControladorMenu implements MouseListener {
     VistaInicio vistaInicio = new  VistaInicio();
     VistaProductos vistaProductos = new  VistaProductos();
     VistaClientes vistaClientes = new  VistaClientes();
+
+    VistaMenuCuentas vistaMenuCuentas = new  VistaMenuCuentas();
+    VistaMenuConfiguracion vistaMenuConfiguracion = new  VistaMenuConfiguracion();
 
 
     @Override
@@ -194,7 +210,11 @@ public class ControladorMenu implements MouseListener {
             accionBotones(btnProductos, e, vistaProductos);
         } else if(source.equals(btnClientes)) {
             accionBotones(btnClientes, e, vistaClientes);
-        }  else if (source.equals(btnCerrarSesion)) {
+        } else if(source.equals(btnCuentasPorCoPa)) {
+            accionBotones(btnCuentasPorCoPa, e, vistaMenuCuentas);
+        } else if(source.equals(btnConfiguracion)) {
+            accionBotones(btnConfiguracion, e, vistaMenuConfiguracion);
+        } else if (source.equals(btnCerrarSesion)) {
             reiniciarColores();
             vistaLogin();
         }
@@ -308,7 +328,7 @@ public class ControladorMenu implements MouseListener {
         JPanel[] botones = {
                 btnCerrarSesion, btnInicio, btnClientes, btnVentas,
                 btnProductos, btnCompras, btnCuentasPorCoPa,
-                btnUsuariosYRoles, btnReportes, btnInventario
+                btnUsuariosYRoles, btnReportes, btnInventario, btnConfiguracion
         };
 
         for (JPanel boton : botones) {
@@ -356,6 +376,7 @@ public class ControladorMenu implements MouseListener {
         iconosBotones.put(btnUsuariosYRoles, "/com/umg/iconos/IconoUsuariosYRoles.png");
         iconosBotones.put(btnReportes, "/com/umg/iconos/IconoReportes.png");
         iconosBotones.put(btnInventario, "/com/umg/iconos/IconoInventario.png");
+        iconosBotones.put(btnConfiguracion, "/com/umg/iconos/IconoInventario.png");
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {
