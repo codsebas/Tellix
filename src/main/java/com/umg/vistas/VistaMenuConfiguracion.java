@@ -4,6 +4,9 @@
  */
 package com.umg.vistas;
 
+import com.umg.controlador.ControladorMenuConfiguracion;
+import com.umg.modelo.ModeloMenuConfiguracion;
+
 /**
  *
  * @author axels
@@ -15,6 +18,9 @@ public class VistaMenuConfiguracion extends javax.swing.JPanel {
      */
     public VistaMenuConfiguracion() {
         initComponents();
+        ModeloMenuConfiguracion modelo = new  ModeloMenuConfiguracion(this);
+        ControladorMenuConfiguracion controlador = new ControladorMenuConfiguracion(modelo);
+        setControlador(controlador);
     }
 
     /**
@@ -30,34 +36,34 @@ public class VistaMenuConfiguracion extends javax.swing.JPanel {
         contenedor = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnInicio = new javax.swing.JPanel();
-        lblIconoInicio = new javax.swing.JLabel();
-        lblInicio = new javax.swing.JLabel();
-        lblInicioSeleccionado = new javax.swing.JLabel();
-        btnClientes = new javax.swing.JPanel();
-        lblIconClientes = new javax.swing.JLabel();
-        lblClientes = new javax.swing.JLabel();
-        lblClientesSeleccionado = new javax.swing.JLabel();
-        btnVentas = new javax.swing.JPanel();
-        lblIconoVentas = new javax.swing.JLabel();
-        lblVentas = new javax.swing.JLabel();
-        lblVentasSeleccionado = new javax.swing.JLabel();
-        btnProductos = new javax.swing.JPanel();
-        lblIconoProductos = new javax.swing.JLabel();
-        lblProductos = new javax.swing.JLabel();
-        lblProductosSeleccionado = new javax.swing.JLabel();
-        btnCompras = new javax.swing.JPanel();
-        lblIconoCompras = new javax.swing.JLabel();
-        lblCompras = new javax.swing.JLabel();
-        lblComprasSeleccionado = new javax.swing.JLabel();
-        btnCuentasPorCoPa = new javax.swing.JPanel();
-        lblIconoCuentasPorCoPa = new javax.swing.JLabel();
-        lblCuentasPorCoPa = new javax.swing.JLabel();
-        lblCuentasPorCoPaSeleccionado = new javax.swing.JLabel();
-        btnUsuariosYRoles = new javax.swing.JPanel();
-        lblIconoUsuarioYRoles = new javax.swing.JLabel();
-        lblUsuariosYRoles = new javax.swing.JLabel();
-        lblUsuariosYRolesSeleccionado = new javax.swing.JLabel();
+        btnCategorias = new javax.swing.JPanel();
+        lblIconoCategorias = new javax.swing.JLabel();
+        lblCategorias = new javax.swing.JLabel();
+        lblCategoriasSeleccionado = new javax.swing.JLabel();
+        btnMarcas = new javax.swing.JPanel();
+        lblIconoMarcas = new javax.swing.JLabel();
+        lblMarcas = new javax.swing.JLabel();
+        lblMarcasSeleccionado = new javax.swing.JLabel();
+        btnMedidas = new javax.swing.JPanel();
+        lblIconoMedidas = new javax.swing.JLabel();
+        lblMedidas = new javax.swing.JLabel();
+        lblMedidasSeleccionado = new javax.swing.JLabel();
+        btnTipoDeCliente = new javax.swing.JPanel();
+        lblIconoTipoDeCliente = new javax.swing.JLabel();
+        lblTipoDeCliente = new javax.swing.JLabel();
+        lblTipoDeClienteSeleccionado = new javax.swing.JLabel();
+        btnTipoDeContacto = new javax.swing.JPanel();
+        lblIconoTipoDeContacto = new javax.swing.JLabel();
+        lblTipoDeContacto = new javax.swing.JLabel();
+        lblTipoDeContactoSeleccionado = new javax.swing.JLabel();
+        btnBancos = new javax.swing.JPanel();
+        lblIconoBancos = new javax.swing.JLabel();
+        lblBancos = new javax.swing.JLabel();
+        lblBancosSeleccionado = new javax.swing.JLabel();
+        btnMetodosDeLiquidacion = new javax.swing.JPanel();
+        lblIconoMetodosDeLiquidacion = new javax.swing.JLabel();
+        lblMetodosDeLiquidacion = new javax.swing.JLabel();
+        lblMetodosDeLiquidacionSeleccionado = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -65,6 +71,7 @@ public class VistaMenuConfiguracion extends javax.swing.JPanel {
         panelFondo.setBackground(new java.awt.Color(245, 247, 250));
         panelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        contenedor.setBackground(new java.awt.Color(245, 247, 250));
         contenedor.setLayout(new java.awt.BorderLayout());
         panelFondo.add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 880, 720));
 
@@ -77,131 +84,131 @@ public class VistaMenuConfiguracion extends javax.swing.JPanel {
         jLabel1.setText("Configuración");
         panelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
 
-        btnInicio.setBackground(new java.awt.Color(245, 247, 250));
-        btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnCategorias.setBackground(new java.awt.Color(245, 247, 250));
+        btnCategorias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCategorias.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInicio.png"))); // NOI18N
-        btnInicio.add(lblIconoInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInicio.png"))); // NOI18N
+        btnCategorias.add(lblIconoCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblInicio.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblInicio.setForeground(new java.awt.Color(51, 51, 51));
-        lblInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblInicio.setText("Categorías");
-        btnInicio.add(lblInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblCategorias.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblCategorias.setForeground(new java.awt.Color(51, 51, 51));
+        lblCategorias.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblCategorias.setText("Categorías");
+        btnCategorias.add(lblCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblInicioSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnInicio.add(lblInicioSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblCategoriasSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnCategorias.add(lblCategoriasSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
+        panelMenu.add(btnCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
 
-        btnClientes.setBackground(new java.awt.Color(245, 247, 250));
-        btnClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnMarcas.setBackground(new java.awt.Color(245, 247, 250));
+        btnMarcas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMarcas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
-        btnClientes.add(lblIconClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoMarcas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
+        btnMarcas.add(lblIconoMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblClientes.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblClientes.setForeground(new java.awt.Color(51, 51, 51));
-        lblClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblClientes.setText("Marcas");
-        btnClientes.add(lblClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblMarcas.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblMarcas.setForeground(new java.awt.Color(51, 51, 51));
+        lblMarcas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMarcas.setText("Marcas");
+        btnMarcas.add(lblMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblClientesSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnClientes.add(lblClientesSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblMarcasSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnMarcas.add(lblMarcasSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 40));
+        panelMenu.add(btnMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 40));
 
-        btnVentas.setBackground(new java.awt.Color(245, 247, 250));
-        btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnMedidas.setBackground(new java.awt.Color(245, 247, 250));
+        btnMedidas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMedidas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoVentas.png"))); // NOI18N
-        btnVentas.add(lblIconoVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoMedidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoVentas.png"))); // NOI18N
+        btnMedidas.add(lblIconoMedidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblVentas.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblVentas.setForeground(new java.awt.Color(51, 51, 51));
-        lblVentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblVentas.setText("Medidas");
-        btnVentas.add(lblVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblMedidas.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblMedidas.setForeground(new java.awt.Color(51, 51, 51));
+        lblMedidas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMedidas.setText("Medidas");
+        btnMedidas.add(lblMedidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblVentasSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnVentas.add(lblVentasSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblMedidasSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnMedidas.add(lblMedidasSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, 40));
+        panelMenu.add(btnMedidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, 40));
 
-        btnProductos.setBackground(new java.awt.Color(245, 247, 250));
-        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnTipoDeCliente.setBackground(new java.awt.Color(245, 247, 250));
+        btnTipoDeCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTipoDeCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoProductos.png"))); // NOI18N
-        btnProductos.add(lblIconoProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoTipoDeCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoProductos.png"))); // NOI18N
+        btnTipoDeCliente.add(lblIconoTipoDeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblProductos.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblProductos.setForeground(new java.awt.Color(51, 51, 51));
-        lblProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblProductos.setText("Tipos de Cliente");
-        btnProductos.add(lblProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblTipoDeCliente.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblTipoDeCliente.setForeground(new java.awt.Color(51, 51, 51));
+        lblTipoDeCliente.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTipoDeCliente.setText("Tipos de Cliente");
+        btnTipoDeCliente.add(lblTipoDeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblProductosSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnProductos.add(lblProductosSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblTipoDeClienteSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnTipoDeCliente.add(lblTipoDeClienteSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 40));
+        panelMenu.add(btnTipoDeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 40));
 
-        btnCompras.setBackground(new java.awt.Color(245, 247, 250));
-        btnCompras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCompras.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnTipoDeContacto.setBackground(new java.awt.Color(245, 247, 250));
+        btnTipoDeContacto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTipoDeContacto.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCompras.png"))); // NOI18N
-        btnCompras.add(lblIconoCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoTipoDeContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCompras.png"))); // NOI18N
+        btnTipoDeContacto.add(lblIconoTipoDeContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblCompras.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblCompras.setForeground(new java.awt.Color(51, 51, 51));
-        lblCompras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCompras.setText("Tipos de Contacto");
-        btnCompras.add(lblCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblTipoDeContacto.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblTipoDeContacto.setForeground(new java.awt.Color(51, 51, 51));
+        lblTipoDeContacto.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTipoDeContacto.setText("Tipos de Contacto");
+        btnTipoDeContacto.add(lblTipoDeContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblComprasSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnCompras.add(lblComprasSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblTipoDeContactoSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnTipoDeContacto.add(lblTipoDeContactoSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
+        panelMenu.add(btnTipoDeContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
 
-        btnCuentasPorCoPa.setBackground(new java.awt.Color(245, 247, 250));
-        btnCuentasPorCoPa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCuentasPorCoPa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnBancos.setBackground(new java.awt.Color(245, 247, 250));
+        btnBancos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBancos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoCuentasPorCoPa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCuentasPorCoPa.png"))); // NOI18N
-        btnCuentasPorCoPa.add(lblIconoCuentasPorCoPa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoBancos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoCuentasPorCoPa.png"))); // NOI18N
+        btnBancos.add(lblIconoBancos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblCuentasPorCoPa.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        lblCuentasPorCoPa.setForeground(new java.awt.Color(51, 51, 51));
-        lblCuentasPorCoPa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCuentasPorCoPa.setText("Bancos");
-        btnCuentasPorCoPa.add(lblCuentasPorCoPa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblBancos.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblBancos.setForeground(new java.awt.Color(51, 51, 51));
+        lblBancos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblBancos.setText("Bancos");
+        btnBancos.add(lblBancos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblCuentasPorCoPaSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnCuentasPorCoPa.add(lblCuentasPorCoPaSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblBancosSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnBancos.add(lblBancosSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnCuentasPorCoPa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 180, 40));
+        panelMenu.add(btnBancos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 180, 40));
 
-        btnUsuariosYRoles.setBackground(new java.awt.Color(245, 247, 250));
-        btnUsuariosYRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnUsuariosYRoles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnMetodosDeLiquidacion.setBackground(new java.awt.Color(245, 247, 250));
+        btnMetodosDeLiquidacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMetodosDeLiquidacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblIconoUsuarioYRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoUsuariosYRoles.png"))); // NOI18N
-        btnUsuariosYRoles.add(lblIconoUsuarioYRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+        lblIconoMetodosDeLiquidacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoUsuariosYRoles.png"))); // NOI18N
+        btnMetodosDeLiquidacion.add(lblIconoMetodosDeLiquidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
 
-        lblUsuariosYRoles.setFont(new java.awt.Font("Skoda Pro", 0, 12)); // NOI18N
-        lblUsuariosYRoles.setForeground(new java.awt.Color(51, 51, 51));
-        lblUsuariosYRoles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblUsuariosYRoles.setText("Métodos de Liquidación");
-        btnUsuariosYRoles.add(lblUsuariosYRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+        lblMetodosDeLiquidacion.setFont(new java.awt.Font("Skoda Pro", 0, 12)); // NOI18N
+        lblMetodosDeLiquidacion.setForeground(new java.awt.Color(51, 51, 51));
+        lblMetodosDeLiquidacion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMetodosDeLiquidacion.setText("Métodos de Liquidación");
+        btnMetodosDeLiquidacion.add(lblMetodosDeLiquidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
 
-        lblUsuariosYRolesSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
-        btnUsuariosYRoles.add(lblUsuariosYRolesSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+        lblMetodosDeLiquidacionSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnMetodosDeLiquidacion.add(lblMetodosDeLiquidacionSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnUsuariosYRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 180, 40));
+        panelMenu.add(btnMetodosDeLiquidacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 180, 40));
 
         panelFondo.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
@@ -219,37 +226,47 @@ public class VistaMenuConfiguracion extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel btnClientes;
-    public javax.swing.JPanel btnCompras;
-    public javax.swing.JPanel btnCuentasPorCoPa;
-    public javax.swing.JPanel btnInicio;
-    public javax.swing.JPanel btnProductos;
-    public javax.swing.JPanel btnUsuariosYRoles;
-    public javax.swing.JPanel btnVentas;
+    public javax.swing.JPanel btnBancos;
+    public javax.swing.JPanel btnCategorias;
+    public javax.swing.JPanel btnMarcas;
+    public javax.swing.JPanel btnMedidas;
+    public javax.swing.JPanel btnMetodosDeLiquidacion;
+    public javax.swing.JPanel btnTipoDeCliente;
+    public javax.swing.JPanel btnTipoDeContacto;
     public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel lblClientes;
-    public javax.swing.JLabel lblClientesSeleccionado;
-    public javax.swing.JLabel lblCompras;
-    public javax.swing.JLabel lblComprasSeleccionado;
-    public javax.swing.JLabel lblCuentasPorCoPa;
-    public javax.swing.JLabel lblCuentasPorCoPaSeleccionado;
-    public javax.swing.JLabel lblIconClientes;
-    public javax.swing.JLabel lblIconoCompras;
-    public javax.swing.JLabel lblIconoCuentasPorCoPa;
-    public javax.swing.JLabel lblIconoInicio;
-    public javax.swing.JLabel lblIconoProductos;
-    public javax.swing.JLabel lblIconoUsuarioYRoles;
-    public javax.swing.JLabel lblIconoVentas;
-    public javax.swing.JLabel lblInicio;
-    public javax.swing.JLabel lblInicioSeleccionado;
-    public javax.swing.JLabel lblProductos;
-    public javax.swing.JLabel lblProductosSeleccionado;
-    public javax.swing.JLabel lblUsuariosYRoles;
-    public javax.swing.JLabel lblUsuariosYRolesSeleccionado;
-    public javax.swing.JLabel lblVentas;
-    public javax.swing.JLabel lblVentasSeleccionado;
+    public javax.swing.JLabel lblBancos;
+    public javax.swing.JLabel lblBancosSeleccionado;
+    public javax.swing.JLabel lblCategorias;
+    public javax.swing.JLabel lblCategoriasSeleccionado;
+    public javax.swing.JLabel lblIconoBancos;
+    public javax.swing.JLabel lblIconoCategorias;
+    public javax.swing.JLabel lblIconoMarcas;
+    public javax.swing.JLabel lblIconoMedidas;
+    public javax.swing.JLabel lblIconoMetodosDeLiquidacion;
+    public javax.swing.JLabel lblIconoTipoDeCliente;
+    public javax.swing.JLabel lblIconoTipoDeContacto;
+    public javax.swing.JLabel lblMarcas;
+    public javax.swing.JLabel lblMarcasSeleccionado;
+    public javax.swing.JLabel lblMedidas;
+    public javax.swing.JLabel lblMedidasSeleccionado;
+    public javax.swing.JLabel lblMetodosDeLiquidacion;
+    public javax.swing.JLabel lblMetodosDeLiquidacionSeleccionado;
+    public javax.swing.JLabel lblTipoDeCliente;
+    public javax.swing.JLabel lblTipoDeClienteSeleccionado;
+    public javax.swing.JLabel lblTipoDeContacto;
+    public javax.swing.JLabel lblTipoDeContactoSeleccionado;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
+
+    public void setControlador(ControladorMenuConfiguracion controlador) {
+        this.btnCategorias.addMouseListener(controlador);
+        this.btnMarcas.addMouseListener(controlador);
+        this.btnMedidas.addMouseListener(controlador);
+        this.btnTipoDeCliente.addMouseListener(controlador);
+        this.btnTipoDeContacto.addMouseListener(controlador);
+        this.btnBancos.addMouseListener(controlador);
+        this.btnMetodosDeLiquidacion.addMouseListener(controlador);
+    }
 }

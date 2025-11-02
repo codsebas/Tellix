@@ -46,6 +46,11 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="contenedor">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fa" green="f7" red="f5" type="rgb"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
@@ -90,7 +95,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Container class="javax.swing.JPanel" name="btnInicio">
+            <Container class="javax.swing.JPanel" name="btnCategorias">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -112,7 +117,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoInicio">
+                <Component class="javax.swing.JLabel" name="lblIconoCategorias">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoInicio.png"/>
@@ -127,7 +132,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblInicio">
+                <Component class="javax.swing.JLabel" name="lblCategorias">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -147,7 +152,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblInicioSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblCategoriasSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -164,7 +169,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnClientes">
+            <Container class="javax.swing.JPanel" name="btnMarcas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -186,7 +191,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconClientes">
+                <Component class="javax.swing.JLabel" name="lblIconoMarcas">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoClientes.png"/>
@@ -201,7 +206,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblClientes">
+                <Component class="javax.swing.JLabel" name="lblMarcas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -221,7 +226,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblClientesSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblMarcasSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -238,7 +243,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnVentas">
+            <Container class="javax.swing.JPanel" name="btnMedidas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -260,7 +265,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoVentas">
+                <Component class="javax.swing.JLabel" name="lblIconoMedidas">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoVentas.png"/>
@@ -275,7 +280,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblVentas">
+                <Component class="javax.swing.JLabel" name="lblMedidas">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -295,7 +300,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblVentasSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblMedidasSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -312,7 +317,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnProductos">
+            <Container class="javax.swing.JPanel" name="btnTipoDeCliente">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -334,7 +339,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoProductos">
+                <Component class="javax.swing.JLabel" name="lblIconoTipoDeCliente">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoProductos.png"/>
@@ -349,7 +354,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblProductos">
+                <Component class="javax.swing.JLabel" name="lblTipoDeCliente">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -369,7 +374,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblProductosSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblTipoDeClienteSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -386,7 +391,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnCompras">
+            <Container class="javax.swing.JPanel" name="btnTipoDeContacto">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -408,7 +413,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoCompras">
+                <Component class="javax.swing.JLabel" name="lblIconoTipoDeContacto">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoCompras.png"/>
@@ -423,7 +428,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblCompras">
+                <Component class="javax.swing.JLabel" name="lblTipoDeContacto">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -443,7 +448,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblComprasSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblTipoDeContactoSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -460,7 +465,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnCuentasPorCoPa">
+            <Container class="javax.swing.JPanel" name="btnBancos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -482,7 +487,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoCuentasPorCoPa">
+                <Component class="javax.swing.JLabel" name="lblIconoBancos">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoCuentasPorCoPa.png"/>
@@ -497,7 +502,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblCuentasPorCoPa">
+                <Component class="javax.swing.JLabel" name="lblBancos">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="14" style="0"/>
@@ -517,7 +522,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblCuentasPorCoPaSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblBancosSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>
@@ -534,7 +539,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="btnUsuariosYRoles">
+            <Container class="javax.swing.JPanel" name="btnMetodosDeLiquidacion">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="fa" green="f7" red="f5" type="rgb"/>
@@ -556,7 +561,7 @@
                 <Property name="useNullLayout" type="boolean" value="false"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblIconoUsuarioYRoles">
+                <Component class="javax.swing.JLabel" name="lblIconoMetodosDeLiquidacion">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoUsuariosYRoles.png"/>
@@ -571,7 +576,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblUsuariosYRoles">
+                <Component class="javax.swing.JLabel" name="lblMetodosDeLiquidacion">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Skoda Pro" size="12" style="0"/>
@@ -591,7 +596,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="lblUsuariosYRolesSeleccionado">
+                <Component class="javax.swing.JLabel" name="lblMetodosDeLiquidacionSeleccionado">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/com/umg/iconos/IconoBotonesSeleccionados.png"/>

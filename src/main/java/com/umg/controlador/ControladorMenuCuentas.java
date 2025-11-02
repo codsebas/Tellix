@@ -35,9 +35,6 @@ public class ControladorMenuCuentas implements MouseListener {
 
         var vista = modelo.getVista();
 
-        vista.btnCuentasPorCobrar.addMouseListener(this);
-        vista.btnCuentasPorPagar.addMouseListener(this);
-
         btnCuentasPorCobrar = vista.btnCuentasPorCobrar;
         btnCuetnasPorPagar = vista.btnCuentasPorPagar;
 

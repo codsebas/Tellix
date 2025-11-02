@@ -98,6 +98,7 @@ public class VistaMenuCuentas extends javax.swing.JPanel {
 
         panelFondo.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
+        contenedor.setBackground(new java.awt.Color(245, 247, 250));
         contenedor.setLayout(new java.awt.BorderLayout());
         panelFondo.add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 880, 720));
 
