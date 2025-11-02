@@ -181,6 +181,7 @@ public class ControladorMenu implements MouseListener {
     // Vistas
     VistaInicio vistaInicio = new  VistaInicio();
     VistaProductos vistaProductos = new  VistaProductos();
+    VistaClientes vistaClientes = new  VistaClientes();
 
 
     @Override
@@ -191,7 +192,9 @@ public class ControladorMenu implements MouseListener {
             accionBotones(btnInicio, e, vistaInicio);
         } else if(source.equals(btnProductos)) {
             accionBotones(btnProductos, e, vistaProductos);
-        } else if (source.equals(btnCerrarSesion)) {
+        } else if(source.equals(btnClientes)) {
+            accionBotones(btnClientes, e, vistaClientes);
+        }  else if (source.equals(btnCerrarSesion)) {
             reiniciarColores();
             vistaLogin();
         }

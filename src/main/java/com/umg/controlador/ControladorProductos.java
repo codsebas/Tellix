@@ -16,7 +16,7 @@ public class ControladorProductos implements MouseListener {
 
     private ModeloProducto modelo;
     private VistaProductos vista;
-    private ProductoImp productoDAO;
+    private ProductoImp implementacion;
 
     // Componentes de la vista
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
@@ -27,7 +27,7 @@ public class ControladorProductos implements MouseListener {
     public ControladorProductos(ModeloProducto modelo) {
         this.modelo = modelo;
         this.vista = modelo.getVista();
-        this.productoDAO = new ProductoImp();
+        this.implementacion = new ProductoImp();
 
         // Inicializar botones y labels
         btnNuevo = vista.btnNuevo;
@@ -50,7 +50,6 @@ public class ControladorProductos implements MouseListener {
         lblLimpiar.setName("icono");
 
         inicializarIconos();
-        agregarEventos();
 
         cargarComboBox(); // Cargar categorías, marcas y medidas
         listarProductos(); // Cargar tabla al inicio
@@ -62,14 +61,6 @@ public class ControladorProductos implements MouseListener {
         iconosBotones.put(btnEliminar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
-    }
-
-    private void agregarEventos() {
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
-        btnLimpiar.addMouseListener(this);
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {
@@ -112,7 +103,7 @@ public class ControladorProductos implements MouseListener {
         DefaultTableModel tabla = (DefaultTableModel) vista.tblProductos.getModel();
         tabla.setRowCount(0); // Limpiar tabla
 
-        for (ModeloProducto p : productoDAO.obtenerTodos()) {
+        for (ModeloProducto p : implementacion.obtenerTodos()) {
             tabla.addRow(new Object[]{
                     p.getCodigo(),
                     p.getNombre(),
@@ -164,7 +155,7 @@ public class ControladorProductos implements MouseListener {
 
     private void nuevoProducto() {
         ModeloProducto p = obtenerDatosVista();
-        if (productoDAO.insertar(p)) {
+        if (implementacion.insertar(p)) {
             JOptionPane.showMessageDialog(vista, "Producto insertado correctamente");
             listarProductos();
             limpiarCampos();
@@ -175,7 +166,7 @@ public class ControladorProductos implements MouseListener {
 
     private void actualizarProducto() {
         ModeloProducto p = obtenerDatosVista();
-        if (productoDAO.actualizar(p)) {
+        if (implementacion.actualizar(p)) {
             JOptionPane.showMessageDialog(vista, "Producto actualizado correctamente");
             listarProductos();
             limpiarCampos();
@@ -189,7 +180,7 @@ public class ControladorProductos implements MouseListener {
             int codigo = Integer.parseInt(vista.txtCodigo.getText());
             int opcion = JOptionPane.showConfirmDialog(vista, "¿Desea eliminar este producto?");
             if (opcion == JOptionPane.YES_OPTION) {
-                if (productoDAO.eliminar(codigo)) {
+                if (implementacion.eliminar(codigo)) {
                     JOptionPane.showMessageDialog(vista, "Producto eliminado correctamente");
                     listarProductos();
                     limpiarCampos();
@@ -205,7 +196,7 @@ public class ControladorProductos implements MouseListener {
     private void buscarProducto() {
         try {
             int codigo = Integer.parseInt(vista.txtBuscar.getText());
-            ModeloProducto p = productoDAO.obtenerPorCodigo(codigo);
+            ModeloProducto p = implementacion.obtenerPorCodigo(codigo);
             if (p != null) {
                 vista.txtCodigo.setText(String.valueOf(p.getCodigo()));
                 vista.txtNombre.setText(p.getNombre());
