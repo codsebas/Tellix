@@ -1,6 +1,6 @@
 package com.umg.controlador;
 
-import com.umg.modelo.ModeloCategoria;
+import com.umg.modelo.ModeloTiposDeCliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,15 +11,15 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControladorCategoria implements ActionListener, MouseListener {
-    ModeloCategoria modelo;
+public class ControladorTiposDeCliente implements ActionListener, MouseListener {
+    ModeloTiposDeCliente modelo;
 
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
-    public ControladorCategoria(ModeloCategoria modelo) {
+    public ControladorTiposDeCliente(ModeloTiposDeCliente modelo) {
         this.modelo = modelo;
 
         // Inicializar botones y labels

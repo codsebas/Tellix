@@ -78,6 +78,10 @@ public class VistaMenu extends javax.swing.JPanel {
         lblIconoConfiguracion = new javax.swing.JLabel();
         lblConfiguracion = new javax.swing.JLabel();
         lblConfiguracionSeleccionado = new javax.swing.JLabel();
+        btnEmpleados = new javax.swing.JPanel();
+        lblIconoEmpleados = new javax.swing.JLabel();
+        lblEmpleados = new javax.swing.JLabel();
+        lblEmpleadosSeleccionado = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         contenedor = new javax.swing.JPanel();
 
@@ -290,6 +294,24 @@ public class VistaMenu extends javax.swing.JPanel {
         btnConfiguracion.add(lblConfiguracionSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
         panelMenu.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 180, 40));
+
+        btnEmpleados.setBackground(new java.awt.Color(245, 247, 250));
+        btnEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIconoEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInventario.png"))); // NOI18N
+        btnEmpleados.add(lblIconoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        lblEmpleados.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblEmpleados.setForeground(new java.awt.Color(51, 51, 51));
+        lblEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEmpleados.setText("Empleados");
+        btnEmpleados.add(lblEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+
+        lblEmpleadosSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnEmpleados.add(lblEmpleadosSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+
+        panelMenu.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 180, 40));
         panelMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
         jPanel1.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
@@ -317,6 +339,7 @@ public class VistaMenu extends javax.swing.JPanel {
     public javax.swing.JPanel btnCompras;
     public javax.swing.JPanel btnConfiguracion;
     public javax.swing.JPanel btnCuentasPorCoPa;
+    public javax.swing.JPanel btnEmpleados;
     public javax.swing.JPanel btnInicio;
     public javax.swing.JPanel btnInventario;
     public javax.swing.JPanel btnProductos;
@@ -337,11 +360,14 @@ public class VistaMenu extends javax.swing.JPanel {
     public javax.swing.JLabel lblConfiguracionSeleccionado;
     public javax.swing.JLabel lblCuentasPorCoPa;
     public javax.swing.JLabel lblCuentasPorCoPaSeleccionado;
+    public javax.swing.JLabel lblEmpleados;
+    public javax.swing.JLabel lblEmpleadosSeleccionado;
     public javax.swing.JLabel lblIconClientes;
     public javax.swing.JLabel lblIconoCerrarSesion;
     public javax.swing.JLabel lblIconoCompras;
     public javax.swing.JLabel lblIconoConfiguracion;
     public javax.swing.JLabel lblIconoCuentasPorCoPa;
+    public javax.swing.JLabel lblIconoEmpleados;
     public javax.swing.JLabel lblIconoInicio;
     public javax.swing.JLabel lblIconoInventario;
     public javax.swing.JLabel lblIconoProductos;
