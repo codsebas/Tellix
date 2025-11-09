@@ -1,9 +1,13 @@
 package com.umg.modelo;
 
+import com.umg.vistas.VistaCompras;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class ModeloCompra {
+public class ModeloCompras {
+    VistaCompras vista;
+
     String noDocumento;
     String nitProveedor;
     String nitRepresentante;   // puede ser null
@@ -22,4 +26,19 @@ public class ModeloCompra {
     BigDecimal impuestos;
     String cuentaNumero;
     BigDecimal monto;
+
+    public ModeloCompras() {
+    }
+
+    public ModeloCompras(VistaCompras vista) {
+        this.vista = vista;
+    }
+
+    public VistaCompras getVista() {
+        return vista;
+    }
+
+    public void setVista(VistaCompras vista) {
+        this.vista = vista;
+    }
 }

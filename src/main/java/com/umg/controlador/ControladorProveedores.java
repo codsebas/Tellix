@@ -1,6 +1,6 @@
 package com.umg.controlador;
 
-import com.umg.modelo.ModeloCompras;
+import com.umg.modelo.ModeloProveedores;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,38 +11,38 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControladorCompras implements ActionListener, MouseListener {
-    ModeloCompras modelo;
+public class ControladorProveedores implements ActionListener, MouseListener {
+    ModeloProveedores modelo;
 
-    // Componentes de la vista
-    private JPanel btnAgregar, btnRegistrarCompra, btnEliminar, btnBuscarProducto, btnBuscarProveedor;
-    private JLabel lblAgregar, lblRegistrarCompra, lblEliminar, lblBuscarProducto, lblBuscarCliente;
+    private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
+    private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
-    public ControladorCompras(ModeloCompras modelo) {
+    public ControladorProveedores(ModeloProveedores modelo) {
         this.modelo = modelo;
 
-        var vista = modelo.getVista();
         // Inicializar botones y labels
-        btnAgregar = vista.btnAgregar;
-        btnRegistrarCompra = vista.btnRegistrarCompra;
-        btnEliminar = vista.btnEliminar;
-        btnBuscarProducto = vista.btnBuscarProducto;
-        btnBuscarProveedor = vista.btnBuscarProveedor;
+        var vista = modelo.getVista();
 
-        lblAgregar = vista.lblAgregar;
-        lblRegistrarCompra = vista.lblRegistrarCompra;
+        btnNuevo = vista.btnNuevo;
+        btnActualizar = vista.btnActualizar;
+        btnEliminar = vista.btnEliminar;
+        btnBuscar = vista.btnBuscar;
+        btnLimpiar = vista.btnLimpiar;
+
+        lblNuevo = vista.lblNuevo;
+        lblActualizar = vista.lblActualizar;
         lblEliminar = vista.lblEliminar;
-        lblBuscarProducto = vista.lblBuscarProducto;
-        lblBuscarCliente = vista.lblBuscarCliente;
+        lblBuscar = vista.lblBuscar;
+        lblLimpiar = vista.lblLimpiar;
 
         // Dar nombre a los labels para manejar iconos
-        lblAgregar.setName("icono");
-        lblRegistrarCompra.setName("icono");
+        lblNuevo.setName("icono");
+        lblActualizar.setName("icono");
         lblEliminar.setName("icono");
-        lblBuscarProducto.setName("icono");
-        lblBuscarCliente.setName("icono");
+        lblBuscar.setName("icono");
+        lblLimpiar.setName("icono");
 
         inicializarIconos();
     }
@@ -78,11 +78,11 @@ public class ControladorCompras implements ActionListener, MouseListener {
     }
 
     private void inicializarIconos() {
-        iconosBotones.put(btnAgregar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnRegistrarCompra, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnNuevo, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnActualizar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnEliminar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnBuscarProducto, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnBuscarProveedor, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {
