@@ -14,9 +14,9 @@ public class Conector {
     // Datos de conexión
     private final String HOST = "localhost";
     private final String PORT = "1521";
-    private final String SERVICE = "XEPDB1"; // Service Name del PDB
-    private final String USER = "telix";
-    private final String PASS = "telix123";
+    private final String SERVICE = "freepdb1"; // Service Name del PDB
+    private String usuario;
+    private String contrasena;
 
     private final String URL;
 
@@ -24,19 +24,22 @@ public class Conector {
     private PreparedStatement ps;
 
     // Constructor
-    public Conector() {
-        // URL con Service Name
+    public Conector(String usuario, String contrasena) {
+        this.usuario = usuario;
+        this.contrasena = contrasena;
         this.URL = "jdbc:oracle:thin:@" + HOST + ":" + PORT + "/" + SERVICE;
     }
 
     // Conectar
-    public void conectar() {
+    public boolean conectar() {
         try {
             Class.forName(CLASE);
-            this.link = DriverManager.getConnection(this.URL, this.USER, this.PASS);
-            System.out.println("Conexión exitosa a Oracle!");
+            this.link = DriverManager.getConnection(this.URL, usuario, contrasena);
+            System.out.println("Conexión exitosa como " + usuario);
+            return true;
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("Error al conectar: " + ex.getMessage());
+            System.out.println("Error de conexión: " + ex.getMessage());
+            return false;
         }
     }
 
