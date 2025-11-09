@@ -212,6 +212,7 @@ public class ControladorMenu implements MouseListener {
     VistaMenuCompras vistaMenuCompras = new  VistaMenuCompras();
 
     VistaMenuCuentas vistaMenuCuentas = new  VistaMenuCuentas();
+    VistaMenuReportes vistaMenuReportes = new  VistaMenuReportes();
     VistaMenuConfiguracion vistaMenuConfiguracion = new  VistaMenuConfiguracion();
 
 
@@ -231,6 +232,8 @@ public class ControladorMenu implements MouseListener {
             accionBotones(btnCompras, e, vistaMenuCompras);
         } else if(source.equals(btnCuentasPorCoPa)) {
             accionBotones(btnCuentasPorCoPa, e, vistaMenuCuentas);
+        } else if(source.equals(btnReportes)) {
+            accionBotones(btnReportes, e, vistaMenuReportes);
         } else if(source.equals(btnConfiguracion)) {
             accionBotones(btnConfiguracion, e, vistaMenuConfiguracion);
         } else if (source.equals(btnCerrarSesion)) {
