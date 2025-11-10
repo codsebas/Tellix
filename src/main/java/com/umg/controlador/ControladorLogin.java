@@ -66,9 +66,10 @@ public class ControladorLogin implements MouseListener, KeyListener {
             String pass = String.valueOf(this.vista.getTxtPassword().getPassword());
             if (autenticar(user,pass)){
                 mostrarMenu();
-            } else {
-                mostrarMenu();
             }
+//            else {
+//                mostrarMenu();
+//            }
         }
     }
 
@@ -107,7 +108,7 @@ public class ControladorLogin implements MouseListener, KeyListener {
                 // Consulta para obtener el rol del usuario según la tabla "usuario"
                 String sql = """
             SELECT rol_usuario
-            FROM usuario
+            FROM tellix.usuario
             WHERE UPPER(TRIM(user_name)) = UPPER(TRIM(?))
             AND contrasena = RAWTOHEX(STANDARD_HASH(TRIM(?), 'SHA256'))
         """;
@@ -127,7 +128,7 @@ public class ControladorLogin implements MouseListener, KeyListener {
                     return true;
                 } else {
                     System.out.println("Usuario no encontrado en tabla de usuarios.");
-//                    con.desconectar();
+                    con.desconectar();
                     return false;
                 }
 

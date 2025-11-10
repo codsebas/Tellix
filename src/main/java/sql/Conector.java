@@ -1,10 +1,7 @@
 package sql;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Conector {
 
@@ -36,6 +33,7 @@ public class Conector {
             Class.forName(CLASE);
             this.link = DriverManager.getConnection(this.URL, usuario, contrasena);
             System.out.println("Conexión exitosa como " + usuario);
+
             return true;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("Error de conexión: " + ex.getMessage());
