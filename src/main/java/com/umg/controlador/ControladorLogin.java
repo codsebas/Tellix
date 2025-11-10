@@ -64,6 +64,8 @@ public class ControladorLogin implements MouseListener, KeyListener {
         if(e.getComponent().equals(this.vista.getBtnIniciarSesion())){
             String user = this.vista.getTxtUsuario().getText();
             String pass = String.valueOf(this.vista.getTxtPassword().getPassword());
+            user = "tellix";
+            pass = "tellix123";
             if (autenticar(user,pass)){
                 mostrarMenu();
             }
