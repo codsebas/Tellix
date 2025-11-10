@@ -6,6 +6,7 @@ import com.umg.vistas.VistaLogin;
 import com.umg.vistas.VistaMenu;
 import com.umg.vistas.VistaPrincipal;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -13,20 +14,34 @@ import java.awt.event.MouseListener;
 
 import com.umg.seguridad.Sesion;
 import sql.Conector;
+
+import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControladorLogin implements MouseListener, KeyListener {
     ModeloLogin modelo;
     VistaLogin vista;
     VistaPrincipal vistaPrincipal;
 
+    JPanel btnIniciarSesion;
+    JLabel lblIniciarSesion;
+
+    private Map<JPanel, String> iconosBotones = new HashMap<>();
+
     public ControladorLogin(ModeloLogin modelo, VistaLogin vista, VistaPrincipal vistaPrincipal) {
         this.modelo = modelo;
         this.vista = vista;
         this.vistaPrincipal = vistaPrincipal;
 
-        vista.getBtnIniciarSesion().addMouseListener(this);
+        btnIniciarSesion = vista.getBtnIniciarSesion();
+        lblIniciarSesion = vista.getLblIniciarSesion();
+        btnIniciarSesion.addMouseListener(this);
+        lblIniciarSesion.setName("icono");
+
+        inicializarIconos();
     }
 
     @Override
@@ -90,11 +105,11 @@ public class ControladorLogin implements MouseListener, KeyListener {
                 // Consulta para obtener el rol del usuario según la tabla "usuario"
                 String sql = """
     SELECT rol_usuario
-    FROM telix.usuario
+    FROM tellix.usuario
     WHERE user_name = ?
     AND contrasena = STANDARD_HASH(?, 'SHA256')
 """;
-                System.out.println("Usuario: " + user + "Contraseña: " + pass);
+                System.out.println("Usuario: " + user + " " + "Contraseña: " + pass);
                 PreparedStatement ps = con.preparar(sql);
                 ps.setString(1, user);
                 ps.setString(2, pass);
@@ -122,5 +137,28 @@ public class ControladorLogin implements MouseListener, KeyListener {
             System.out.println("Error de conexión: credenciales incorrectas.");
             return false;
         }
+    }
+
+    private void inicializarIconos() {
+        iconosBotones.put(btnIniciarSesion, "/com/umg/iconos/IconoBoton1.png");
+    }
+
+    private void cambiarIconoBoton(JPanel boton, boolean activo) {
+        JLabel icono = obtenerLabelPorNombre(boton, "icono");
+        String rutaBase = iconosBotones.get(boton);
+        if (rutaBase != null && icono != null) {
+            String rutaFinal = activo ? rutaBase.replace(".png", "_oscuro.png") : rutaBase;
+            icono.setIcon(new ImageIcon(getClass().getResource(rutaFinal)));
+        }
+    }
+
+    private JLabel obtenerLabelPorNombre(JPanel boton, String nombre) {
+        for (Component comp : boton.getComponents()) {
+            if (comp instanceof JLabel) {
+                JLabel lbl = (JLabel) comp;
+                if (nombre.equals(lbl.getName())) return lbl;
+            }
+        }
+        return null;
     }
 }

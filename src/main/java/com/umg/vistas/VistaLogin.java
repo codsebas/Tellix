@@ -43,6 +43,16 @@ public class VistaLogin extends javax.swing.JPanel {
         this.txtUsuario = txtUsuario;
     }
 
+    public JLabel getLblIniciarSesion() {
+        return lblIniciarSesion;
+    }
+
+    public void setLblIniciarSesion(JLabel lblIniciarSesion) {
+        this.lblIniciarSesion = lblIniciarSesion;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +70,8 @@ public class VistaLogin extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        lblIniciarSesion = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -87,6 +98,7 @@ public class VistaLogin extends javax.swing.JPanel {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, -1));
 
         txtUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         txtUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 153, 153)));
         jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 160, 30));
 
@@ -97,19 +109,24 @@ public class VistaLogin extends javax.swing.JPanel {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 160, -1));
 
         txtPassword.setBackground(new java.awt.Color(255, 255, 255));
+        txtPassword.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 160, 30));
 
-        btnIniciarSesion.setBackground(new java.awt.Color(0, 123, 255));
+        btnIniciarSesion.setBackground(new java.awt.Color(245, 247, 250));
+        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIniciarSesion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Iniciar Sesión");
-        btnIniciarSesion.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 30));
+        jLabel18.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Iniciar Sesión");
+        btnIniciarSesion.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 140, 30));
+        lblIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
+        btnIniciarSesion.add(lblIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, 30));
 
         panelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, 180, 320));
 
@@ -137,12 +154,13 @@ public class VistaLogin extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel lblIniciarSesion;
     private javax.swing.JPanel panelFondo;
     public javax.swing.JPasswordField txtPassword;
     public javax.swing.JTextField txtUsuario;
