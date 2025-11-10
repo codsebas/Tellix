@@ -148,10 +148,12 @@ public class CategoriaImp implements ICategoria {
         List<ModeloCategoria> lista = new ArrayList<>();
         if (!con.conectar()) return lista;
         try {
-            String sqlQuery = "SELECT codigo, descripcion FROM categoria WHERE UPPER(descripcion) LIKE ? OR TO_CHAR(codigo) LIKE ?";
-            PreparedStatement ps = con.preparar(sqlQuery);
+            String sqlBuscar = "SELECT codigo, descripcion FROM categoria " +
+                    "WHERE UPPER(descripcion) LIKE ? OR TO_CHAR(codigo) LIKE ?";
+            PreparedStatement ps = con.preparar(sqlBuscar);
             ps.setString(1, "%" + texto.toUpperCase() + "%");
             ps.setString(2, "%" + texto + "%");
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ModeloCategoria c = new ModeloCategoria(null);
@@ -166,5 +168,7 @@ public class CategoriaImp implements ICategoria {
         }
         return lista;
     }
+
+
 }
 

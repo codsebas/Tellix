@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class ControladorCategoria implements ActionListener, MouseListener {
     ModeloCategoria modelo;
@@ -61,7 +62,22 @@ public class ControladorCategoria implements ActionListener, MouseListener {
                 }
             }
         });
+
+
+        // ComboBox: ordenar automáticamente
+        vista.cmbOrdenarPor.addActionListener(e -> listarCategorias());
+
+        // Búsqueda: actualizar tabla en tiempo real
+        vista.txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+        });
     }
+
 
     // ------------------- FUNCIONALIDAD CRUD -------------------
 
@@ -103,11 +119,24 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         DefaultTableModel tabla = (DefaultTableModel) modelo.getVista().tblCategorias.getModel();
         tabla.setRowCount(0);
 
-        for (ModeloCategoria c : implementacion.obtenerTodos()) {
-            tabla.addRow(new Object[]{
-                    c.getCodigo(),
-                    c.getDescripcion()
-            });
+        List<ModeloCategoria> lista;
+        String filtro = modelo.getVista().txtBuscar.getText().trim();
+        if (!filtro.isEmpty()) {
+            lista = implementacion.buscar(filtro);
+        } else {
+            lista = implementacion.obtenerTodos();
+        }
+
+        // Ordenar según ComboBox
+        String orden = (String) modelo.getVista().cmbOrdenarPor.getSelectedItem();
+        if ("Código".equals(orden)) {
+            lista.sort((a,b) -> Integer.compare(a.getCodigo(), b.getCodigo()));
+        } else if ("Descripción".equals(orden)) {
+            lista.sort((a,b) -> a.getDescripcion().compareToIgnoreCase(b.getDescripcion()));
+        }
+
+        for (ModeloCategoria c : lista) {
+            tabla.addRow(new Object[]{c.getCodigo(), c.getDescripcion()});
         }
     }
 

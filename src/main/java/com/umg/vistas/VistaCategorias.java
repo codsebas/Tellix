@@ -226,7 +226,7 @@ public class VistaCategorias extends javax.swing.JPanel {
     public javax.swing.JPanel btnEliminar;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
