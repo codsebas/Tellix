@@ -7,7 +7,7 @@ public class Sql {
     // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
     // ---------------------------------------------------------------------
     private final String INSERTAR_CATEGORIA = "INSERT INTO categoria (codigo, descripcion) VALUES (?, ?)";
-    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM categoria ORDER BY codigo";
+    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM categoria";
     private final String CONSULTA_CATEGORIA_POR_CODIGO = "SELECT codigo, descripcion FROM categoria WHERE codigo = ?";
     private final String ACTUALIZAR_CATEGORIA = "UPDATE categoria SET descripcion = ? WHERE codigo = ?";
     private final String ELIMINAR_CATEGORIA = "DELETE FROM categoria WHERE codigo = ?";
@@ -57,71 +57,71 @@ public class Sql {
 
 
 
-        // ===== COMPRAS =====
-        public static final String INSERT_COMPRA = """
+    // ===== COMPRAS =====
+    public static final String INSERT_COMPRA = """
     INSERT INTO compra (no_documento, proveedor, representante, fecha_operacion, hora_operacion,
                         usuario_sistema, fk_metodo_pago, plazo_credito, tipo_plazo, estado)
     VALUES (?, ?, ?, ?, SYSTIMESTAMP, ?, ?, ?, ?, ?)
   """;
 
-        public static final String INSERT_DETALLE_COMPRA = """
+    public static final String INSERT_DETALLE_COMPRA = """
     INSERT INTO detalle_compra (no_documento, correlativo, codigo_producto, cantidad, precio_bruto, descuentos, impuestos)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   """;
 
-        // correlativo de detalle (siguiente por compra)
-        public static final String NEXT_CORR_DETALLE = """
+    // correlativo de detalle (siguiente por compra)
+    public static final String NEXT_CORR_DETALLE = """
     SELECT NVL(MAX(correlativo),0)+1 AS next_corr
     FROM detalle_compra
     WHERE no_documento = ?
   """;
 
-        // ===== INVENTARIO =====
-        // bitácora (correlativo por producto)
-        public static final String NEXT_CORR_INVENTARIO = """
+    // ===== INVENTARIO =====
+    // bitácora (correlativo por producto)
+    public static final String NEXT_CORR_INVENTARIO = """
     SELECT NVL(MAX(correlativo),0)+1 AS next_corr
     FROM inventario
     WHERE codigo_producto = ?
   """;
 
-        public static final String INSERT_MOV_INVENTARIO = """
+    public static final String INSERT_MOV_INVENTARIO = """
     INSERT INTO inventario (codigo_producto, correlativo, cantidad_afectada, motivo, operacion,
                             usuario, fecha_operacion, hora_operacion)
     VALUES (?, ?, ?, ?, ?, ?, SYSDATE, SYSTIMESTAMP)
   """;
 
-        // actualizar stock_actual en PRODUCTO (entrada por compra)
-        public static final String UPDATE_STOCK_PRODUCTO = """
+    // actualizar stock_actual en PRODUCTO (entrada por compra)
+    public static final String UPDATE_STOCK_PRODUCTO = """
     UPDATE producto
     SET stock_actual = stock_actual + ?
     WHERE codigo = ?
   """;
 
-        // ===== CUENTAS POR PAGAR =====
-        public static final String INSERT_CXP = """
+    // ===== CUENTAS POR PAGAR =====
+    public static final String INSERT_CXP = """
     INSERT INTO cuenta_por_pagar (no_documento, estado, metodo_pago, valor, fecha_limite, numero_cuenta, banco)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   """;
 
-        public static final String UPDATE_CXP_ESTADO = """
+    public static final String UPDATE_CXP_ESTADO = """
     UPDATE cuenta_por_pagar SET estado = ? WHERE no_documento = ?
   """;
 
-        // ===== MOVIMIENTOS BANCARIOS (usados como pagos a proveedor) =====
-        public static final String INSERT_MOVIMIENTO_CUENTA = """
+    // ===== MOVIMIENTOS BANCARIOS (usados como pagos a proveedor) =====
+    public static final String INSERT_MOVIMIENTO_CUENTA = """
     INSERT INTO movimiento_cuenta (id_movimiento, cuenta_numero, tipo_documento, fecha_operacion, monto, descripcion)
     VALUES (SEQ_MOV_CTA.NEXTVAL, ?, ?, SYSDATE, ?, ?)
   """;
 
-        // total pagado a una compra, usando movimientos etiquetados
-        public static final String SUM_PAGOS_COMPRA = """
+    // total pagado a una compra, usando movimientos etiquetados
+    public static final String SUM_PAGOS_COMPRA = """
     SELECT NVL(SUM(monto),0) AS total_pagado
     FROM movimiento_cuenta
     WHERE tipo_documento = 'CXP' AND descripcion = ?
   """;
 
-        // total de la compra (para validar contra CxP.valor)
-        public static final String TOTAL_COMPRA = """
+    // total de la compra (para validar contra CxP.valor)
+    public static final String TOTAL_COMPRA = """
     SELECT NVL(SUM( (precio_bruto - NVL(descuentos,0)) + NVL(impuestos,0) ),0) AS total
     FROM detalle_compra
     WHERE no_documento = ?

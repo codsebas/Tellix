@@ -1,18 +1,18 @@
 package com.umg.controlador;
 
+import com.umg.implementacion.CategoriaImp;
 import com.umg.modelo.ModeloCategoria;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ControladorCategoria implements ActionListener, MouseListener {
     ModeloCategoria modelo;
+    private CategoriaImp implementacion = new CategoriaImp();
 
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
@@ -45,33 +45,154 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         lblLimpiar.setName("icono");
 
         inicializarIconos();
+        listarCategorias();
+        // --- Listener exclusivo para la tabla ---
+        modelo.getVista().tblCategorias.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int fila = modelo.getVista().tblCategorias.getSelectedRow();
+                if (fila >= 0) {
+                    String codigo = modelo.getVista().tblCategorias.getValueAt(fila, 0).toString();
+                    String descripcion = modelo.getVista().tblCategorias.getValueAt(fila, 1).toString();
+
+                    modelo.getVista().txtCodigo.setText(codigo);
+                    modelo.getVista().txtDescripcion.setText(descripcion);
+                    modelo.getVista().txtCodigo.setEditable(false);
+                }
+            }
+        });
     }
+
+    // ------------------- FUNCIONALIDAD CRUD -------------------
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        // Opcional si decides usar ActionListener en botones además de MouseListener
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (e.getSource() == btnNuevo) {
+            nuevoCategoria();
+        } else if (e.getSource() == btnActualizar) {
+            actualizarCategoria();
+        } else if (e.getSource() == btnEliminar) {
+            eliminarCategoria();
+        } else if (e.getSource() == btnBuscar) {
+            buscarCategoria();
+        } else if (e.getSource() == btnLimpiar) {
+            limpiarCampos();
+            modelo.getVista().txtCodigo.setEditable(true);
+        } else if (e.getSource() == modelo.getVista().tblCategorias) {
+            int fila = modelo.getVista().tblCategorias.getSelectedRow();
+            if (fila >= 0) {
+                // Llenar campos
+                String codigo = modelo.getVista().tblCategorias.getValueAt(fila, 0).toString();
+                String descripcion = modelo.getVista().tblCategorias.getValueAt(fila, 1).toString();
 
+                modelo.getVista().txtCodigo.setText(codigo);
+                modelo.getVista().txtDescripcion.setText(descripcion);
+
+                // Bloquear edición del código
+                modelo.getVista().txtCodigo.setEditable(false);
+            }
+        }
     }
+
+    private void listarCategorias() {
+        DefaultTableModel tabla = (DefaultTableModel) modelo.getVista().tblCategorias.getModel();
+        tabla.setRowCount(0);
+
+        for (ModeloCategoria c : implementacion.obtenerTodos()) {
+            tabla.addRow(new Object[]{
+                    c.getCodigo(),
+                    c.getDescripcion()
+            });
+        }
+    }
+
+    private ModeloCategoria obtenerDatosVista() {
+        ModeloCategoria c = new ModeloCategoria(modelo.getVista());
+        try {
+            c.setCodigo(Integer.parseInt(modelo.getVista().txtCodigo.getText()));
+        } catch (Exception ex) {
+            c.setCodigo(0);
+        }
+        c.setDescripcion(modelo.getVista().txtDescripcion.getText());
+        return c;
+    }
+
+    private void nuevoCategoria() {
+        ModeloCategoria c = obtenerDatosVista();
+        if (implementacion.insertar(c)) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Categoría insertada correctamente");
+            listarCategorias();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Error al insertar categoría");
+        }
+    }
+
+    private void actualizarCategoria() {
+        ModeloCategoria c = obtenerDatosVista();
+        if (implementacion.actualizar(c)) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Categoría actualizada correctamente");
+            listarCategorias();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Error al actualizar categoría");
+        }
+    }
+
+    private void eliminarCategoria() {
+        try {
+            int codigo = Integer.parseInt(modelo.getVista().txtCodigo.getText());
+            int opcion = JOptionPane.showConfirmDialog(modelo.getVista(), "¿Desea eliminar esta categoría?");
+            if (opcion == JOptionPane.YES_OPTION) {
+                if (implementacion.eliminar(codigo)) {
+                    JOptionPane.showMessageDialog(modelo.getVista(), "Categoría eliminada correctamente");
+                    listarCategorias();
+                    limpiarCampos();
+                } else {
+                    JOptionPane.showMessageDialog(modelo.getVista(), "Error al eliminar categoría");
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Error: " + ex.getMessage());
+        }
+    }
+
+    private void buscarCategoria() {
+        try {
+            int codigo = Integer.parseInt(modelo.getVista().txtBuscar.getText());
+            ModeloCategoria c = implementacion.obtenerPorCodigo(codigo);
+            if (c != null) {
+                modelo.getVista().txtCodigo.setText(String.valueOf(c.getCodigo()));
+                modelo.getVista().txtDescripcion.setText(c.getDescripcion());
+            } else {
+                JOptionPane.showMessageDialog(modelo.getVista(), "Categoría no encontrada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Error: " + ex.getMessage());
+        }
+    }
+
+    private void limpiarCampos() {
+        modelo.getVista().txtCodigo.setText("");
+        modelo.getVista().txtDescripcion.setText("");
+        modelo.getVista().txtBuscar.setText("");
+    }
+
+    // ------------------- EVENTOS ICONOS -------------------
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
+    public void mousePressed(MouseEvent e) {}
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
+    public void mouseReleased(MouseEvent e) {}
     @Override
     public void mouseEntered(MouseEvent e) {
         cambiarIconoBoton((JPanel) e.getSource(), true);
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
         cambiarIconoBoton((JPanel) e.getSource(), false);
