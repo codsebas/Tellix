@@ -1,5 +1,6 @@
 package com.umg.controlador;
 
+import com.umg.implementacion.ReporteImp;
 import com.umg.modelo.ModeloReporteVentasYCompras;
 
 import javax.swing.*;
@@ -18,6 +19,8 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
     private JLabel lblGenerarPDF, lblGenerarExcel, lblLimpiar, lblBuscar, lblVerReporte;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
+
+    ReporteImp implementacion = new ReporteImp();
 
     public ControladorReporteVentasYCompras(ModeloReporteVentasYCompras modelo) {
         this.modelo = modelo;
@@ -54,7 +57,11 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        var vista = modelo.getVista();
+        if(e.getComponent().equals(vista.btnVerReporte)) {
+            System.out.println("click");
+            reportes();
+        }
     }
 
     @Override
@@ -75,6 +82,15 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
     @Override
     public void mouseExited(MouseEvent e) {
         cambiarIconoBoton((JPanel) e.getSource(), false);
+    }
+
+    private void reportes(){
+        var vista = modelo.getVista();
+        int tipoReporte = vista.cmbTipoReporte.getSelectedIndex();
+        if(tipoReporte == 0){
+            vista.tblReporte.setModel(implementacion.ventasDelDia());
+            System.out.println("hola");
+        }
     }
 
     private void inicializarIconos() {

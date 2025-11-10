@@ -1,5 +1,6 @@
 package com.umg.controlador;
 
+import com.umg.implementacion.ReporteImp;
 import com.umg.modelo.ModeloReporteClientesYProductos;
 
 import javax.swing.*;
@@ -18,6 +19,8 @@ public class ControladorReporteClientesYProductos implements ActionListener, Mou
     private JLabel lblGenerarPDF, lblGenerarExcel, lblLimpiar, lblBuscar, lblVerReporte;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
+
+    ReporteImp implementecion =  new ReporteImp();
 
     public ControladorReporteClientesYProductos(ModeloReporteClientesYProductos modelo) {
         this.modelo = modelo;
@@ -76,6 +79,8 @@ public class ControladorReporteClientesYProductos implements ActionListener, Mou
     public void mouseExited(MouseEvent e) {
         cambiarIconoBoton((JPanel) e.getSource(), false);
     }
+
+
 
     private void inicializarIconos() {
         iconosBotones.put(btnGenerarPDF, "/com/umg/iconos/IconoBoton1.png");

@@ -41,14 +41,14 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         lblBuscar = new javax.swing.JLabel();
         txtBuscarProveedor = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        cmbOrdenarPor = new javax.swing.JComboBox<>();
+        cmbTipoReporte = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCategorias = new javax.swing.JTable();
+        tblReporte = new javax.swing.JTable();
         btnVerReporte = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblVerReporte = new javax.swing.JLabel();
@@ -105,12 +105,12 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         jLabel14.setText("Buscar Proveedor");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 200, 20));
 
-        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas del día", "Ventas por rango de fechas", "Ventas mensuales y comparativo intermensual", "Compras del día", "Compras por rango de fechas", "Compras por proveedor y saldo por pagar" }));
-        cmbOrdenarPor.setBorder(null);
-        jPanel1.add(cmbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
+        cmbTipoReporte.setBackground(new java.awt.Color(255, 255, 255));
+        cmbTipoReporte.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        cmbTipoReporte.setForeground(new java.awt.Color(108, 117, 125));
+        cmbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas del día", "Ventas por rango de fechas", "Ventas mensuales y comparativo intermensual", "Compras del día", "Compras por rango de fechas", "Compras por proveedor y saldo por pagar" }));
+        cmbTipoReporte.setBorder(null);
+        jPanel1.add(cmbTipoReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
 
         jLabel16.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(33, 37, 41));
@@ -140,7 +140,7 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
-        tblCategorias.setModel(new javax.swing.table.DefaultTableModel(
+        tblReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -151,7 +151,7 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
                 "Reporte"
             }
         ));
-        jScrollPane1.setViewportView(tblCategorias);
+        jScrollPane1.setViewportView(tblReporte);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 610, 560));
 
@@ -268,8 +268,8 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
     public javax.swing.JPanel btnGenerarPDF;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnVerReporte;
-    private javax.swing.JComboBox<String> cmbBuscarProveedorPor;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbBuscarProveedorPor;
+    public javax.swing.JComboBox<String> cmbTipoReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -290,7 +290,7 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
     public javax.swing.JLabel lblGenerarPDF;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblVerReporte;
-    private javax.swing.JTable tblCategorias;
+    public javax.swing.JTable tblReporte;
     public javax.swing.JTextField txtBuscarProveedor;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;
@@ -303,5 +303,7 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         this.btnGenerarPDF.addMouseListener(controlador);
         this.btnBuscar.addMouseListener(controlador);
         this.btnVerReporte.addMouseListener(controlador);
+        this.cmbTipoReporte.addActionListener(controlador);
+        this.cmbBuscarProveedorPor.addActionListener(controlador);
     }
 }
