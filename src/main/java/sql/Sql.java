@@ -139,6 +139,169 @@ public class Sql {
     WHERE no_documento = ?
   """;
 
+// ---------------------------------------------------------------------
+// --- CONSULTAS DE REPORTES (prefijo tellix)
+// ---------------------------------------------------------------------
+
+// ===== VENTAS =====
+
+    // Ventas del día
+    private final String REPORTE_VENTAS_DIA = """
+    SELECT v.secuencia, v.cliente, v.fecha_operacion, dv.codigo_producto, dv.cantidad,
+           dv.precio_bruto, (dv.precio_bruto * dv.cantidad) AS importe
+    FROM tellix.venta v
+    JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+    WHERE v.fecha_operacion = TRUNC(SYSDATE)
+    ORDER BY v.secuencia
+""";
+
+    // Ventas por rango de fechas
+    private final String REPORTE_VENTAS_RANGO = """
+    SELECT v.secuencia, v.cliente, v.fecha_operacion, dv.codigo_producto, dv.cantidad, dv.precio_bruto
+    FROM tellix.venta v
+    JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+    WHERE v.fecha_operacion BETWEEN ? AND ?
+    ORDER BY v.fecha_operacion
+""";
+
+    // Total de ventas por rango
+    private final String REPORTE_TOTAL_VENTAS_RANGO = """
+    SELECT SUM(dv.precio_bruto * dv.cantidad) AS total_rango
+    FROM tellix.venta v
+    JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+    WHERE v.fecha_operacion BETWEEN ? AND ?
+""";
+
+    // Ventas mensuales (últimos 6 meses)
+    private final String REPORTE_VENTAS_MENSUALES = """
+    SELECT TO_CHAR(v.fecha_operacion, 'YYYY-MM') AS mes,
+           SUM(dv.precio_bruto * dv.cantidad) AS total_mes
+    FROM tellix.venta v
+    JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+    WHERE v.fecha_operacion >= ADD_MONTHS(TRUNC(SYSDATE, 'MM'), -5)
+    GROUP BY TO_CHAR(v.fecha_operacion, 'YYYY-MM')
+    ORDER BY mes
+""";
+
+// ===== COMPRAS =====
+
+    // Compras del día
+    private final String REPORTE_COMPRAS_DIA = """
+    SELECT c.no_documento, c.proveedor, c.fecha_operacion,
+           dc.codigo_producto, dc.cantidad, dc.precio_bruto
+    FROM tellix.compra c
+    JOIN tellix.detalle_compra dc ON dc.no_documento = c.no_documento
+    WHERE c.fecha_operacion = TRUNC(SYSDATE)
+    ORDER BY c.no_documento
+""";
+
+    // Compras por rango
+    private final String REPORTE_COMPRAS_RANGO = """
+    SELECT c.no_documento, c.proveedor, c.fecha_operacion,
+           SUM(dc.cantidad * dc.precio_bruto) AS total_doc
+    FROM tellix.compra c
+    JOIN tellix.detalle_compra dc ON dc.no_documento = c.no_documento
+    WHERE c.fecha_operacion BETWEEN ? AND ?
+    GROUP BY c.no_documento, c.proveedor, c.fecha_operacion
+    ORDER BY c.fecha_operacion
+""";
+
+    // Compras por proveedor
+    private final String REPORTE_COMPRAS_PROVEEDOR = """
+    SELECT c.proveedor, COUNT(DISTINCT c.no_documento) AS documentos,
+           SUM(dc.cantidad * dc.precio_bruto) AS total_compras
+    FROM tellix.compra c
+    JOIN tellix.detalle_compra dc ON dc.no_documento = c.no_documento
+    GROUP BY c.proveedor
+    ORDER BY total_compras DESC
+""";
+
+// ===== CLIENTES Y PRODUCTOS =====
+
+    // Mejores clientes por monto y facturas
+    private final String REPORTE_MEJORES_CLIENTES = """
+    SELECT v.cliente,
+           SUM(dv.precio_bruto * dv.cantidad) AS total_monto,
+           COUNT(DISTINCT v.secuencia) AS facturas
+    FROM tellix.venta v
+    JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+    WHERE v.fecha_operacion BETWEEN ? AND ?
+    GROUP BY v.cliente
+    ORDER BY total_monto DESC
+""";
+
+    // Productos más vendidos por cantidad
+    private final String REPORTE_PRODUCTOS_MAS_VENDIDOS_CANT = """
+    SELECT dv.codigo_producto, SUM(dv.cantidad) AS total_cantidad
+    FROM tellix.detalle_venta dv
+    JOIN tellix.venta v ON v.secuencia = dv.secuencia
+    WHERE v.fecha_operacion BETWEEN ? AND ?
+    GROUP BY dv.codigo_producto
+    ORDER BY total_cantidad DESC
+""";
+
+    // Productos más vendidos por monto
+    private final String REPORTE_PRODUCTOS_MAS_VENDIDOS_MONTO = """
+    SELECT dv.codigo_producto, SUM(dv.cantidad * dv.precio_bruto) AS total_monto
+    FROM tellix.detalle_venta dv
+    JOIN tellix.venta v ON v.secuencia = dv.secuencia
+    WHERE v.fecha_operacion BETWEEN ? AND ?
+    GROUP BY dv.codigo_producto
+    ORDER BY total_monto DESC
+""";
+
+    // Productos con stock bajo
+    private final String REPORTE_STOCK_BAJO = """
+    SELECT codigo, nombre, stock_actual, stock_minimo
+    FROM tellix.producto
+    WHERE stock_actual <= stock_minimo
+    ORDER BY stock_actual ASC
+""";
+
+// ===== CUENTAS POR COBRAR / PAGAR =====
+
+    // Cuentas por cobrar vencidas
+    private final String REPORTE_CXC_VENCIDAS = """
+    SELECT *
+    FROM tellix.cuenta_por_cobrar
+    WHERE estado = 'P' AND fecha_limite < TRUNC(SYSDATE)
+    ORDER BY fecha_limite
+""";
+
+    // Cuentas por cobrar próximas (7 días)
+    private final String REPORTE_CXC_PROXIMAS = """
+    SELECT *
+    FROM tellix.cuenta_por_cobrar
+    WHERE estado = 'P' AND fecha_limite BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE) + 7
+    ORDER BY fecha_limite
+""";
+
+    // Cuentas por pagar vencidas
+    private final String REPORTE_CXP_VENCIDAS = """
+    SELECT *
+    FROM tellix.cuenta_por_pagar
+    WHERE estado = 'P' AND fecha_limite < TRUNC(SYSDATE)
+    ORDER BY fecha_limite
+""";
+
+    // Cuentas por pagar próximas (7 días)
+    private final String REPORTE_CXP_PROXIMAS = """
+    SELECT *
+    FROM tellix.cuenta_por_pagar
+    WHERE estado = 'P' AND fecha_limite BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE) + 7
+    ORDER BY fecha_limite
+""";
+
+// ===== INVENTARIO =====
+
+    // Movimientos de inventario por rango de fechas
+    private final String REPORTE_INVENTARIO_RANGO = """
+    SELECT i.codigo_producto, i.operacion, i.cantidad_afectada, i.motivo,
+           i.fecha_operacion, i.usuario
+    FROM tellix.inventario i
+    WHERE i.fecha_operacion BETWEEN ? AND ?
+    ORDER BY i.codigo_producto, i.fecha_operacion
+""";
 
 
 
@@ -207,5 +370,68 @@ public class Sql {
     public static String getSumPagosCompra() { return SUM_PAGOS_COMPRA; }
     public static String getTotalCompra() { return TOTAL_COMPRA; }
 
+    public String getREPORTE_VENTAS_DIA() {
+        return REPORTE_VENTAS_DIA;
+    }
+
+    public String getREPORTE_VENTAS_RANGO() {
+        return REPORTE_VENTAS_RANGO;
+    }
+
+    public String getREPORTE_TOTAL_VENTAS_RANGO() {
+        return REPORTE_TOTAL_VENTAS_RANGO;
+    }
+
+    public String getREPORTE_VENTAS_MENSUALES() {
+        return REPORTE_VENTAS_MENSUALES;
+    }
+
+    public String getREPORTE_COMPRAS_DIA() {
+        return REPORTE_COMPRAS_DIA;
+    }
+
+    public String getREPORTE_COMPRAS_RANGO() {
+        return REPORTE_COMPRAS_RANGO;
+    }
+
+    public String getREPORTE_COMPRAS_PROVEEDOR() {
+        return REPORTE_COMPRAS_PROVEEDOR;
+    }
+
+    public String getREPORTE_MEJORES_CLIENTES() {
+        return REPORTE_MEJORES_CLIENTES;
+    }
+
+    public String getREPORTE_PRODUCTOS_MAS_VENDIDOS_CANT() {
+        return REPORTE_PRODUCTOS_MAS_VENDIDOS_CANT;
+    }
+
+    public String getREPORTE_PRODUCTOS_MAS_VENDIDOS_MONTO() {
+        return REPORTE_PRODUCTOS_MAS_VENDIDOS_MONTO;
+    }
+
+    public String getREPORTE_STOCK_BAJO() {
+        return REPORTE_STOCK_BAJO;
+    }
+
+    public String getREPORTE_CXC_VENCIDAS() {
+        return REPORTE_CXC_VENCIDAS;
+    }
+
+    public String getREPORTE_CXC_PROXIMAS() {
+        return REPORTE_CXC_PROXIMAS;
+    }
+
+    public String getREPORTE_CXP_VENCIDAS() {
+        return REPORTE_CXP_VENCIDAS;
+    }
+
+    public String getREPORTE_CXP_PROXIMAS() {
+        return REPORTE_CXP_PROXIMAS;
+    }
+
+    public String getREPORTE_INVENTARIO_RANGO() {
+        return REPORTE_INVENTARIO_RANGO;
+    }
 }
 

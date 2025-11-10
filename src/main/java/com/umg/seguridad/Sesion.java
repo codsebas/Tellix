@@ -30,11 +30,11 @@ public class Sesion {
             if (conexionActiva != null) {
                 conexionActiva.desconectar();
                 System.out.println("Conexión cerrada correctamente al cerrar sesión.");
+                conexionActiva = null;
             }
         } catch (Exception e) {
             System.out.println("Error al cerrar la sesión: " + e.getMessage());
         } finally {
-            conexionActiva = null;
             usuario = null;
             rol = null;
         }
