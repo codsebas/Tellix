@@ -3,43 +3,26 @@ package com.umg.modelo;
 import com.umg.vistas.VistaProductos;
 
 public class ModeloProducto {
-    // Referencia a la vista
     private VistaProductos vista;
 
-    // Atributos del producto
     private int codigo;
     private String nombre;
     private String descripcion;
     private int stockMinimo;
     private int stockActual;
-    private double precio;
-    private String categoria;
-    private String marca;
-    private String medida;
-    private double cantidad;
-
-    // Constructores
-    public ModeloProducto() { }
+    private String estado;
+    private int fkCategoria;
+    private String fkMarca;
+    private String fkMedida;
+    private double cantidadMedida;
 
     public ModeloProducto(VistaProductos vista) {
         this.vista = vista;
     }
 
-    public ModeloProducto(int codigo, String nombre, String descripcion, int stockMinimo, int stockActual,
-                          double precio, String categoria, String marca, String medida, double cantidad) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.stockMinimo = stockMinimo;
-        this.stockActual = stockActual;
-        this.precio = precio;
-        this.categoria = categoria;
-        this.marca = marca;
-        this.medida = medida;
-        this.cantidad = cantidad;
+    public ModeloProducto() {
     }
 
-    // Getters y Setters
     public VistaProductos getVista() { return vista; }
     public void setVista(VistaProductos vista) { this.vista = vista; }
 
@@ -58,18 +41,18 @@ public class ModeloProducto {
     public int getStockActual() { return stockActual; }
     public void setStockActual(int stockActual) { this.stockActual = stockActual; }
 
-    public double getPrecio() { return precio; }
-    public void setPrecio(double precio) { this.precio = precio; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public int getFkCategoria() { return fkCategoria; }
+    public void setFkCategoria(int fkCategoria) { this.fkCategoria = fkCategoria; }
 
-    public String getMarca() { return marca; }
-    public void setMarca(String marca) { this.marca = marca; }
+    public String getFkMarca() { return fkMarca; }
+    public void setFkMarca(String fkMarca) { this.fkMarca = fkMarca; }
 
-    public String getMedida() { return medida; }
-    public void setMedida(String medida) { this.medida = medida; }
+    public String getFkMedida() { return fkMedida; }
+    public void setFkMedida(String fkMedida) { this.fkMedida = fkMedida; }
 
-    public double getCantidad() { return cantidad; }
-    public void setCantidad(double cantidad) { this.cantidad = cantidad; }
+    public double getCantidadMedida() { return cantidadMedida; }
+    public void setCantidadMedida(double cantidadMedida) { this.cantidadMedida = cantidadMedida; }
 }

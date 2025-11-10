@@ -346,7 +346,7 @@ public class VistaProductos extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> cmbCategoria;
     public javax.swing.JComboBox<String> cmbMarca;
     public javax.swing.JComboBox<String> cmbMedida;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
