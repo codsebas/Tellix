@@ -183,6 +183,7 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         modelo.getVista().txtBuscar.setText("");
     }
 
+
     // ------------------- EVENTOS ICONOS -------------------
 
     @Override

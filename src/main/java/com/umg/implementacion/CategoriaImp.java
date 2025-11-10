@@ -28,7 +28,7 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error insertar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+            //con.desconectar();
         }
     }
 
@@ -44,7 +44,7 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error actualizar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+            //con.desconectar();
         }
     }
 
@@ -59,7 +59,7 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error eliminar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+            //con.desconectar();
         }
     }
 
@@ -79,7 +79,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerPorCodigo: " + e.getMessage());
         } finally {
-            con.desconectar();
+            //con.desconectar();
         }
         return c;
     }
@@ -100,8 +100,71 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerTodos: " + e.getMessage());
         } finally {
+            //con.desconectar();
+        }
+        return lista;
+    }
+
+    @Override
+    public List<Integer> obtenerCodigos() {
+        List<Integer> lista = new ArrayList<>();
+        if (!con.conectar()) return lista;
+        try {
+            String sqlQuery = "SELECT codigo FROM categoria ORDER BY codigo";
+            PreparedStatement ps = con.preparar(sqlQuery);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(rs.getInt("codigo"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error obtenerCodigos: " + e.getMessage());
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+
+    @Override
+    public List<String> obtenerDescripciones() {
+        List<String> lista = new ArrayList<>();
+        if (!con.conectar()) return lista;
+        try {
+            String sqlQuery = "SELECT descripcion FROM categoria ORDER BY descripcion";
+            PreparedStatement ps = con.preparar(sqlQuery);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(rs.getString("descripcion"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error obtenerDescripciones: " + e.getMessage());
+        } finally {
+            con.desconectar();
+        }
+        return lista;
+    }
+
+    @Override
+    public List<ModeloCategoria> buscar(String texto) {
+        List<ModeloCategoria> lista = new ArrayList<>();
+        if (!con.conectar()) return lista;
+        try {
+            String sqlQuery = "SELECT codigo, descripcion FROM categoria WHERE UPPER(descripcion) LIKE ? OR TO_CHAR(codigo) LIKE ?";
+            PreparedStatement ps = con.preparar(sqlQuery);
+            ps.setString(1, "%" + texto.toUpperCase() + "%");
+            ps.setString(2, "%" + texto + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ModeloCategoria c = new ModeloCategoria(null);
+                c.setCodigo(rs.getInt("codigo"));
+                c.setDescripcion(rs.getString("descripcion"));
+                lista.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println("Error buscar: " + e.getMessage());
+        } finally {
             con.desconectar();
         }
         return lista;
     }
 }
+

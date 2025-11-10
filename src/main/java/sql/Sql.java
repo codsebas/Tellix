@@ -11,7 +11,19 @@ public class Sql {
     private final String CONSULTA_CATEGORIA_POR_CODIGO = "SELECT codigo, descripcion FROM categoria WHERE codigo = ?";
     private final String ACTUALIZAR_CATEGORIA = "UPDATE categoria SET descripcion = ? WHERE codigo = ?";
     private final String ELIMINAR_CATEGORIA = "DELETE FROM categoria WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_CATEGORIA = "SELECT codigo FROM categoria ORDER BY codigo";
 
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_CATEGORIA = "SELECT descripcion FROM categoria ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_CATEGORIA = """
+    SELECT codigo, descripcion 
+    FROM categoria 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
     // ---------------------------------------------------------------------
     // --- CONSTANTES PARA TABLA PRODUCTO (CRUD) ---
     // ---------------------------------------------------------------------
@@ -178,6 +190,9 @@ public class Sql {
     public String getELIMINAR_PRODUCTO() {
         return ELIMINAR_PRODUCTO;
     }
+    public String getCONSULTA_CODIGOS_CATEGORIA() { return CONSULTA_CODIGOS_CATEGORIA; }
+    public String getCONSULTA_DESCRIPCIONES_CATEGORIA() { return CONSULTA_DESCRIPCIONES_CATEGORIA; }
+    public String getBUSCAR_CATEGORIA() { return BUSCAR_CATEGORIA; }
 
     // ====== Getters públicos ======
     public static String getInsertCompra() { return INSERT_COMPRA; }
@@ -191,5 +206,6 @@ public class Sql {
     public static String getInsertMovimientoCuenta() { return INSERT_MOVIMIENTO_CUENTA; }
     public static String getSumPagosCompra() { return SUM_PAGOS_COMPRA; }
     public static String getTotalCompra() { return TOTAL_COMPRA; }
+
 }
 
