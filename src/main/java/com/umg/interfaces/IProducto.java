@@ -1,7 +1,11 @@
 package com.umg.interfaces;
 import com.umg.modelo.ModeloProducto;
+
+import javax.swing.table.DefaultTableModel;
 import java.util.List;
 public interface IProducto {
+    DefaultTableModel listarProductos();
+
     // CRUD básico
     boolean insertar(ModeloProducto producto);
     boolean actualizar(ModeloProducto producto);
