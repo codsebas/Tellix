@@ -2,6 +2,7 @@ package com.umg.implementacion;
 
 import com.umg.interfaces.IProducto;
 import com.umg.modelo.ModeloProducto;
+import com.umg.seguridad.Sesion;
 import sql.Conector;
 import sql.Sql;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoImp implements IProducto {
-    private Conector con = new Conector("telix", "telix123");
+    private Conector con = Sesion.getConexion();
     private Sql sql = new Sql(); // usamos tu clase Sql
 
     @Override

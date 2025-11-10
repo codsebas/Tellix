@@ -2,6 +2,7 @@ package com.umg.implementacion;
 
 import com.umg.interfaces.ICategoria;
 import com.umg.modelo.ModeloCategoria;
+import com.umg.seguridad.Sesion;
 import sql.Conector;
 import sql.Sql;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class CategoriaImp implements ICategoria {
 
-    private Conector con = new Conector("tellix", "tellix123"); // usuario y contraseña
+    private Conector con = Sesion.getConexion(); // usuario y contraseña
     private Sql sql = new Sql();
 
     @Override
