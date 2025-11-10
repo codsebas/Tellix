@@ -2,6 +2,7 @@ package com.umg.controlador;
 
 import com.umg.modelo.ModeloLogin;
 import com.umg.modelo.ModeloMenu;
+import com.umg.seguridad.Sesion;
 import com.umg.vistas.*;
 
 import java.awt.*;
@@ -238,6 +239,7 @@ public class ControladorMenu implements MouseListener {
             accionBotones(btnConfiguracion, e, vistaMenuConfiguracion);
         } else if (source.equals(btnCerrarSesion)) {
             reiniciarColores();
+            Sesion.cerrarSesion();
             vistaLogin();
         }
     }

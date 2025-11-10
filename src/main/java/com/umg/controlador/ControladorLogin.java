@@ -11,6 +11,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import com.umg.seguridad.Sesion;
+import sql.Conector;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class ControladorLogin implements MouseListener, KeyListener {
     ModeloLogin modelo;
     VistaLogin vista;
@@ -42,7 +47,11 @@ public class ControladorLogin implements MouseListener, KeyListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getComponent().equals(this.vista.getBtnIniciarSesion())){
-            vistaAdministrador();
+            String user = this.vista.getTxtUsuario().getText();
+            String pass = String.valueOf(this.vista.getTxtPassword().getPassword());
+            if (autenticar(user,pass)){
+                mostrarMenu();
+            }
         }
     }
 
@@ -66,10 +75,52 @@ public class ControladorLogin implements MouseListener, KeyListener {
 
     }
 
-    private void vistaAdministrador(){
+    private void mostrarMenu(){
         ModeloMenu modelo = new ModeloMenu();
         VistaMenu vista = new VistaMenu();
         new ControladorMenu(modelo, vista, vistaPrincipal);
         vistaPrincipal.cambiarPanel(vista);
+    }
+
+    public boolean autenticar(String user, String pass) {
+        Conector con = new Conector(user, pass);
+
+        if (con.conectar()) {
+            try {
+                // Consulta para obtener el rol del usuario según la tabla "usuario"
+                String sql = """
+    SELECT rol_usuario
+    FROM telix.usuario
+    WHERE user_name = ?
+    AND contrasena = STANDARD_HASH(?, 'SHA256')
+""";
+                System.out.println("Usuario: " + user + "Contraseña: " + pass);
+                PreparedStatement ps = con.preparar(sql);
+                ps.setString(1, user);
+                ps.setString(2, pass);
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    String rol = rs.getString("rol_usuario");
+
+                    // Iniciar la sesión con el rol y la conexión activa
+                    Sesion.iniciarSesion(con, user, rol);
+                    System.out.println("Sesión iniciada: " + user + " (" + rol + ")");
+                    return true;
+                } else {
+                    System.out.println("Usuario no encontrado en tabla de roles.");
+                    con.desconectar();
+                    return false;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error al obtener rol: " + e.getMessage());
+                con.desconectar();
+                return false;
+            }
+        } else {
+            System.out.println("Error de conexión: credenciales incorrectas.");
+            return false;
+        }
     }
 }
