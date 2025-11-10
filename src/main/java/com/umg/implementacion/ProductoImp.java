@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoImp implements IProducto {
-    private Conector con = new Conector();
+    private Conector con = new Conector("telix", "telix123");
     private Sql sql = new Sql(); // usamos tu clase Sql
 
     @Override

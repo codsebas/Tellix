@@ -22,13 +22,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
-        con = new sql.Conector();
-        con.conectar();
-        if (con.preparar("SELECT 1 FROM DUAL") != null) {
-            con.mensaje("¡Conexión exitosa a Oracle!", "Conexión OK", 1);
-        } else {
-            con.mensaje("Error al conectar.", "Conexión fallida", 0);
-        }
 
         setLocationRelativeTo(null);
         com.umg.modelo.ModeloVistaPrincipal modelo = new ModeloVistaPrincipal(this);
