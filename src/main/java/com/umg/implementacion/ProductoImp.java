@@ -18,7 +18,6 @@ public class ProductoImp implements IProducto {
     @Override
     public boolean insertar(ModeloProducto p) {
         try {
-            con.conectar();
             PreparedStatement ps = con.preparar(sql.getINSERTAR_PRODUCTO());
 
             ps.setInt(1, p.getCodigo());
@@ -39,14 +38,14 @@ public class ProductoImp implements IProducto {
             System.out.println("Error insertar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+
         }
     }
 
     @Override
     public boolean actualizar(ModeloProducto p) {
         try {
-            con.conectar();
+
             PreparedStatement ps = con.preparar(sql.getACTUALIZAR_PRODUCTO());
 
             ps.setString(1, p.getNombre());
@@ -67,14 +66,13 @@ public class ProductoImp implements IProducto {
             System.out.println("Error actualizar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+
         }
     }
 
     @Override
     public boolean eliminar(int codigo) {
         try {
-            con.conectar();
             PreparedStatement ps = con.preparar(sql.getELIMINAR_PRODUCTO());
             ps.setInt(1, codigo);
             int res = ps.executeUpdate();
@@ -84,7 +82,7 @@ public class ProductoImp implements IProducto {
             System.out.println("Error eliminar: " + e.getMessage());
             return false;
         } finally {
-            con.desconectar();
+
         }
     }
 
@@ -92,7 +90,7 @@ public class ProductoImp implements IProducto {
     public ModeloProducto obtenerPorCodigo(int codigo) {
         ModeloProducto p = null;
         try {
-            con.conectar();
+
             PreparedStatement ps = con.preparar(sql.getCONSULTA_PRODUCTO_POR_CODIGO());
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -113,7 +111,7 @@ public class ProductoImp implements IProducto {
         } catch (Exception e) {
             System.out.println("Error obtenerPorCodigo: " + e.getMessage());
         } finally {
-            con.desconectar();
+
         }
         return p;
     }
@@ -122,7 +120,7 @@ public class ProductoImp implements IProducto {
     public List<ModeloProducto> obtenerTodos() {
         List<ModeloProducto> lista = new ArrayList<>();
         try {
-            con.conectar();
+
             PreparedStatement ps = con.preparar(sql.getCONSULTA_TODOS_PRODUCTOS());
             ResultSet rs = ps.executeQuery();
 
@@ -144,7 +142,7 @@ public class ProductoImp implements IProducto {
         } catch (Exception e) {
             System.out.println("Error obtenerTodos: " + e.getMessage());
         } finally {
-            con.desconectar();
+
         }
         return lista;
     }

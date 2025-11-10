@@ -18,7 +18,7 @@ public class CategoriaImp implements ICategoria {
 
     @Override
     public boolean insertar(ModeloCategoria c) {
-        if (!con.conectar()) return false;
+
         try {
             PreparedStatement ps = con.preparar(sql.getINSERTAR_CATEGORIA());
             ps.setInt(1, c.getCodigo());
@@ -28,13 +28,13 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error insertar: " + e.getMessage());
             return false;
         } finally {
-            //con.desconectar();
+
         }
     }
 
     @Override
     public boolean actualizar(ModeloCategoria c) {
-        if (!con.conectar()) return false;
+
         try {
             PreparedStatement ps = con.preparar(sql.getACTUALIZAR_CATEGORIA());
             ps.setString(1, c.getDescripcion());
@@ -44,13 +44,13 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error actualizar: " + e.getMessage());
             return false;
         } finally {
-            //con.desconectar();
+
         }
     }
 
     @Override
     public boolean eliminar(int codigo) {
-        if (!con.conectar()) return false;
+
         try {
             PreparedStatement ps = con.preparar(sql.getELIMINAR_CATEGORIA());
             ps.setInt(1, codigo);
@@ -59,14 +59,14 @@ public class CategoriaImp implements ICategoria {
             System.out.println("Error eliminar: " + e.getMessage());
             return false;
         } finally {
-            //con.desconectar();
+
         }
     }
 
     @Override
     public ModeloCategoria obtenerPorCodigo(int codigo) {
         ModeloCategoria c = null;
-        if (!con.conectar()) return null;
+
         try {
             PreparedStatement ps = con.preparar(sql.getCONSULTA_CATEGORIA_POR_CODIGO());
             ps.setInt(1, codigo);
@@ -79,7 +79,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerPorCodigo: " + e.getMessage());
         } finally {
-            //con.desconectar();
+
         }
         return c;
     }
@@ -87,7 +87,7 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<ModeloCategoria> obtenerTodos() {
         List<ModeloCategoria> lista = new ArrayList<>();
-        if (!con.conectar()) return lista;
+
         try {
             PreparedStatement ps = con.preparar(sql.getCONSULTA_TODAS_CATEGORIAS());
             ResultSet rs = ps.executeQuery();
@@ -100,7 +100,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerTodos: " + e.getMessage());
         } finally {
-            //con.desconectar();
+
         }
         return lista;
     }
@@ -108,7 +108,7 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<Integer> obtenerCodigos() {
         List<Integer> lista = new ArrayList<>();
-        if (!con.conectar()) return lista;
+
         try {
             String sqlQuery = "SELECT codigo FROM categoria ORDER BY codigo";
             PreparedStatement ps = con.preparar(sqlQuery);
@@ -119,7 +119,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerCodigos: " + e.getMessage());
         } finally {
-            con.desconectar();
+
         }
         return lista;
     }
@@ -127,7 +127,7 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<String> obtenerDescripciones() {
         List<String> lista = new ArrayList<>();
-        if (!con.conectar()) return lista;
+
         try {
             String sqlQuery = "SELECT descripcion FROM categoria ORDER BY descripcion";
             PreparedStatement ps = con.preparar(sqlQuery);
@@ -138,7 +138,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error obtenerDescripciones: " + e.getMessage());
         } finally {
-            con.desconectar();
+
         }
         return lista;
     }
@@ -146,7 +146,7 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<ModeloCategoria> buscar(String texto) {
         List<ModeloCategoria> lista = new ArrayList<>();
-        if (!con.conectar()) return lista;
+
         try {
             String sqlBuscar = "SELECT codigo, descripcion FROM categoria " +
                     "WHERE UPPER(descripcion) LIKE ? OR TO_CHAR(codigo) LIKE ?";
@@ -164,7 +164,7 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error buscar: " + e.getMessage());
         } finally {
-            con.desconectar();
+
         }
         return lista;
     }

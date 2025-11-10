@@ -67,9 +67,6 @@ public class ControladorLogin implements MouseListener, KeyListener {
             if (autenticar(user,pass)){
                 mostrarMenu();
             }
-//            else {
-//                mostrarMenu();
-//            }
         }
     }
 
@@ -107,16 +104,15 @@ public class ControladorLogin implements MouseListener, KeyListener {
             try {
                 // Consulta para obtener el rol del usuario según la tabla "usuario"
                 String sql = """
-            SELECT rol_usuario
-            FROM tellix.usuario
-            WHERE UPPER(TRIM(user_name)) = UPPER(TRIM(?))
-            AND contrasena = RAWTOHEX(STANDARD_HASH(TRIM(?), 'SHA256'))
-        """;
+    SELECT rol_usuario
+    FROM tellix.usuario
+    WHERE user_name = ?
+    AND contrasena = STANDARD_HASH(?, 'SHA256')
+""";
                 System.out.println("Usuario: " + user + " " + "Contraseña: " + pass);
                 PreparedStatement ps = con.preparar(sql);
-                ps.setString(1, user.trim());
-                ps.setString(2, pass.trim());
-
+                ps.setString(1, user);
+                ps.setString(2, pass);
                 ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
@@ -127,14 +123,12 @@ public class ControladorLogin implements MouseListener, KeyListener {
                     System.out.println("Sesión iniciada: " + user + " (" + rol + ")");
                     return true;
                 } else {
-                    System.out.println("Usuario no encontrado en tabla de usuarios.");
-                    con.desconectar();
+                    System.out.println("Usuario no encontrado en tabla de roles.");
                     return false;
                 }
 
             } catch (Exception e) {
                 System.out.println("Error al obtener rol: " + e.getMessage());
-                con.desconectar();
                 return false;
             }
         } else {
