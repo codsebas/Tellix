@@ -39,10 +39,10 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         lblLimpiar = vista.lblLimpiar;
 
         // Registrar MouseListener
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
+        //btnNuevo.addMouseListener(this);
+        //btnActualizar.addMouseListener(this);
+        //btnEliminar.addMouseListener(this);
+        //btnBuscar.addMouseListener(this);
         btnLimpiar.addMouseListener(this);
 
         // Dar nombre a los labels para iconos

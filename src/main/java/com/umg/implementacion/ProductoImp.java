@@ -92,6 +92,8 @@ public class ProductoImp implements IProducto {
 
     @Override
     public boolean actualizar(ModeloProducto p) {
+
+        boolean exito = false;
         try {
             PreparedStatement ps = con.preparar(
                     "UPDATE producto SET nombre=?, descripcion=?, stock_minimo=?, stock_actual=?, estado=?, " +
@@ -110,11 +112,23 @@ public class ProductoImp implements IProducto {
             ps.setDouble(9, p.getCantidad());
             ps.setInt(10, p.getCodigo());
 
-            return ps.executeUpdate() > 0;
+            int filas = ps.executeUpdate();
+            exito = filas > 0;
+
+            if (exito) {
+                System.out.println("✅ Producto actualizado correctamente (codigo=" + p.getCodigo() + ")");
+            } else {
+                System.out.println("⚠️ No se actualizó ningún registro (codigo=" + p.getCodigo() + ")");
+            }
+
         } catch (Exception e) {
-            System.out.println("❌ Error actualizar producto: " + e.getMessage());
-            return false;
+            // Mostramos la excepción solo si realmente hubo un error
+            System.err.println("❌ Error real al actualizar producto:");
+            e.printStackTrace();
+            exito = false;
         }
+
+        return exito;
     }
 
     @Override
