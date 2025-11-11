@@ -4,6 +4,11 @@ import com.umg.implementacion.ClienteImp;
 import com.umg.interfaces.ICliente;
 import com.umg.modelo.ModeloCliente;
 
+/* ===== NUEVO: para cargar Tipos de Cliente en el combo ===== */
+import com.umg.interfaces.ITipoCliente;
+import com.umg.implementacion.TipoClienteImp;
+import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +24,9 @@ public class ControladorClientes implements ActionListener, MouseListener {
     // ====== Modelo y servicio ======
     ModeloCliente modelo;
     private final ICliente servicio = new ClienteImp();
+
+    /* ===== NUEVO: DAO para tipos de cliente (para el combo) ===== */
+    private final ITipoCliente.DAO tiposDao = new TipoClienteImp();
 
     // ====== Botones (bloque superior) ======
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
@@ -41,6 +49,13 @@ public class ControladorClientes implements ActionListener, MouseListener {
     }
     private final List<ContactoTmp> bufferContactos = new ArrayList<>();
     private int tempIdSeed = -1;    // IDs negativos temporales
+
+    /* ===== NUEVO: item para el combo (muestra descripción, guarda código) ===== */
+    private static class ComboItem {
+        final Integer codigo; final String descripcion;
+        ComboItem(Integer codigo, String descripcion){ this.codigo=codigo; this.descripcion=descripcion; }
+        @Override public String toString(){ return descripcion; } // solo se verá la descripción
+    }
 
     public ControladorClientes(ModeloCliente modelo) {
         this.modelo = modelo;
@@ -91,6 +106,9 @@ public class ControladorClientes implements ActionListener, MouseListener {
         btnNuevoC.addMouseListener(this);
         btnActualizarC.addMouseListener(this);
         btnEliminarC.addMouseListener(this);
+
+        /* ===== NUEVO: cargar combo de tipos de cliente desde BD ===== */
+        cargarComboTiposCliente();
 
         // 👉 Cargar datos al iniciar
         refrescarTabla();
@@ -359,10 +377,41 @@ public class ControladorClientes implements ActionListener, MouseListener {
     private void refrescarTabla() {
         cargarTabla(servicio.obtenerTodos());
     }
+    // Cache: codigo -> descripcion de tipo_cliente
+    private final Map<Integer, String> cacheTipoCliente = new HashMap<>();
+    private void cargarCacheTiposCliente() {
+        if (!cacheTipoCliente.isEmpty()) return;  // ya cargado
+        try {
+            var con = com.umg.seguridad.Sesion.getConexion();
+            var ps  = con.preparar("SELECT codigo, descripcion FROM tipo_cliente");
+            var rs  = ps.executeQuery();
+            while (rs.next()) {
+                java.math.BigDecimal bd = rs.getBigDecimal(1);  // NUMBER -> BigDecimal
+                int codigo = (bd == null) ? 0 : bd.intValue();
+                cacheTipoCliente.put(codigo, rs.getString(2));
+            }
+        } catch (Exception e) {
+            System.out.println("WARN tipos_cliente cache: " + e.getMessage());
+        }
+    }
+    private void actualizarTablaUI(JTable t) {
+        if (t == null) return;
+        SwingUtilities.invokeLater(() -> {
+            if (t.getModel() instanceof javax.swing.table.DefaultTableModel m) {
+                m.fireTableDataChanged();
+            }
+            t.revalidate();
+            t.repaint();
+        });
+    }
+
 
     private void cargarTabla(List<ModeloCliente> data) {
         JTable tabla = tablaClientes();
         if (tabla == null) return;
+
+        // asegúrate de tener el cache cargado
+        cargarCacheTiposCliente();
 
         DefaultTableModel model = new DefaultTableModel() {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -370,12 +419,17 @@ public class ControladorClientes implements ActionListener, MouseListener {
         model.setColumnIdentifiers(new Object[]{"NIT", "Nombre", "Apellido", "Tipo de Cliente"});
 
         for (var c : data) {
-            String nombres  = join(c.getNombre1(), c.getNombre2(), c.getNombre3());
-            String apellidos= join(c.getApellido1(), c.getApellido2(), c.getApellidoCasada());
-            model.addRow(new Object[]{ c.getNit(), nombres, apellidos, c.getTipoCliente() });
+            String nombres   = join(c.getNombre1(), c.getNombre2(), c.getNombre3());
+            String apellidos = join(c.getApellido1(), c.getApellido2(), c.getApellidoCasada());
+            String tipoDesc  = (c.getTipoCliente() == null)
+                    ? ""
+                    : cacheTipoCliente.getOrDefault(c.getTipoCliente(), String.valueOf(c.getTipoCliente()));
+            model.addRow(new Object[]{ c.getNit(), nombres, apellidos, tipoDesc });
         }
         tabla.setModel(model);
+        actualizarTablaUI(tabla); // si ya agregaste este helper; opcional pero recomendado
     }
+
 
     private void refrescarTablaContactos() {
         JTable tabla = tablaContactos();
@@ -403,8 +457,7 @@ public class ControladorClientes implements ActionListener, MouseListener {
                 t.identificacion = x.getIdentificacion();
                 t.correlativo    = (x.getCorrelativo() != null) ? x.getCorrelativo() : corr;
                 t.tipoContacto   = x.getTipoContacto();
-                // usa los getters EXACTOS de tu ModeloContactoCliente:
-                t.info           = x.getInfoContacto(); // <- si en tu modelo es getInfo(), cámbialo aquí
+                t.info           = x.getInfoContacto();
                 t.telefono       = x.getTelefono();
                 t.nit            = nit;
                 bufferContactos.add(t);
@@ -470,20 +523,13 @@ public class ControladorClientes implements ActionListener, MouseListener {
         return c;
     }
 
-    // Lee el código de "Tipo de Cliente" del combo de la vista
+    // Lee el código de "Tipo de Cliente" del combo de la vista (usando ComboItem)
     private Integer leerTipoClienteDesdeUI() {
         JComboBox<?> cmb = localizarComboTipoCliente();
         if (cmb == null) return null;
         Object sel = cmb.getSelectedItem();
-        if (sel == null) return null;
-
-        String s = sel.toString().trim();
-        try {
-            if (s.matches("\\d+")) return Integer.parseInt(s);
-            int p = s.indexOf('-'); if (p < 0) p = s.indexOf(' ');
-            if (p > 0) s = s.substring(0, p).trim();
-            return Integer.parseInt(s);
-        } catch (Exception ignore) { return null; }
+        if (sel instanceof ComboItem ci) return ci.codigo;
+        return null;
     }
 
     private boolean validarMinimo(ModeloCliente c) {
@@ -555,14 +601,12 @@ public class ControladorClientes implements ActionListener, MouseListener {
         }
     }
 
+    // Selecciona en combo por código (funciona con ComboItem)
     private void setComboByCode(JComboBox<?> combo, Integer code) {
         if (combo == null || code == null) return;
-        String busca = String.valueOf(code);
         for (int i = 0; i < combo.getItemCount(); i++) {
             Object it = combo.getItemAt(i);
-            if (it == null) continue;
-            String s = it.toString();
-            if (s.equals(busca) || s.startsWith(busca + " ") || s.startsWith(busca + "-")) {
+            if (it instanceof ComboItem ci && code.equals(ci.codigo)) {
                 combo.setSelectedIndex(i);
                 break;
             }
@@ -632,4 +676,23 @@ public class ControladorClientes implements ActionListener, MouseListener {
 
     // ActionListener (no lo usas con paneles, pero lo dejamos)
     @Override public void actionPerformed(ActionEvent e) { }
+
+    /* ========= NUEVO: Cargar combo desde la BD ========= */
+    private void cargarComboTiposCliente() {
+        JComboBox<?> cb = localizarComboTipoCliente();
+        if (cb == null) return;
+
+        DefaultComboBoxModel<ComboItem> model = new DefaultComboBoxModel<>();
+        model.addElement(new ComboItem(null, "-- Seleccione --"));
+        try {
+            for (var r : tiposDao.listarOrdenadoPor("descripcion")) {
+                model.addElement(new ComboItem(r.codigo, r.descripcion));
+            }
+        } catch (Exception ex) {
+            mensaje("Error cargando tipos de cliente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        @SuppressWarnings("unchecked")
+        JComboBox<ComboItem> real = (JComboBox<ComboItem>) cb;
+        real.setModel(model);
+    }
 }

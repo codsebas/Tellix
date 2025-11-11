@@ -107,20 +107,21 @@ public class ClienteImp implements ICliente {
         return lista;
     }
 
-    // Quita cualquier referencia a 'codigo' en el mapeo:
     private ModeloCliente mapRowCliente(ResultSet rs) throws SQLException {
         ModeloCliente c = new ModeloCliente();
         c.setNit(rs.getString("nit"));
-        // c.setCodigo(...)  // <-- ELIMINADO
         c.setNombre1(rs.getString("nombre_1"));
         c.setNombre2(rs.getString("nombre_2"));
         c.setNombre3(rs.getString("nombre_3"));
         c.setApellido1(rs.getString("apellido_1"));
         c.setApellido2(rs.getString("apellido_2"));
         c.setApellidoCasada(rs.getString("apellido_casada"));
-        c.setTipoCliente((Integer) rs.getObject("tipo_cliente"));
-        Object lim = rs.getObject("limite_credito");
+
+        c.setTipoCliente(getIntOrNull(rs, "tipo_cliente"));   // <--- CAMBIO
+
+        Object lim = rs.getObject("limite_credito");          // NUMBER -> BigDecimal
         c.setLimiteCredito(lim == null ? null : ((Number) lim).doubleValue());
+
         c.setDireccion(rs.getString("direccion"));
         c.setEstado(rs.getString("estado"));
         return c;
@@ -162,15 +163,14 @@ public class ClienteImp implements ICliente {
         try {
             PreparedStatement ps = con.preparar(sql.getBUSCAR_CLIENTE());
             String like = "%" + (texto == null ? "" : texto.trim().toUpperCase()) + "%";
-            ps.setString(1, like); // contra NIT
-            ps.setString(2, like); // contra nombres/apellidos (según tu query)
+            ps.setString(1, like);
+            ps.setString(2, like);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ModeloCliente c = new ModeloCliente();
                 c.setNit(rs.getString("nit"));
-                c.setTipoCliente((Integer) rs.getObject("tipo_cliente"));
-                // Si tu SELECT devuelve más columnas, complétalas aquí
+                c.setTipoCliente(getIntOrNull(rs, "tipo_cliente"));   // <--- CAMBIO
                 lista.add(c);
             }
         } catch (Exception e) {
@@ -178,6 +178,7 @@ public class ClienteImp implements ICliente {
         }
         return lista;
     }
+
 
     @Override
     public String decirHola() {
@@ -238,32 +239,33 @@ public class ClienteImp implements ICliente {
         return lista;
     }
 
-    // com/umg/implementacion/ClienteImp.java
     @Override
     public boolean insertarContactoCliente(int identificacion,
-                                           int correlativo,
+                                           int correlativo,                // <--- se ignora (identity en BD)
                                            Integer tipoContacto,
                                            String infoContacto,
                                            String telefono,
                                            String nitCliente) {
         try {
             PreparedStatement ps = con.preparar(sql.getINSERTAR_CONTACTO_CLIENTE());
-            ps.setInt(1, identificacion);
-            ps.setInt(2, correlativo);
-            if (tipoContacto == null) {
-                ps.setNull(3, java.sql.Types.INTEGER);
-            } else {
-                ps.setInt(3, tipoContacto);
-            }
-            ps.setString(4, infoContacto);
-            ps.setString(5, telefono);
-            ps.setString(6, nitCliente);
+            int i = 1;
+            ps.setInt(i++, identificacion);                           // identificacion
+            if (tipoContacto == null) ps.setNull(i++, Types.INTEGER); // tipo_contacto
+            else                     ps.setInt(i++, tipoContacto);
+            ps.setString(i++, infoContacto);                          // info_contacto
+            ps.setString(i++, telefono);                              // telefono
+            ps.setString(i++, nitCliente);                            // fk_cliente_nit
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error insertarContactoCliente: " + e.getMessage());
             return false;
         }
     }
+    private Integer getIntOrNull(ResultSet rs, String col) throws SQLException {
+        java.math.BigDecimal bd = rs.getBigDecimal(col);
+        return (bd == null) ? null : bd.intValue();
+    }
+
 
 
     /** Borra todos los contactos de un NIT (útil para actualizar por reemplazo). */

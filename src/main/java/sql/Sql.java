@@ -532,17 +532,12 @@ ORDER BY nit
         SELECT NVL(MAX(identificacion), 0) + 1 AS next_id
           FROM contacto_cliente
     """;
-    // Insertar contacto
-    private final String INSERTAR_CONTACTO_CLIENTE = """
-        INSERT INTO contacto_cliente(
-            identificacion,
-            correlativo_contacto,
-            tipo_contacto,
-            info_contacto,
-            telefono,
-            fk_cliente_nit
-        ) VALUES ( ?, ?, ?, ?, ?, ? )
-    """;
+    // NO se inserta correlativo_contacto porque es GENERATED ALWAYS AS IDENTITY
+    private final String INSERTAR_CONTACTO_CLIENTE =
+            "INSERT INTO contacto_cliente (" +
+                    "  identificacion, tipo_contacto, info_contacto, telefono, fk_cliente_nit" +
+                    ") VALUES (?, ?, ?, ?, ?)";
+
     // Eliminar todos los contactos de un NIT (para reemplazo en actualizar)
     private final String ELIMINAR_CONTACTOS_POR_CLIENTE = """
         DELETE FROM contacto_cliente
@@ -592,6 +587,21 @@ FROM cliente
 WHERE estado = 'A'
 ORDER BY nit
 """;
+    //sentencias de tipo de contacto
+    private final String INSERTAR_TIPO_CLIENTE = "INSERT INTO tipo_cliente (descripcion) VALUES (?)";
+
+    private final String ACTUALIZAR_TIPO_CLIENTE = "UPDATE tipo_cliente SET descripcion = ? WHERE codigo = ?";
+
+    private final String ELIMINAR_TIPO_CLIENTE = "DELETE FROM tipo_cliente WHERE codigo = ?";
+
+    private final String CONSULTAR_TIPO_CLIENTE_POR_CODIGO = "SELECT codigo, descripcion FROM tipo_cliente WHERE codigo = ?";
+
+    private final String CONSULTAR_TODOS_TIPO_CLIENTE_ORD_CODIGO = "SELECT codigo, descripcion FROM tipo_cliente ORDER BY codigo";
+
+    private final String CONSULTAR_TODOS_TIPO_CLIENTE_ORD_DESCRIPCION = "SELECT codigo, descripcion FROM tipo_cliente ORDER BY descripcion";
+
+    private final String BUSCAR_TIPO_CLIENTE_POR_DESCRIPCION = "SELECT codigo, descripcion FROM tipo_cliente WHERE UPPER(descripcion) LIKE UPPER(?) ORDER BY codigo";
+
 
 
     // --- CONSTRUCTOR ---
@@ -949,6 +959,46 @@ ORDER BY nit
 
     public String getOBTENER_NITS_CLIENTE() {
         return OBTENER_NITS_CLIENTE;
+    }
+
+    public String getOBTENER_CODIGOS() {
+        return OBTENER_CODIGOS;
+    }
+
+    public String getOBTENER_DESCRIPCIONES() {
+        return OBTENER_DESCRIPCIONES;
+    }
+
+    public String getBUSCAR_CATEGORIsA() {
+        return BUSCAR_CATEGORIsA;
+    }
+
+    public String getINSERTAR_TIPO_CLIENTE() {
+        return INSERTAR_TIPO_CLIENTE;
+    }
+
+    public String getACTUALIZAR_TIPO_CLIENTE() {
+        return ACTUALIZAR_TIPO_CLIENTE;
+    }
+
+    public String getELIMINAR_TIPO_CLIENTE() {
+        return ELIMINAR_TIPO_CLIENTE;
+    }
+
+    public String getCONSULTAR_TIPO_CLIENTE_POR_CODIGO() {
+        return CONSULTAR_TIPO_CLIENTE_POR_CODIGO;
+    }
+
+    public String getCONSULTAR_TODOS_TIPO_CLIENTE_ORD_CODIGO() {
+        return CONSULTAR_TODOS_TIPO_CLIENTE_ORD_CODIGO;
+    }
+
+    public String getCONSULTAR_TODOS_TIPO_CLIENTE_ORD_DESCRIPCION() {
+        return CONSULTAR_TODOS_TIPO_CLIENTE_ORD_DESCRIPCION;
+    }
+
+    public String getBUSCAR_TIPO_CLIENTE_POR_DESCRIPCION() {
+        return BUSCAR_TIPO_CLIENTE_POR_DESCRIPCION;
     }
 }
 

@@ -245,7 +245,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblTiposDeCliente;
+    public  javax.swing.JTable tblTiposDeCliente;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;
