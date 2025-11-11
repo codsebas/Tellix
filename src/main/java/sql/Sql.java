@@ -446,7 +446,152 @@ public class Sql {
     ORDER BY i.codigo_producto, i.fecha_operacion
 """;
 
+    //clientes axel deja de borrarme mis cosas
+    // INSERT sin 'codigo'
+    private final String INSERTAR_CLIENTE = """
+INSERT INTO cliente (
+  nit, nombre_1, nombre_2, nombre_3,
+  apellido_1, apellido_2, apellido_casada,
+  tipo_cliente, limite_credito, direccion, estado
+) VALUES (?,?,?,?,?,?,?,?,?,?,?)
+""";
 
+    // UPDATE sin 'codigo' (incluye estado)
+    private final String ACTUALIZAR_CLIENTE = """
+UPDATE cliente SET
+  nombre_1=?, nombre_2=?, nombre_3=?,
+  apellido_1=?, apellido_2=?, apellido_casada=?,
+  tipo_cliente=?, limite_credito=?, direccion=?, estado=?
+WHERE nit=?
+""";
+
+    // Soft delete
+    private final String ELIMINAR_CLIENTE_SOFT =
+            "UPDATE cliente SET estado='I' WHERE nit=?";
+
+    // Select por NIT (sin 'codigo')
+    private final String CONSULTA_CLIENTE_POR_NIT = """
+SELECT
+  nit, nombre_1, nombre_2, nombre_3,
+  apellido_1, apellido_2, apellido_casada,
+  tipo_cliente, limite_credito, direccion, estado
+FROM cliente
+WHERE nit=?
+""";
+
+    // Todos activos (sin 'codigo')
+    private final String CONSULTA_TODOS_CLIENTES_ACTIVOS = """
+SELECT
+  nit, nombre_1, nombre_2, nombre_3,
+  apellido_1, apellido_2, apellido_casada,
+  tipo_cliente, limite_credito, direccion, estado
+FROM cliente
+WHERE estado='A'
+ORDER BY nit
+""";
+
+    // Para la tabla simple (ajústalo si usas otro)
+    private final String LISTAR_CLIENTES = """
+SELECT nit, nombre_1, apellido_1, tipo_cliente, estado
+FROM cliente
+ORDER BY nit
+""";
+
+    // Búsqueda (sin 'codigo')
+    private final String BUSCAR_CLIENTE = """
+SELECT
+  nit, nombre_1, nombre_2, nombre_3,
+  apellido_1, apellido_2, apellido_casada,
+  tipo_cliente, limite_credito, direccion, estado
+FROM cliente
+WHERE UPPER(nit) LIKE ?
+   OR UPPER(
+        NVL(nombre_1,'')||' '||NVL(nombre_2,'')||' '||NVL(nombre_3,'')||' '||
+        NVL(apellido_1,'')||' '||NVL(apellido_2,'')||' '||NVL(apellido_casada,'')
+      ) LIKE ?
+ORDER BY nit
+""";
+
+    // Para ComboBox de nombres completos
+    private final String OBTENER_NOMBRES_COMPLETOS_CLIENTE = """
+        SELECT TRIM(
+                 NVL(nombre_1,'') || ' ' ||
+                 NVL(nombre_2,'') || ' ' ||
+                 NVL(nombre_3,'') || ' ' ||
+                 NVL(apellido_1,'') || ' ' ||
+                 NVL(apellido_2,'') || ' ' ||
+                 NVL(apellido_casada,'')
+               ) AS nombre_completo
+          FROM cliente
+         WHERE estado = 'A'
+         ORDER BY nombre_1, apellido_1
+    """;
+
+    // Siguiente ID (simple MAX+1). Si luego usas SEQUENCE/IDENTITY, reemplaza por NEXTVAL/IDENTITY.
+    private final String NEXT_ID_CONTACTO_CLIENTE = """
+        SELECT NVL(MAX(identificacion), 0) + 1 AS next_id
+          FROM contacto_cliente
+    """;
+    // Insertar contacto
+    private final String INSERTAR_CONTACTO_CLIENTE = """
+        INSERT INTO contacto_cliente(
+            identificacion,
+            correlativo_contacto,
+            tipo_contacto,
+            info_contacto,
+            telefono,
+            fk_cliente_nit
+        ) VALUES ( ?, ?, ?, ?, ?, ? )
+    """;
+    // Eliminar todos los contactos de un NIT (para reemplazo en actualizar)
+    private final String ELIMINAR_CONTACTOS_POR_CLIENTE = """
+        DELETE FROM contacto_cliente
+         WHERE fk_cliente_nit = ?
+    """;
+    // Consultar contactos por NIT (para llenar la tabla/buffer)
+    private final String CONSULTAR_CONTACTOS_POR_CLIENTE = """
+        SELECT identificacion,
+               correlativo_contacto,
+               tipo_contacto,
+               info_contacto,
+               telefono,
+               fk_cliente_nit
+          FROM contacto_cliente
+         WHERE fk_cliente_nit = ?
+         ORDER BY correlativo_contacto
+    """;
+    // (Opcional) Actualizar un contacto puntual por PK
+    private final String ACTUALIZAR_CONTACTO_CLIENTE = """
+        UPDATE contacto_cliente
+           SET correlativo_contacto = ?,
+               tipo_contacto = ?,
+               info_contacto = ?,
+               telefono = ?
+         WHERE identificacion = ?
+    """;
+    // (Opcional) Eliminar un contacto puntual por PK
+    private final String ELIMINAR_CONTACTO_POR_ID = """
+        DELETE FROM contacto_cliente
+         WHERE identificacion = ?
+    """;
+    // En sql.Sql
+    private final String OBTENER_CONTACTOS_POR_CLIENTE = """
+    SELECT identificacion,
+           correlativo_contacto,
+           tipo_contacto,
+           info_contacto,
+           telefono,
+           fk_cliente_nit
+    FROM contacto_cliente
+    WHERE fk_cliente_nit = ?
+    ORDER BY correlativo_contacto
+""";
+    private final String OBTENER_NITS_CLIENTE = """
+SELECT nit
+FROM cliente
+WHERE estado = 'A'
+ORDER BY nit
+""";
 
 
     // --- CONSTRUCTOR ---
@@ -730,6 +875,80 @@ public class Sql {
 
     public String getREPORTE_INVENTARIO_RANGO() {
         return REPORTE_INVENTARIO_RANGO;
+    }
+
+    public String getCONSULTA_TODAS_TIPOSDECONTACTO() {
+        return CONSULTA_TODAS_TIPOSDECONTACTO;
+    }
+
+    public String getACTUALIZAR_TIPOSDECONTACTO() {
+        return ACTUALIZAR_TIPOSDECONTACTO;
+    }
+
+    public String getINSERTAR_CLIENTE() {
+        return INSERTAR_CLIENTE;
+    }
+
+    public String getACTUALIZAR_CLIENTE() {
+        return ACTUALIZAR_CLIENTE;
+    }
+
+    public String getELIMINAR_CLIENTE_SOFT() {
+        return ELIMINAR_CLIENTE_SOFT;
+    }
+
+    public String getCONSULTA_CLIENTE_POR_NIT() {
+        return CONSULTA_CLIENTE_POR_NIT;
+    }
+
+    public String getCONSULTA_TODOS_CLIENTES_ACTIVOS() {
+        return CONSULTA_TODOS_CLIENTES_ACTIVOS;
+    }
+
+
+
+    public String getOBTENER_NOMBRES_COMPLETOS_CLIENTE() {
+        return OBTENER_NOMBRES_COMPLETOS_CLIENTE;
+    }
+
+    public String getBUSCAR_CLIENTE() {
+        return BUSCAR_CLIENTE;
+    }
+
+    public String getLISTAR_CLIENTES() {
+        return LISTAR_CLIENTES;
+    }
+
+    public String getNEXT_ID_CONTACTO_CLIENTE() {
+        return NEXT_ID_CONTACTO_CLIENTE;
+    }
+
+    public String getINSERTAR_CONTACTO_CLIENTE() {
+        return INSERTAR_CONTACTO_CLIENTE;
+    }
+
+    public String getELIMINAR_CONTACTOS_POR_CLIENTE() {
+        return ELIMINAR_CONTACTOS_POR_CLIENTE;
+    }
+
+    public String getCONSULTAR_CONTACTOS_POR_CLIENTE() {
+        return CONSULTAR_CONTACTOS_POR_CLIENTE;
+    }
+
+    public String getACTUALIZAR_CONTACTO_CLIENTE() {
+        return ACTUALIZAR_CONTACTO_CLIENTE;
+    }
+
+    public String getELIMINAR_CONTACTO_POR_ID() {
+        return ELIMINAR_CONTACTO_POR_ID;
+    }
+
+    public String getOBTENER_CONTACTOS_POR_CLIENTE() {
+        return OBTENER_CONTACTOS_POR_CLIENTE;
+    }
+
+    public String getOBTENER_NITS_CLIENTE() {
+        return OBTENER_NITS_CLIENTE;
     }
 }
 

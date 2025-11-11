@@ -11,7 +11,7 @@ public class Conector {
     // Datos de conexión
     private final String HOST = "localhost";
     private final String PORT = "1521";
-    private final String SERVICE = "FREEPDB1"; // Service Name del PDB
+    private final String SERVICE = "freepdb1"; // Service Name del PDB
     private String usuario;
     private String contrasena;
 
