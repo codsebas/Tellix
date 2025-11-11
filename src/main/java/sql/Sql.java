@@ -2,7 +2,17 @@ package sql;
 
 public class Sql {
 
-    //En esta clase deben colocar todos los SQL que se utlizaran, ya sea para realizar sus cruds, o solamente las consultas.
+    //
+    //
+    // ---------------------------------------------------------------------
+    // --- CONSTANTES PARA TABLA MARCAS (CRUD) ---
+    // ---------------------------------------------------------------------//En esta clase deben colocar todos los SQL que se utlizaran, ya sea para realizar sus cruds, o solamente las consultas.
+    // MARCA
+    private final String INSERTAR_MARCA = "INSERT INTO marca (marca, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_MARCAS = "SELECT marca, descripcion FROM marca";
+    private final String CONSULTA_MARCA_POR_CODIGO = "SELECT marca, descripcion FROM marca WHERE marca = ?";
+    private final String ACTUALIZAR_MARCA = "UPDATE marca SET descripcion = ? WHERE marca = ?";
+    private final String ELIMINAR_MARCA = "DELETE FROM marca WHERE marca = ?";
     // ---------------------------------------------------------------------
     // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
     // ---------------------------------------------------------------------
@@ -639,7 +649,12 @@ public class Sql {
     public static String getInsertMovimientoCuenta() { return INSERT_MOVIMIENTO_CUENTA; }
     public static String getSumPagosCompra() { return SUM_PAGOS_COMPRA; }
     public static String getTotalCompra() { return TOTAL_COMPRA; }
-
+    // Luego agrega los getters
+    public String getINSERTAR_MARCA() { return INSERTAR_MARCA; }
+    public String getCONSULTA_TODAS_MARCAS() { return CONSULTA_TODAS_MARCAS; }
+    public String getCONSULTA_MARCA_POR_CODIGO() { return CONSULTA_MARCA_POR_CODIGO; }
+    public String getACTUALIZAR_MARCA() { return ACTUALIZAR_MARCA; }
+    public String getELIMINAR_MARCA() { return ELIMINAR_MARCA; }
     public String getREPORTE_VENTAS_DIA() {
         return REPORTE_VENTAS_DIA;
     }
