@@ -92,6 +92,8 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         } else if(tipoReporte == 1){
             vista.tblReporte.setModel(implementacion.ventasRangoFechas(modelo.getVista().txtFechaInicio.getText(),
                     modelo.getVista().txtFechaFin.getText()));
+        } else if (tipoReporte == 2){
+            vista.tblReporte.setModel(implementacion.ventasMensuales());
         }
     }
 

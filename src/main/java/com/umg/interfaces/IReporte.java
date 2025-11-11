@@ -5,4 +5,5 @@ import javax.swing.table.DefaultTableModel;
 public interface IReporte {
     DefaultTableModel ventasDelDia();
     DefaultTableModel ventasRangoFechas(String fechaInicio, String fechaFin);
+    DefaultTableModel ventasMensuales();
 }

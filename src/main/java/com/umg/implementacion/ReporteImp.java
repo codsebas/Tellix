@@ -19,37 +19,13 @@ public class ReporteImp implements IReporte {
     @Override
     public DefaultTableModel ventasDelDia() {
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"No.", "Cliente", "Fecha", "Producto", "Cantidad", "Precio", "Subtotal"});
-        try {
-            PreparedStatement ps = con.preparar(sql.getREPORTE_VENTAS_DIA());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                        rs.getInt(1),      // v.secuencia
-                        rs.getString(2),   // v.cliente
-                        rs.getDate(3),     // v.fecha_operacion
-                        rs.getInt(4),      // dv.codigo_producto
-                        rs.getInt(5),      // dv.cantidad
-                        rs.getDouble(6),   // dv.precio_bruto
-                        rs.getDouble(7)    // importe
-                });
-            }
-        } catch (Exception e) {
-            System.out.println("Error al obtener los datos: " + e.getMessage());
-        }
-        return model;
-    }
-
-    @Override
-    public DefaultTableModel ventasRangoFechas(String fechaInicio, String fechaFin) {
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"No.", "Cliente", "Fecha", "Producto", "Cantidad", "Precio", "Subtotal", "Tipo Fila"});
+        model.setColumnIdentifiers(new Object[]{"No.", "Cliente", "Fecha", "Producto", "Cantidad", "Precio", "Subtotal", "Totales"});
         try {
             PreparedStatement ps = con.preparar("""
     SELECT 
         v.secuencia,
-        v.cliente,
-        v.fecha_operacion,
+        MAX(v.cliente) AS cliente,
+        MAX(v.fecha_operacion) AS fecha_operacion,
         dv.codigo_producto,
         SUM(dv.cantidad) AS cantidad,
         MAX(dv.precio_bruto) AS precio,
@@ -61,10 +37,54 @@ public class ReporteImp implements IReporte {
         END AS tipo_fila
     FROM tellix.venta v
     JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
-    WHERE v.fecha_operacion BETWEEN ? AND ?
-    GROUP BY ROLLUP(v.secuencia, dv.codigo_producto, v.cliente, v.fecha_operacion)
-    ORDER BY v.fecha_operacion, v.secuencia, dv.codigo_producto
+    WHERE TRUNC(v.fecha_operacion) = TRUNC(SYSDATE)
+    GROUP BY ROLLUP(v.secuencia, dv.codigo_producto)
+    ORDER BY MAX(v.fecha_operacion), v.secuencia, dv.codigo_producto
 """);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                        rs.getInt(1),      // v.secuencia
+                        rs.getString(2),   // v.cliente
+                        rs.getDate(3),     // v.fecha_operacion
+                        rs.getInt(4),      // dv.codigo_producto
+                        rs.getInt(5),      // dv.cantidad
+                        rs.getDouble(6),   // dv.precio_bruto
+                        rs.getDouble(7),    // importe
+                        rs.getString(8)    // totales
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener los datos: " + e.getMessage());
+        }
+        return model;
+    }
+
+    @Override
+    public DefaultTableModel ventasRangoFechas(String fechaInicio, String fechaFin) {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"No.", "Cliente", "Fecha", "Producto", "Cantidad", "Precio", "Subtotal", "Totales"});
+        try {
+            PreparedStatement ps = con.preparar("""
+               SELECT
+                   v.secuencia,
+                   MAX(v.cliente) AS cliente,
+                   MAX(v.fecha_operacion) AS fecha_operacion,
+                   dv.codigo_producto,
+                   SUM(dv.cantidad) AS cantidad,
+                   MAX(dv.precio_bruto) AS precio,
+                   SUM(dv.cantidad * dv.precio_bruto) AS subtotal,
+                   CASE
+                       WHEN GROUPING(v.secuencia) = 1 AND GROUPING(dv.codigo_producto) = 1 THEN 'TOTAL GENERAL'
+                       WHEN GROUPING(dv.codigo_producto) = 1 THEN 'TOTAL VENTA'
+                       ELSE NULL
+                   END AS tipo_fila
+               FROM tellix.venta v
+               JOIN tellix.detalle_venta dv ON dv.secuencia = v.secuencia
+               WHERE v.fecha_operacion BETWEEN ? AND ?
+               GROUP BY ROLLUP(v.secuencia, dv.codigo_producto)
+               ORDER BY MAX(v.fecha_operacion), v.secuencia, dv.codigo_producto
+            """);
             ps.setDate(1, Date.valueOf(fechaInicio));
             ps.setDate(2, Date.valueOf(fechaFin));
             ResultSet rs = ps.executeQuery();
@@ -78,6 +98,25 @@ public class ReporteImp implements IReporte {
                         rs.getDouble(6),   // dv.precio_bruto
                         rs.getDouble(7),
                         rs.getString(8)
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("Error al obtener los datos: " + e.getMessage());
+        }
+        return model;
+    }
+
+    @Override
+    public DefaultTableModel ventasMensuales() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Mes", "Total"});
+        try {
+            PreparedStatement ps = con.preparar(sql.getREPORTE_VENTAS_MENSUALES());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                        rs.getString(1),
+                        rs.getDouble(2)
                 });
             }
         } catch (Exception e) {
