@@ -1,24 +1,26 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.umg.vistas;
-import com.umg.controlador.ControladorTiposDeContacto;
-import com.umg.controlador.ControladorTiposDeContacto;
-import com.umg.modelo.ModeloTiposDeContacto;
+import com.umg.controlador.ControladorTiposDeCuenta;
+import com.umg.controlador.ControladorTiposDeCuenta;
+import com.umg.modelo.ModeloTiposDeCuenta;
 /**
  *
- * @author axels
+ * @author Lisi
  */
-public class VistaTiposDeContacto extends javax.swing.JPanel {
+public class VistaTiposDeCuenta extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaTiposDeCuenta.class.getName());
 
     /**
-     * Creates new form VistaCuentasPorCobrar
+     * Creates new form VistaTiposDeCuenta
      */
-    public VistaTiposDeContacto() {
+    public VistaTiposDeCuenta() {
         initComponents();
-        ModeloTiposDeContacto modelo = new ModeloTiposDeContacto(this);
-        ControladorTiposDeContacto controlador = new ControladorTiposDeContacto(modelo);
+        ModeloTiposDeCuenta modelo = new ModeloTiposDeCuenta(this);
+        ControladorTiposDeCuenta controlador = new ControladorTiposDeCuenta(modelo);
         setControlador(controlador);
     }
 
@@ -45,7 +47,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblTiposDeContacto = new javax.swing.JTable();
+        tblTiposDeCuenta = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblLimpiar = new javax.swing.JLabel();
@@ -59,8 +61,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(880, 720));
-        setPreferredSize(new java.awt.Dimension(880, 720));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(245, 247, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,7 +69,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 117, 125));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tipos de Contacto");
+        jLabel1.setText("TIPOS DE CUENTA");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
         btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
@@ -127,7 +128,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
-        tblTiposDeContacto.setModel(new javax.swing.table.DefaultTableModel(
+        tblTiposDeCuenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -138,7 +139,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
                 "Código", "Descripción"
             }
         ));
-        jScrollPane1.setViewportView(tblTiposDeContacto);
+        jScrollPane1.setViewportView(tblTiposDeCuenta);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 600, 460));
 
@@ -202,8 +203,8 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
 
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,8 +213,34 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new VistaTiposDeCuenta().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel btnActualizar;
@@ -239,12 +266,12 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblTiposDeContacto;
+    private javax.swing.JTable tblTiposDeCuenta;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
-public void setControlador(ControladorTiposDeContacto controlador) {
+public void setControlador(ControladorTiposDeCuenta controlador) {
         this.btnActualizar.addMouseListener(controlador);
         this.btnEliminar.addMouseListener(controlador);
         this.btnNuevo.addMouseListener(controlador);

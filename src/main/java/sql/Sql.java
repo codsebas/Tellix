@@ -24,6 +24,126 @@ public class Sql {
     WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
     ORDER BY codigo
 """;
+    // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_DESCUENTOS = "INSERT INTO descuentos (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_DESCUENTOS = "SELECT codigo, descripcion FROM descuentos";
+    private final String CONSULTA_DESCUENTOS_POR_CODIGO = "SELECT codigo, descripcion FROM descuentos WHERE codigo = ?";
+    private final String ACTUALIZAR_DESCUENTOS = "UPDATE descuentos SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_DESCUENTOS = "DELETE FROM descuentos WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_DESCUENTOS = "SELECT codigo FROM descuentos ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_DESCUENTOS = "SELECT descripcion FROM descuentos ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_DESCUENTOS = """
+    SELECT codigo, descripcion 
+    FROM categoria 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
+    // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_IMPUESTOS = "INSERT INTO impuestos (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_IMPUESTOS = "SELECT codigo, descripcion FROM impuestos";
+    private final String CONSULTA_IMPUESTOS_POR_CODIGO = "SELECT codigo, descripcion FROM impuestos WHERE codigo = ?";
+    private final String ACTUALIZAR_IMPUESTOS = "UPDATE impuestos SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_IMPUESTOS = "DELETE FROM impuestos WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_IMPUESTOS = "SELECT codigo FROM impuestos ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_IMPUESTOS = "SELECT descripcion FROM impuestos ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_IMPUESTOS = """
+    SELECT codigo, descripcion 
+    FROM categoria 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
+    // --- CONSTANTES PARA TABLA METODOSDELIQUIDACION (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_METODOSDELIQUIDACION = "INSERT INTO metodosdeliquidacion (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_METODOSDELIQUIDACION = "SELECT codigo, descripcion FROM metodosdeliquidacion";
+    private final String CONSULTA_METODOSDELIQUIDACION_POR_CODIGO = "SELECT codigo, descripcion FROM metodosdeliquidacion WHERE codigo = ?";
+    private final String ACTUALIZAR_METODOSDELIQUIDACION = "UPDATE metodosdeliquidacion SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_METODOSDELIQUIDACION = "DELETE FROM metodosdeliquidacion WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_METODOSDELIQUIDACION = "SELECT codigo FROM metodosdeliquidacion ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_METODOSDELIQUIDACION = "SELECT descripcion FROM categoria ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_METODOSDELIQUIDACION = """
+    SELECT codigo, descripcion 
+    FROM metodosdeliquidacion 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
+    // --- CONSTANTES PARA TABLA BANCOS (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_BANCOS = "INSERT INTO bancos (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_BANCOS = "SELECT codigo, descripcion FROM bancos";
+    private final String CONSULTA_BANCOS_POR_CODIGO = "SELECT codigo, descripcion FROM bancos WHERE codigo = ?";
+    private final String ACTUALIZAR_BANCOS = "UPDATE bancos SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_BANCOS = "DELETE FROM bancos WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_BANCOS = "SELECT codigo FROM bancos ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_BANCOS = "SELECT descripcion FROM bancos ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_BANCOS = """
+    SELECT codigo, descripcion 
+    FROM bancos 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
+    // --- CONSTANTES PARA TABLA TIPOSDECUENTA (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_TIPOSDECUENTA = "INSERT INTO tiposdecuenta (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_TIPOSDECUENTA = "SELECT codigo, descripcion FROM tiposdecuenta";
+    private final String CONSULTA_TIPOSDECUENTA_POR_CODIGO = "SELECT codigo, descripcion FROM tiposdecuenta WHERE codigo = ?";
+    private final String ACTUALIZAR_TIPOSDECUENTA = "UPDATE tiposdecuenta SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_TIPOSDECUENTA = "DELETE FROM tiposdecuenta WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_TIPOSDECUENTA = "SELECT codigo FROM tiposdecuenta ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_TIPOSDECUENTA = "SELECT descripcion FROM tiposdecuenta ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_TIPOSDECUENTA = """
+    SELECT codigo, descripcion 
+    FROM tiposdecuenta 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
+    // --- CONSTANTES PARA TABLA TIPOSDECONTACTO (CRUD) ---
+    // ---------------------------------------------------------------------
+    private final String INSERTAR_TIPOSDECONTACTO = "INSERT INTO tiposdecontacto (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_TIPOSDECONTACTO = "SELECT codigo, descripcion FROM tiposdecontacto";
+    private final String CONSULTA_TIPOSDECONTACTO_POR_CODIGO = "SELECT codigo, descripcion FROM tiposdecontacto WHERE codigo = ?";
+    private final String ACTUALIZAR_TIPOSDECONTACTO = "UPDATE tiposdeecontacto SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_TIPOSDECONTACTO = "DELETE FROM c<tiposdeontacto WHERE codigo = ?";
+    // Para llenar ComboBox por código
+    private final String CONSULTA_CODIGOS_TIPOSDECONTACTO = "SELECT codigo FROM contacto ORDER BY codigo";
+
+    // Para llenar ComboBox por descripción
+    private final String CONSULTA_DESCRIPCIONES_TIPOSDECONTACTO = "SELECT descripcion FROM contacto ORDER BY descripcion";
+
+    // Para búsqueda insensible a mayúsculas/minúsculas
+    private final String BUSCAR_TIPOSDECONTACTO = """
+    SELECT codigo, descripcion 
+    FROM tiposdeontacto 
+    WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
+    ORDER BY codigo
+""";
     // ---------------------------------------------------------------------
     // --- CONSTANTES PARA TABLA PRODUCTO (CRUD) ---
     // ---------------------------------------------------------------------
@@ -331,6 +451,133 @@ public class Sql {
     public String getELIMINAR_CATEGORIA() {
         return ELIMINAR_CATEGORIA;
     }
+    // --- MÉTODOS GETTERS PARA DESCUENTOS ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_DESCUENTOS() {
+        return INSERTAR_DESCUENTOS;
+    }
+
+    public String getCONSULTA_TODAS_DESCUENTOS() {
+        return CONSULTA_TODAS_CATEGORIAS;
+    }
+
+    public String getCONSULTA_DESCUENTOS_POR_CODIGO() {
+        return CONSULTA_CATEGORIA_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_DESCUENTOS() {
+        return ACTUALIZAR_CATEGORIA;
+    }
+
+    public String getELIMINAR_DESCUENTOS() {
+        return ELIMINAR_DESCUENTOS;
+    }
+    // --- MÉTODOS GETTERS PARA IMPUESTOS ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_IMPUESTOS() {
+        return INSERTAR_CATEGORIA;
+    }
+
+    public String getCONSULTA_TODAS_IMPUESTOS() {
+        return CONSULTA_TODAS_IMPUESTOS;
+    }
+
+    public String getCONSULTA_IMPUESTOS_POR_CODIGO() {
+        return CONSULTA_CATEGORIA_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_IMPUESTOS() {
+        return ACTUALIZAR_CATEGORIA;
+    }
+
+    public String getELIMINAR_IMPUESTOS() {
+        return ELIMINAR_CATEGORIA;
+    }
+    // --- MÉTODOS GETTERS PARA METODOSDELIQUIDACION ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_METODOSDELIQUIDACION() {
+        return INSERTAR_METODOSDELIQUIDACION;
+    }
+
+    public String getCONSULTA_TODAS_METODOSDELIQUIDACION() {
+        return CONSULTA_TODAS_METODOSDELIQUIDACION;
+    }
+
+    public String getCONSULTA_METODOSDELIQUIDACION_POR_CODIGO() {
+        return CONSULTA_METODOSDELIQUIDACION_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_METODOSDELIQUIDACION() {
+        return ACTUALIZAR_METODOSDELIQUIDACION;
+    }
+
+    public String getELIMINAR_METODOSDELIQUIDACION() {
+        return ELIMINAR_METODOSDELIQUIDACION;
+    }
+    // --- MÉTODOS GETTERS PARA TIPOSDECUENTA ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_TIPOSDECUENTA() {
+        return INSERTAR_TIPOSDECUENTA;
+    }
+
+    public String getCONSULTA_TODAS_TIPOSDECUENTA() {
+        return CONSULTA_TODAS_TIPOSDECUENTA;
+    }
+
+    public String getCONSULTA_TIPOSDECUENTA_POR_CODIGO() {
+        return CONSULTA_TIPOSDECUENTA_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_TIPOSDECUENTA() {
+        return ACTUALIZAR_TIPOSDECUENTA;
+    }
+
+    public String getELIMINAR_TIPOSDECUENTA() {
+        return ELIMINAR_TIPOSDECUENTA;
+    }
+    // --- MÉTODOS GETTERS PARA BANCOS ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_BANCOS() {
+        return INSERTAR_BANCOS;
+    }
+
+    public String getCONSULTA_TODAS_BANCOS() {
+        return CONSULTA_TODAS_BANCOS;
+    }
+
+    public String getCONSULTA_BANCOS_POR_CODIGO() {
+        return CONSULTA_BANCOS_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_BANCOS() {
+        return ACTUALIZAR_BANCOS;
+    }
+
+    public String getELIMINAR_BANCOS() {
+        return ELIMINAR_BANCOS;
+    }
+    // --- MÉTODOS GETTERS PARA TIPOSDECONTACTO ---
+    // ---------------------------------------------------------------------
+    public String getINSERTAR_TIPOSDECONTACTO() {
+        return INSERTAR_TIPOSDECONTACTO;
+    }
+
+    public String getCONSULTA_TODAS_MEDIDA() {
+        return CONSULTA_TODAS_TIPOSDECONTACTO;
+    }
+
+    public String getCONSULTA_TIPOSDECONTACTO_POR_CODIGO() {
+        return CONSULTA_TIPOSDECONTACTO_POR_CODIGO;
+    }
+
+    public String getACTUALIZAR_MEDIDA() {
+        return ACTUALIZAR_TIPOSDECONTACTO;
+    }
+
+    public String getELIMINAR_TIPOSDECONTACTO() {
+        return ELIMINAR_TIPOSDECONTACTO;
+    }
+
     // ---------------------------------------------------------------------
     // --- MÉTODOS GETTERS PARA PRODUCTO ---
     // ---------------------------------------------------------------------
@@ -356,7 +603,30 @@ public class Sql {
     public String getCONSULTA_CODIGOS_CATEGORIA() { return CONSULTA_CODIGOS_CATEGORIA; }
     public String getCONSULTA_DESCRIPCIONES_CATEGORIA() { return CONSULTA_DESCRIPCIONES_CATEGORIA; }
     public String getBUSCAR_CATEGORIA() { return BUSCAR_CATEGORIA; }
+    
+    public String getCONSULTA_CODIGOS_TIPOSDECONTACTO() { return CONSULTA_CODIGOS_TIPOSDECONTACTO; }
+    public String getCONSULTA_DESCRIPCIONES_TIPOSDECONTACTO() { return CONSULTA_DESCRIPCIONES_TIPOSDECONTACTO; }
+    public String getBUSCAR_TIPOSDECONTACTO() { return BUSCAR_TIPOSDECONTACTO; }
+    
+    public String getCONSULTA_CODIGOS_BANCOS() { return CONSULTA_CODIGOS_BANCOS; }
+    public String getCONSULTA_DESCRIPCIONES_BANCOS() { return CONSULTA_DESCRIPCIONES_BANCOS; }
+    public String getBUSCAR_BANCOS() { return BUSCAR_BANCOS; }
 
+    public String getCONSULTA_CODIGOS_TIPOSDECUENTA() { return CONSULTA_CODIGOS_TIPOSDECUENTA; }
+    public String getCONSULTA_DESCRIPCIONES_TIPOSDECUENTA() { return CONSULTA_DESCRIPCIONES_TIPOSDECUENTA; }
+    public String getBUSCAR_TIPOSDECUENTA() { return BUSCAR_TIPOSDECUENTA; }
+    
+    public String getCONSULTA_CODIGOS_METODOSDELIQUIDACION() { return CONSULTA_CODIGOS_METODOSDELIQUIDACION; }
+    public String getCONSULTA_DESCRIPCIONES_METODOSDELIQUIDACION() { return CONSULTA_DESCRIPCIONES_METODOSDELIQUIDACION; }
+    public String getBUSCAR_METODOSDELIQUIDACION() { return BUSCAR_METODOSDELIQUIDACION; }
+    
+    public String getCONSULTA_CODIGOS_IMPUESTOS() { return CONSULTA_CODIGOS_IMPUESTOS; }
+    public String getCONSULTA_DESCRIPCIONES_IMPUESTOS() { return CONSULTA_DESCRIPCIONES_IMPUESTOS; }
+    public String getBUSCAR_IMPUESTOS() { return BUSCAR_IMPUESTOS; }
+    
+    public String getCONSULTA_CODIGOS_DESCUENTOS() { return CONSULTA_CODIGOS_DESCUENTOS; }
+    public String getCONSULTA_DESCRIPCIONES_DESCUENTOS() { return CONSULTA_DESCRIPCIONES_DESCUENTOS; }
+    public String getBUSCAR_DESCUENTOS() { return BUSCAR_DESCUENTOS; }
     // ====== Getters públicos ======
     public static String getInsertCompra() { return INSERT_COMPRA; }
     public static String getInsertDetalleCompra() { return INSERT_DETALLE_COMPRA; }

@@ -1,6 +1,6 @@
 package com.umg.implementacion;
 
-import com.umg.modelo.ModeloCategoria;
+import com.umg.modelo.ModeloMarcas;
 import com.umg.seguridad.Sesion;
 import sql.Conector;
 import sql.Sql;
@@ -15,18 +15,18 @@ public class MarcaImp {
     private Sql sql = new Sql();
 
     //Método para obtener las categorias
-    public List<ModeloCategoria> obtenerMarcas() {
-        List<ModeloCategoria> lista = new ArrayList<>();
+    public List<ModeloMarcas> obtenerMarcas() {
+        List<ModeloMarcas> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT codigo, descripcion FROM marca ORDER BY codigo"
+                    "SELECT marca, descripcion FROM marca ORDER BY marca"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                ModeloCategoria categoria = new ModeloCategoria();
-                categoria.setCodigo(rs.getInt("codigo"));
-                categoria.setDescripcion(rs.getString("descripcion"));
-                lista.add(categoria);
+                ModeloMarcas Marcas = new ModeloMarcas();
+                Marcas.setMarca(rs.getString("marca"));
+                Marcas.setDescripcion(rs.getString("descripcion"));
+                lista.add(Marcas);
             }
         } catch (Exception e) {
             System.out.println("Error obtenerMarcas: " + e.getMessage());

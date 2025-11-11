@@ -1,24 +1,24 @@
 package com.umg.modelo;
 
-import com.umg.vistas.VistaMarcas;
+import com.umg.vistas.VistaMedidas;
 
 public class ModeloMedidas {
-    VistaMarcas vista;
+    VistaMedidas vista;
 
     private String codigo;
     private String descripcion;
 
-    public ModeloMedidas(VistaMarcas vista) {
+    public ModeloMedidas(VistaMedidas vista) {
         this.vista = vista;
     }
     public ModeloMedidas(){
 
     }
-    public VistaMarcas getVista() {
+    public VistaMedidas getVista() {
         return vista;
     }
 
-    public void setVista(VistaMarcas vista) {
+    public void setVista(VistaMedidas vista) {
         this.vista = vista;
     }
 
