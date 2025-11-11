@@ -1,7 +1,6 @@
 package com.umg.controlador;
 
-import com.umg.implementacion.ReporteImp;
-import com.umg.modelo.ModeloReporteVentasYCompras;
+import com.umg.modelo.ModeloRoles;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,40 +11,38 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ControladorReporteVentasYCompras implements ActionListener, MouseListener {
-    ModeloReporteVentasYCompras modelo;
+public class ControladorRoles implements ActionListener, MouseListener {
+    ModeloRoles modelo;
 
-    private JPanel btnGenerarPDF, btnGenerarExcel, btnLimpiar, btnBuscar, btnVerReporte;
-    private JLabel lblGenerarPDF, lblGenerarExcel, lblLimpiar, lblBuscar, lblVerReporte;
+    private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
+    private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
-    ReporteImp implementacion = new ReporteImp();
-
-    public ControladorReporteVentasYCompras(ModeloReporteVentasYCompras modelo) {
+    public ControladorRoles(ModeloRoles modelo) {
         this.modelo = modelo;
 
         // Inicializar botones y labels
         var vista = modelo.getVista();
 
-        btnGenerarPDF = vista.btnGenerarPDF;
-        btnGenerarExcel = vista.btnGenerarExcel;
-        btnLimpiar = vista.btnLimpiar;
+        btnNuevo = vista.btnNuevo;
+        btnActualizar = vista.btnActualizar;
+        btnEliminar = vista.btnEliminar;
         btnBuscar = vista.btnBuscar;
-        btnVerReporte = vista.btnVerReporte;
+        btnLimpiar = vista.btnLimpiar;
 
-        lblGenerarPDF = vista.lblGenerarPDF;
-        lblGenerarExcel = vista.lblGenerarExcel;
-        lblLimpiar = vista.lblLimpiar;
+        lblNuevo = vista.lblNuevo;
+        lblActualizar = vista.lblActualizar;
+        lblEliminar = vista.lblEliminar;
         lblBuscar = vista.lblBuscar;
-        lblVerReporte = vista.lblVerReporte;
+        lblLimpiar = vista.lblLimpiar;
 
         // Dar nombre a los labels para manejar iconos
-        lblGenerarPDF.setName("icono");
-        lblGenerarExcel.setName("icono");
-        lblLimpiar.setName("icono");
+        lblNuevo.setName("icono");
+        lblActualizar.setName("icono");
+        lblEliminar.setName("icono");
         lblBuscar.setName("icono");
-        lblVerReporte.setName("icono");
+        lblLimpiar.setName("icono");
 
         inicializarIconos();
     }
@@ -57,11 +54,7 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        var vista = modelo.getVista();
-        if(e.getComponent().equals(vista.btnVerReporte)) {
-            System.out.println("click");
-            reportes();
-        }
+
     }
 
     @Override
@@ -84,20 +77,12 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         cambiarIconoBoton((JPanel) e.getSource(), false);
     }
 
-    private void reportes(){
-        var vista = modelo.getVista();
-        int tipoReporte = vista.cmbTipoReporte.getSelectedIndex();
-        if(tipoReporte == 0){
-            vista.tblReporte.setModel(implementacion.ventasDelDia());
-        }
-    }
-
     private void inicializarIconos() {
-        iconosBotones.put(btnGenerarPDF, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnGenerarExcel, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnNuevo, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnActualizar, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnEliminar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnVerReporte, "/com/umg/iconos/IconoBoton1.png");
+        iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {

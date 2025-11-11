@@ -148,6 +148,7 @@ public class ControladorMenu implements MouseListener {
         lblEmpleadosSeleccionado.setVisible(false);
 
         inicializarIconos();
+        cargarVistaPanel(vistaInicio);
     }
 
     // Componentes
@@ -211,10 +212,12 @@ public class ControladorMenu implements MouseListener {
     VistaMenuVentas vistaMenuVentas = new  VistaMenuVentas();
     VistaMenuProductos vistaMenuProductos = new VistaMenuProductos();
     VistaMenuCompras vistaMenuCompras = new  VistaMenuCompras();
-
     VistaMenuCuentas vistaMenuCuentas = new  VistaMenuCuentas();
+    VistaMenuUsuariosYRoles vistaMenuUsuariosYRoles = new  VistaMenuUsuariosYRoles();
     VistaMenuReportes vistaMenuReportes = new  VistaMenuReportes();
+    VistaMenuInventario vistaMenuInventario = new  VistaMenuInventario();
     VistaMenuConfiguracion vistaMenuConfiguracion = new  VistaMenuConfiguracion();
+    VistaEmpleados vistaEmpleados = new  VistaEmpleados();
 
 
     @Override
@@ -233,10 +236,16 @@ public class ControladorMenu implements MouseListener {
             accionBotones(btnCompras, e, vistaMenuCompras);
         } else if(source.equals(btnCuentasPorCoPa)) {
             accionBotones(btnCuentasPorCoPa, e, vistaMenuCuentas);
+        } else if(source.equals(btnUsuariosYRoles)) {
+            accionBotones(btnUsuariosYRoles, e, vistaMenuUsuariosYRoles);
         } else if(source.equals(btnReportes)) {
             accionBotones(btnReportes, e, vistaMenuReportes);
+        } else if(source.equals(btnInventario)) {
+            accionBotones(btnInventario, e, vistaMenuInventario);
         } else if(source.equals(btnConfiguracion)) {
             accionBotones(btnConfiguracion, e, vistaMenuConfiguracion);
+        } else if(source.equals(btnEmpleados)) {
+            accionBotones(btnEmpleados, e, vistaEmpleados);
         } else if (source.equals(btnCerrarSesion)) {
             reiniciarColores();
             Sesion.cerrarSesion();
