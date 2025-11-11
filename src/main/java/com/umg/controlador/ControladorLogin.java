@@ -107,8 +107,8 @@ public class ControladorLogin implements MouseListener, KeyListener {
                 // Consulta para obtener el rol del usuario según la tabla "usuario"
                 String sql = """
     SELECT rol_usuario
-    FROM tellix.usuario
-    WHERE user_name = ?
+    FROM usuario
+    WHERE usuario = ?
     AND contrasena = STANDARD_HASH(?, 'SHA256')
 """;
                 System.out.println("Usuario: " + user + " " + "Contraseña: " + pass);

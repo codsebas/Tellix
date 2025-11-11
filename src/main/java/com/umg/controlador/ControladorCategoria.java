@@ -23,9 +23,9 @@ public class ControladorCategoria implements ActionListener, MouseListener {
     public ControladorCategoria(ModeloCategoria modelo) {
         this.modelo = modelo;
 
-        // Inicializar botones y labels
         var vista = modelo.getVista();
 
+        // Inicializar botones y labels
         btnNuevo = vista.btnNuevo;
         btnActualizar = vista.btnActualizar;
         btnEliminar = vista.btnEliminar;
@@ -47,7 +47,8 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
         inicializarIconos();
         listarCategorias();
-        // --- Listener exclusivo para la tabla ---
+
+        // Listener para tabla
         modelo.getVista().tblCategorias.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -63,7 +64,6 @@ public class ControladorCategoria implements ActionListener, MouseListener {
             }
         });
 
-
         // ComboBox: ordenar automáticamente
         vista.cmbOrdenarPor.addActionListener(e -> listarCategorias());
 
@@ -78,13 +78,9 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         });
     }
 
-
     // ------------------- FUNCIONALIDAD CRUD -------------------
-
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // Opcional si decides usar ActionListener en botones además de MouseListener
-    }
+    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -99,19 +95,6 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         } else if (e.getSource() == btnLimpiar) {
             limpiarCampos();
             modelo.getVista().txtCodigo.setEditable(true);
-        } else if (e.getSource() == modelo.getVista().tblCategorias) {
-            int fila = modelo.getVista().tblCategorias.getSelectedRow();
-            if (fila >= 0) {
-                // Llenar campos
-                String codigo = modelo.getVista().tblCategorias.getValueAt(fila, 0).toString();
-                String descripcion = modelo.getVista().tblCategorias.getValueAt(fila, 1).toString();
-
-                modelo.getVista().txtCodigo.setText(codigo);
-                modelo.getVista().txtDescripcion.setText(descripcion);
-
-                // Bloquear edición del código
-                modelo.getVista().txtCodigo.setEditable(false);
-            }
         }
     }
 
@@ -151,25 +134,44 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         return c;
     }
 
+    // ------------------- VALIDACIONES -------------------
+    private boolean validarCampos(ModeloCategoria c, boolean esNuevo) {
+        if (c.getCodigo() <= 0) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "El código es obligatorio y debe ser mayor que 0");
+            return false;
+        }
+        if (c.getDescripcion().isEmpty()) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "La descripción es obligatoria");
+            return false;
+        }
+        if (esNuevo && implementacion.obtenerPorCodigo(c.getCodigo()) != null) {
+            JOptionPane.showMessageDialog(modelo.getVista(), "El código ya existe");
+            return false;
+        }
+        return true;
+    }
+
     private void nuevoCategoria() {
         ModeloCategoria c = obtenerDatosVista();
+        if (!validarCampos(c, true)) return; // Validaciones antes de insertar
         if (implementacion.insertar(c)) {
-            JOptionPane.showMessageDialog(modelo.getVista(), "Categoría insertada correctamente");
+            JOptionPane.showMessageDialog(modelo.getVista(), "✅ Categoría insertada correctamente");
             listarCategorias();
             limpiarCampos();
         } else {
-            JOptionPane.showMessageDialog(modelo.getVista(), "Error al insertar categoría");
+            JOptionPane.showMessageDialog(modelo.getVista(), "❌ Error al insertar categoría");
         }
     }
 
     private void actualizarCategoria() {
         ModeloCategoria c = obtenerDatosVista();
+        if (!validarCampos(c, false)) return; // Validaciones antes de actualizar
         if (implementacion.actualizar(c)) {
-            JOptionPane.showMessageDialog(modelo.getVista(), "Categoría actualizada correctamente");
+            JOptionPane.showMessageDialog(modelo.getVista(), "✅ Categoría actualizada correctamente");
             listarCategorias();
             limpiarCampos();
         } else {
-            JOptionPane.showMessageDialog(modelo.getVista(), "Error al actualizar categoría");
+            JOptionPane.showMessageDialog(modelo.getVista(), "❌ Error al actualizar categoría");
         }
     }
 
@@ -179,11 +181,11 @@ public class ControladorCategoria implements ActionListener, MouseListener {
             int opcion = JOptionPane.showConfirmDialog(modelo.getVista(), "¿Desea eliminar esta categoría?");
             if (opcion == JOptionPane.YES_OPTION) {
                 if (implementacion.eliminar(codigo)) {
-                    JOptionPane.showMessageDialog(modelo.getVista(), "Categoría eliminada correctamente");
+                    JOptionPane.showMessageDialog(modelo.getVista(), "✅ Categoría eliminada correctamente");
                     listarCategorias();
                     limpiarCampos();
                 } else {
-                    JOptionPane.showMessageDialog(modelo.getVista(), "Error al eliminar categoría");
+                    JOptionPane.showMessageDialog(modelo.getVista(), "❌ Error al eliminar categoría");
                 }
             }
         } catch (Exception ex) {
@@ -212,21 +214,11 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         modelo.getVista().txtBuscar.setText("");
     }
 
-
     // ------------------- EVENTOS ICONOS -------------------
-
-    @Override
-    public void mousePressed(MouseEvent e) {}
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        cambiarIconoBoton((JPanel) e.getSource(), true);
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-        cambiarIconoBoton((JPanel) e.getSource(), false);
-    }
+    @Override public void mousePressed(MouseEvent e) {}
+    @Override public void mouseReleased(MouseEvent e) {}
+    @Override public void mouseEntered(MouseEvent e) { cambiarIconoBoton((JPanel) e.getSource(), true); }
+    @Override public void mouseExited(MouseEvent e) { cambiarIconoBoton((JPanel) e.getSource(), false); }
 
     private void inicializarIconos() {
         iconosBotones.put(btnNuevo, "/com/umg/iconos/IconoBoton1.png");
@@ -247,10 +239,7 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
     private JLabel obtenerLabelPorNombre(JPanel boton, String nombre) {
         for (Component comp : boton.getComponents()) {
-            if (comp instanceof JLabel) {
-                JLabel lbl = (JLabel) comp;
-                if (nombre.equals(lbl.getName())) return lbl;
-            }
+            if (comp instanceof JLabel lbl && nombre.equals(lbl.getName())) return lbl;
         }
         return null;
     }
