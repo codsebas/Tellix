@@ -67,7 +67,7 @@ public class VistaMedidas extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 117, 125));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Marcas");
+        jLabel1.setText("Medidas");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
         btnBuscar.setBackground(new java.awt.Color(245, 247, 250));

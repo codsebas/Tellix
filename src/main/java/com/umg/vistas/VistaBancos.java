@@ -110,7 +110,7 @@ public class VistaBancos extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(33, 37, 41));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Código Number");
+        jLabel5.setText("Código");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
 
         txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
