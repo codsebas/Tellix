@@ -89,6 +89,9 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         int tipoReporte = vista.cmbTipoReporte.getSelectedIndex();
         if(tipoReporte == 0){
             vista.tblReporte.setModel(implementacion.ventasDelDia());
+        } else if(tipoReporte == 1){
+            vista.tblReporte.setModel(implementacion.ventasRangoFechas(modelo.getVista().txtFechaInicio.getText(),
+                    modelo.getVista().txtFechaFin.getText()));
         }
     }
 

@@ -44,9 +44,9 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         cmbTipoReporte = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        txtFechaFin = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        txtFechaInicio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblReporte = new javax.swing.JTable();
         btnVerReporte = new javax.swing.JPanel();
@@ -124,9 +124,9 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         jLabel5.setText("Fecha de Fin");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 200, 20));
 
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 200, 30));
+        txtFechaFin.setBackground(new java.awt.Color(255, 255, 255));
+        txtFechaFin.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(33, 37, 41));
@@ -134,9 +134,9 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         jLabel6.setText("Fecha de Inicio");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
 
-        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
-        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
+        txtFechaInicio.setBackground(new java.awt.Color(255, 255, 255));
+        txtFechaInicio.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
@@ -292,8 +292,8 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
     public javax.swing.JLabel lblVerReporte;
     public javax.swing.JTable tblReporte;
     public javax.swing.JTextField txtBuscarProveedor;
-    public javax.swing.JTextField txtCodigo;
-    public javax.swing.JTextField txtDescripcion;
+    public javax.swing.JTextField txtFechaFin;
+    public javax.swing.JTextField txtFechaInicio;
     public javax.swing.JTextField txtNITProveedor;
     public javax.swing.JTextField txtNombreProveedor;
     // End of variables declaration//GEN-END:variables
