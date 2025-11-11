@@ -1,6 +1,9 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.umg.controlador;
-
-import com.umg.modelo.ModeloMarcas;
+import com.umg.modelo.ModeloImpuestos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +13,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
-
-public class ControladorMarcas implements ActionListener, MouseListener {
-    ModeloMarcas modelo;
+/**
+ *
+ * @author Lisi
+ */
+public class ControladorImpuestos implements ActionListener, MouseListener {
+    ModeloImpuestos modelo;
 
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
-    public ControladorMarcas(ModeloMarcas modelo) {
+    public ControladorImpuestos(ModeloImpuestos modelo) {
         this.modelo = modelo;
 
         // Inicializar botones y labels
@@ -102,6 +108,5 @@ public class ControladorMarcas implements ActionListener, MouseListener {
             }
         }
         return null;
-    }
-
+    } 
 }

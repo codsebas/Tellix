@@ -1,24 +1,26 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.umg.vistas;
-import com.umg.controlador.ControladorTiposDeContacto;
-import com.umg.controlador.ControladorTiposDeContacto;
-import com.umg.modelo.ModeloTiposDeContacto;
+import com.umg.controlador.ControladorImpuestos;
+import com.umg.controlador.ControladorImpuestos;
+import com.umg.modelo.ModeloImpuestos;
 /**
  *
- * @author axels
+ * @author Lisi
  */
-public class VistaTiposDeContacto extends javax.swing.JPanel {
+public class VistaImpuestos extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaImpuestos.class.getName());
 
     /**
-     * Creates new form VistaCuentasPorCobrar
+     * Creates new form VistaImpuestos
      */
-    public VistaTiposDeContacto() {
+    public VistaImpuestos() {
         initComponents();
-        ModeloTiposDeContacto modelo = new ModeloTiposDeContacto(this);
-        ControladorTiposDeContacto controlador = new ControladorTiposDeContacto(modelo);
+        ModeloImpuestos modelo = new ModeloImpuestos(this);
+        ControladorImpuestos controlador = new ControladorImpuestos(modelo);
         setControlador(controlador);
     }
 
@@ -41,11 +43,11 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         cmbOrdenarPor = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        txtTipoCalculo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        txtValor = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblTiposDeContacto = new javax.swing.JTable();
+        tblImpuestos = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblLimpiar = new javax.swing.JLabel();
@@ -58,9 +60,12 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtCodigo1 = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtDescripcion1 = new javax.swing.JTextField();
 
-        setMinimumSize(new java.awt.Dimension(880, 720));
-        setPreferredSize(new java.awt.Dimension(880, 720));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(245, 247, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -68,7 +73,7 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 117, 125));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tipos de Contacto");
+        jLabel1.setText("Impuestos");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
         btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
@@ -110,35 +115,35 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(33, 37, 41));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Código");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
+        jLabel5.setText("Tipo Calculo");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 200, 20));
 
-        txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 200, 30));
+        txtTipoCalculo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtTipoCalculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(33, 37, 41));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Descripción");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
+        jLabel6.setText("Valor");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 200, 20));
 
-        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
+        txtValor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 200, 30));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
-        tblTiposDeContacto.setModel(new javax.swing.table.DefaultTableModel(
+        tblImpuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Descripción"
+                "Código", "Descripción", "Tipo Calculo", "Valor"
             }
         ));
-        jScrollPane1.setViewportView(tblTiposDeContacto);
+        jScrollPane1.setViewportView(tblImpuestos);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 600, 460));
 
@@ -202,18 +207,72 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
 
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jLabel7.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("Código");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
+
+        txtCodigo1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 200, 30));
+
+        jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Descripción");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
+
+        txtDescripcion1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtDescripcion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 880, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new VistaImpuestos().setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel btnActualizar;
@@ -232,6 +291,8 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblActualizar;
@@ -239,12 +300,14 @@ public class VistaTiposDeContacto extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblTiposDeContacto;
+    private javax.swing.JTable tblImpuestos;
     public javax.swing.JTextField txtBuscar;
-    public javax.swing.JTextField txtCodigo;
-    public javax.swing.JTextField txtDescripcion;
+    public javax.swing.JTextField txtCodigo1;
+    public javax.swing.JTextField txtDescripcion1;
+    public javax.swing.JTextField txtTipoCalculo;
+    public javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
-public void setControlador(ControladorTiposDeContacto controlador) {
+public void setControlador(ControladorImpuestos controlador) {
         this.btnActualizar.addMouseListener(controlador);
         this.btnEliminar.addMouseListener(controlador);
         this.btnNuevo.addMouseListener(controlador);
