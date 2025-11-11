@@ -24,7 +24,7 @@ public class MarcaImp {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ModeloMarcas Marcas = new ModeloMarcas();
-                Marcas.setMarcas(rs.getInt("marca"));
+                Marcas.setMarca(rs.getString("marca"));
                 Marcas.setDescripcion(rs.getString("descripcion"));
                 lista.add(Marcas);
             }

@@ -16,6 +16,7 @@ public class VistaMedidas extends javax.swing.JPanel {
      */
     public VistaMedidas() {
         initComponents();
+        ModeloMedidas modelo = new ModeloMedidas(this);
         ControladorMedidas controlador = new ControladorMedidas(modelo);
         setControlador(controlador);
     }
