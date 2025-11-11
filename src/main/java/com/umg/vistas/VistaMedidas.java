@@ -44,7 +44,7 @@ public class VistaMedidas extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblMarca = new javax.swing.JTable();
+        tblMedida = new javax.swing.JTable();
         btnLimpiar = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblLimpiar = new javax.swing.JLabel();
@@ -126,7 +126,7 @@ public class VistaMedidas extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
-        tblMarca.setModel(new javax.swing.table.DefaultTableModel(
+        tblMedida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -137,7 +137,7 @@ public class VistaMedidas extends javax.swing.JPanel {
                 "Marca", "Descripción"
             }
         ));
-        jScrollPane1.setViewportView(tblMarca);
+        jScrollPane1.setViewportView(tblMedida);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 600, 460));
 
@@ -238,7 +238,7 @@ public class VistaMedidas extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblMarca;
+    private javax.swing.JTable tblMedida;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;
