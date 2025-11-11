@@ -18,23 +18,19 @@ public class CategoriaImp implements ICategoria {
 
     @Override
     public boolean insertar(ModeloCategoria c) {
-
         try {
             PreparedStatement ps = con.preparar(sql.getINSERTAR_CATEGORIA());
-            ps.setInt(1, c.getCodigo());
-            ps.setString(2, c.getDescripcion());
+            ps.setString(1, c.getDescripcion());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error insertar: " + e.getMessage());
             return false;
-        } finally {
-
         }
     }
 
+
     @Override
     public boolean actualizar(ModeloCategoria c) {
-
         try {
             PreparedStatement ps = con.preparar(sql.getACTUALIZAR_CATEGORIA());
             ps.setString(1, c.getDescripcion());
@@ -43,14 +39,11 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error actualizar: " + e.getMessage());
             return false;
-        } finally {
-
         }
     }
 
     @Override
     public boolean eliminar(int codigo) {
-
         try {
             PreparedStatement ps = con.preparar(sql.getELIMINAR_CATEGORIA());
             ps.setInt(1, codigo);
@@ -58,15 +51,12 @@ public class CategoriaImp implements ICategoria {
         } catch (Exception e) {
             System.out.println("Error eliminar: " + e.getMessage());
             return false;
-        } finally {
-
         }
     }
 
     @Override
     public ModeloCategoria obtenerPorCodigo(int codigo) {
         ModeloCategoria c = null;
-
         try {
             PreparedStatement ps = con.preparar(sql.getCONSULTA_CATEGORIA_POR_CODIGO());
             ps.setInt(1, codigo);
@@ -78,8 +68,6 @@ public class CategoriaImp implements ICategoria {
             }
         } catch (Exception e) {
             System.out.println("Error obtenerPorCodigo: " + e.getMessage());
-        } finally {
-
         }
         return c;
     }
@@ -87,7 +75,6 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<ModeloCategoria> obtenerTodos() {
         List<ModeloCategoria> lista = new ArrayList<>();
-
         try {
             PreparedStatement ps = con.preparar(sql.getCONSULTA_TODAS_CATEGORIAS());
             ResultSet rs = ps.executeQuery();
@@ -99,8 +86,6 @@ public class CategoriaImp implements ICategoria {
             }
         } catch (Exception e) {
             System.out.println("Error obtenerTodos: " + e.getMessage());
-        } finally {
-
         }
         return lista;
     }
@@ -108,7 +93,6 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<Integer> obtenerCodigos() {
         List<Integer> lista = new ArrayList<>();
-
         try {
             String sqlQuery = "SELECT codigo FROM categoria ORDER BY codigo";
             PreparedStatement ps = con.preparar(sqlQuery);
@@ -118,8 +102,6 @@ public class CategoriaImp implements ICategoria {
             }
         } catch (Exception e) {
             System.out.println("Error obtenerCodigos: " + e.getMessage());
-        } finally {
-
         }
         return lista;
     }
@@ -127,7 +109,6 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<String> obtenerDescripciones() {
         List<String> lista = new ArrayList<>();
-
         try {
             String sqlQuery = "SELECT descripcion FROM categoria ORDER BY descripcion";
             PreparedStatement ps = con.preparar(sqlQuery);
@@ -137,8 +118,6 @@ public class CategoriaImp implements ICategoria {
             }
         } catch (Exception e) {
             System.out.println("Error obtenerDescripciones: " + e.getMessage());
-        } finally {
-
         }
         return lista;
     }
@@ -146,29 +125,23 @@ public class CategoriaImp implements ICategoria {
     @Override
     public List<ModeloCategoria> buscar(String texto) {
         List<ModeloCategoria> lista = new ArrayList<>();
-
         try {
             String sqlBuscar = "SELECT codigo, descripcion FROM categoria " +
-                    "WHERE UPPER(descripcion) LIKE ? OR TO_CHAR(codigo) LIKE ?";
+                    "WHERE UPPER(descripcion) LIKE ? OR CAST(codigo AS VARCHAR) LIKE ?";
             PreparedStatement ps = con.preparar(sqlBuscar);
             ps.setString(1, "%" + texto.toUpperCase() + "%");
             ps.setString(2, "%" + texto + "%");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                ModeloCategoria c = new ModeloCategoria(null);
+                ModeloCategoria c = new ModeloCategoria();
                 c.setCodigo(rs.getInt("codigo"));
                 c.setDescripcion(rs.getString("descripcion"));
                 lista.add(c);
             }
         } catch (Exception e) {
             System.out.println("Error buscar: " + e.getMessage());
-        } finally {
-
         }
         return lista;
     }
-
-
 }
-

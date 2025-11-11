@@ -7,7 +7,6 @@ import com.umg.modelo.ModeloMedidas;
 import com.umg.modelo.ModeloProducto;
 import com.umg.seguridad.Sesion;
 import sql.Conector;
-import sql.Sql;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
@@ -17,8 +16,8 @@ import java.util.List;
 
 public class ProductoImp implements IProducto {
 
-    private Conector con = Sesion.getConexion();
-    private Sql sql = new Sql();
+    private final Conector con = Sesion.getConexion();
+
     @Override
     public DefaultTableModel listarProductos() {
         DefaultTableModel model = new DefaultTableModel() {
@@ -37,9 +36,10 @@ public class ProductoImp implements IProducto {
                     "c.descripcion AS categoria, m.descripcion AS marca, me.descripcion AS medida, " +
                     "p.cantidad_medida, p.estado " +
                     "FROM producto p " +
-                    "LEFT JOIN categoria c ON p.fk_categoria = c.codigo " +
-                    "LEFT JOIN marca m ON p.fk_marca = m.marca " +
-                    "LEFT JOIN medida me ON p.fk_medida = me.codigo " +
+                    "LEFT JOIN categoria c ON p.categoria = c.codigo " +
+                    "LEFT JOIN marca m ON p.marca = m.marca " +
+                    "LEFT JOIN medida me ON p.medida = me.codigo " +
+                    "WHERE p.estado = 'A' " +
                     "ORDER BY p.codigo";
 
             PreparedStatement ps = con.preparar(sql);
@@ -59,7 +59,6 @@ public class ProductoImp implements IProducto {
                         rs.getString("estado")
                 });
             }
-
         } catch (Exception e) {
             System.out.println("❌ Error al listar productos: " + e.getMessage());
         }
@@ -71,17 +70,18 @@ public class ProductoImp implements IProducto {
     public boolean insertar(ModeloProducto p) {
         try {
             PreparedStatement ps = con.preparar(
-                    "INSERT INTO producto(codigo, nombre, descripcion, stock_minimo, stock_actual, estado, fk_categoria, fk_marca, fk_medida, cantidad_medida) " +
-                            "VALUES(?, ?, ?, 0, 0, 'A', ?, ?, ?, ?)"
+                    "INSERT INTO producto(nombre, descripcion, stock_minimo, stock_actual, estado, categoria, marca, medida, cantidad_medida) " +
+                            "VALUES(?, ?, ?, ?, 'A', ?, ?, ?, ?)"
             );
 
-            ps.setInt(1, p.getCodigo());
-            ps.setString(2, p.getNombre());
-            ps.setString(3, p.getDescripcion());
-            ps.setInt(4, p.getCategoria());
-            ps.setString(5, p.getMarca());
-            ps.setString(6, p.getMedida());
-            ps.setDouble(7, p.getCantidad());
+            ps.setString(1, p.getNombre());
+            ps.setString(2, p.getDescripcion());
+            ps.setInt(3, p.getStockMinimo());
+            ps.setInt(4, p.getStockActual());
+            ps.setInt(5, p.getCategoria());
+            ps.setString(6, p.getMarca());
+            ps.setString(7, p.getMedida());
+            ps.setDouble(8, p.getCantidad());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -94,7 +94,8 @@ public class ProductoImp implements IProducto {
     public boolean actualizar(ModeloProducto p) {
         try {
             PreparedStatement ps = con.preparar(
-                    "UPDATE producto SET nombre=?, descripcion=?, stock_minimo=?, stock_actual=?, estado=?, fk_categoria=?, fk_marca=?, fk_medida=?, cantidad_medida=? " +
+                    "UPDATE producto SET nombre=?, descripcion=?, stock_minimo=?, stock_actual=?, estado=?, " +
+                            "categoria=?, marca=?, medida=?, cantidad_medida=? " +
                             "WHERE codigo=?"
             );
 
@@ -119,7 +120,6 @@ public class ProductoImp implements IProducto {
     @Override
     public boolean eliminar(int codigo) {
         try {
-            // ⚠️ En lugar de eliminar, solo se cambia el estado a 'I'
             PreparedStatement ps = con.preparar(
                     "UPDATE producto SET estado='I' WHERE codigo=?"
             );
@@ -135,7 +135,9 @@ public class ProductoImp implements IProducto {
     public ModeloProducto obtenerPorCodigo(int codigo) {
         ModeloProducto p = null;
         try {
-            PreparedStatement ps = con.preparar("SELECT * FROM producto WHERE codigo=?");
+            PreparedStatement ps = con.preparar(
+                    "SELECT * FROM producto WHERE codigo=? AND estado='A'"
+            );
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -146,9 +148,9 @@ public class ProductoImp implements IProducto {
                 p.setStockMinimo(rs.getInt("stock_minimo"));
                 p.setStockActual(rs.getInt("stock_actual"));
                 p.setEstado(rs.getString("estado"));
-                p.setCategoria(rs.getInt("fk_categoria"));
-                p.setMarca(rs.getString("fk_marca"));
-                p.setMedida(rs.getString("fk_medida"));
+                p.setCategoria(rs.getInt("categoria"));
+                p.setMarca(rs.getString("marca"));
+                p.setMedida(rs.getString("medida"));
                 p.setCantidad(rs.getInt("cantidad_medida"));
             }
         } catch (Exception e) {
@@ -162,7 +164,7 @@ public class ProductoImp implements IProducto {
         List<ModeloProducto> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT * FROM producto ORDER BY codigo"
+                    "SELECT * FROM producto WHERE estado='A' ORDER BY codigo"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -173,9 +175,9 @@ public class ProductoImp implements IProducto {
                 p.setStockMinimo(rs.getInt("stock_minimo"));
                 p.setStockActual(rs.getInt("stock_actual"));
                 p.setEstado(rs.getString("estado"));
-                p.setCategoria(rs.getInt("fk_categoria"));
-                p.setMarca(rs.getString("fk_marca"));
-                p.setMedida(rs.getString("fk_medida"));
+                p.setCategoria(rs.getInt("categoria"));
+                p.setMarca(rs.getString("marca"));
+                p.setMedida(rs.getString("medida"));
                 p.setCantidad(rs.getInt("cantidad_medida"));
                 lista.add(p);
             }
@@ -189,7 +191,9 @@ public class ProductoImp implements IProducto {
     public List<Integer> obtenerCodigos() {
         List<Integer> lista = new ArrayList<>();
         try {
-            PreparedStatement ps = con.preparar("SELECT codigo FROM producto ORDER BY codigo");
+            PreparedStatement ps = con.preparar(
+                    "SELECT codigo FROM producto WHERE estado='A' ORDER BY codigo"
+            );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) lista.add(rs.getInt("codigo"));
         } catch (Exception e) {
@@ -202,7 +206,9 @@ public class ProductoImp implements IProducto {
     public List<String> obtenerNombres() {
         List<String> lista = new ArrayList<>();
         try {
-            PreparedStatement ps = con.preparar("SELECT nombre FROM producto ORDER BY nombre");
+            PreparedStatement ps = con.preparar(
+                    "SELECT nombre FROM producto WHERE estado='A' ORDER BY nombre"
+            );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) lista.add(rs.getString("nombre"));
         } catch (Exception e) {
@@ -215,10 +221,10 @@ public class ProductoImp implements IProducto {
     public List<ModeloProducto> buscar(String texto) {
         List<ModeloProducto> lista = new ArrayList<>();
         try {
-            String sql = "SELECT p.codigo, p.nombre, p.stock_actual, p.fk_categoria, c.descripcion AS categoria " +
+            String sql = "SELECT p.codigo, p.nombre, p.stock_actual, p.categoria, c.descripcion AS categoria " +
                     "FROM producto p " +
-                    "LEFT JOIN categoria c ON p.fk_categoria = c.codigo " +
-                    "WHERE UPPER(p.nombre) LIKE ? OR UPPER(p.descripcion) LIKE ? OR TO_CHAR(p.codigo) LIKE ? " +
+                    "LEFT JOIN categoria c ON p.categoria = c.codigo " +
+                    "WHERE p.estado='A' AND (UPPER(p.nombre) LIKE ? OR UPPER(p.descripcion) LIKE ? OR TO_CHAR(p.codigo) LIKE ?) " +
                     "ORDER BY p.codigo";
 
             PreparedStatement ps = con.preparar(sql);
@@ -232,7 +238,7 @@ public class ProductoImp implements IProducto {
                 p.setCodigo(rs.getInt("codigo"));
                 p.setNombre(rs.getString("nombre"));
                 p.setStockActual(rs.getInt("stock_actual"));
-                p.setCategoria(rs.getInt("fk_categoria"));
+                p.setCategoria(rs.getInt("categoria"));
                 lista.add(p);
             }
         } catch (Exception e) {
@@ -300,6 +306,7 @@ public class ProductoImp implements IProducto {
         }
         return lista;
     }
+
     public Double obtenerPrecioActual(int codigoProducto) {
         Double precio = null;
         try {
@@ -307,8 +314,8 @@ public class ProductoImp implements IProducto {
                     "FROM precio p " +
                     "WHERE p.fk_producto_codigo = ? " +
                     "  AND p.estado = 'A' " +
-                    "  AND ( (p.inicio_vigencia IS NULL OR SYSDATE >= p.inicio_vigencia) " +
-                    "        AND (p.fin_vigencia IS NULL OR SYSDATE <= p.fin_vigencia) ) " +
+                    "  AND ((p.inicio_vigencia IS NULL OR SYSDATE >= p.inicio_vigencia) " +
+                    "       AND (p.fin_vigencia IS NULL OR SYSDATE <= p.fin_vigencia)) " +
                     "ORDER BY p.inicio_vigencia DESC NULLS LAST";
 
             PreparedStatement ps = con.preparar(sql);
@@ -317,8 +324,6 @@ public class ProductoImp implements IProducto {
             if (rs.next()) {
                 precio = rs.getDouble("precio_venta");
             }
-            rs.close();
-            // si necesitás cerrar ps o manejar recursos, ajustá según tu Conector
         } catch (Exception e) {
             System.out.println("❌ Error obtenerPrecioActual: " + e.getMessage());
         }

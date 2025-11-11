@@ -220,7 +220,7 @@ public class VistaMedidas extends javax.swing.JPanel {
     public javax.swing.JPanel btnEliminar;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -238,7 +238,7 @@ public class VistaMedidas extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblMedida;
+    public javax.swing.JTable tblMedida;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;

@@ -16,11 +16,24 @@ public class Sql {
     // ---------------------------------------------------------------------
     // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
     // ---------------------------------------------------------------------
-    private final String INSERTAR_CATEGORIA = "INSERT INTO categoria (codigo, descripcion) VALUES (?, ?)";
-    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM categoria";
+// Para insertar, no se incluye el código porque es autoincremental
+    private final String INSERTAR_CATEGORIA = "INSERT INTO categoria (descripcion) VALUES (?)";
+
+    // Consultas
+    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM categoria ORDER BY codigo";
     private final String CONSULTA_CATEGORIA_POR_CODIGO = "SELECT codigo, descripcion FROM categoria WHERE codigo = ?";
+
+    // Actualizar y eliminar siguen incluyendo el código
     private final String ACTUALIZAR_CATEGORIA = "UPDATE categoria SET descripcion = ? WHERE codigo = ?";
     private final String ELIMINAR_CATEGORIA = "DELETE FROM categoria WHERE codigo = ?";
+
+    // Buscar por descripción o código
+    private final String BUSCAR_CATEGORIA = "SELECT codigo, descripcion FROM categoria WHERE UPPER(descripcion) LIKE ? OR CAST(codigo AS VARCHAR) LIKE ?";
+
+    // Obtener listas de códigos o descripciones
+    private final String OBTENER_CODIGOS = "SELECT codigo FROM categoria ORDER BY codigo";
+    private final String OBTENER_DESCRIPCIONES = "SELECT descripcion FROM categoria ORDER BY descripcion";
+
     // Para llenar ComboBox por código
     private final String CONSULTA_CODIGOS_CATEGORIA = "SELECT codigo FROM categoria ORDER BY codigo";
 
@@ -28,7 +41,7 @@ public class Sql {
     private final String CONSULTA_DESCRIPCIONES_CATEGORIA = "SELECT descripcion FROM categoria ORDER BY descripcion";
 
     // Para búsqueda insensible a mayúsculas/minúsculas
-    private final String BUSCAR_CATEGORIA = """
+    private final String BUSCAR_CATEGORIsA = """
     SELECT codigo, descripcion 
     FROM categoria 
     WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 

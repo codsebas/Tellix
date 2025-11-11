@@ -8,11 +8,12 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 public class ControladorCategoria implements ActionListener, MouseListener {
-    ModeloCategoria modelo;
+
+    private ModeloCategoria modelo;
     private CategoriaImp implementacion = new CategoriaImp();
 
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
@@ -22,7 +23,6 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
     public ControladorCategoria(ModeloCategoria modelo) {
         this.modelo = modelo;
-
         var vista = modelo.getVista();
 
         // Inicializar botones y labels
@@ -38,7 +38,14 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         lblBuscar = vista.lblBuscar;
         lblLimpiar = vista.lblLimpiar;
 
-        // Dar nombre a los labels para manejar iconos
+        // Registrar MouseListener
+        btnNuevo.addMouseListener(this);
+        btnActualizar.addMouseListener(this);
+        btnEliminar.addMouseListener(this);
+        btnBuscar.addMouseListener(this);
+        btnLimpiar.addMouseListener(this);
+
+        // Dar nombre a los labels para iconos
         lblNuevo.setName("icono");
         lblActualizar.setName("icono");
         lblEliminar.setName("icono");
@@ -49,17 +56,16 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         listarCategorias();
 
         // Listener para tabla
-        modelo.getVista().tblCategorias.addMouseListener(new MouseAdapter() {
+        vista.tblCategorias.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int fila = modelo.getVista().tblCategorias.getSelectedRow();
+            public void mouseClicked(MouseEvent evt) {
+                int fila = vista.tblCategorias.getSelectedRow();
                 if (fila >= 0) {
-                    String codigo = modelo.getVista().tblCategorias.getValueAt(fila, 0).toString();
-                    String descripcion = modelo.getVista().tblCategorias.getValueAt(fila, 1).toString();
-
-                    modelo.getVista().txtCodigo.setText(codigo);
-                    modelo.getVista().txtDescripcion.setText(descripcion);
-                    modelo.getVista().txtCodigo.setEditable(false);
+                    String codigo = vista.tblCategorias.getValueAt(fila, 0).toString();
+                    String descripcion = vista.tblCategorias.getValueAt(fila, 1).toString();
+                    vista.txtCodigo.setText(codigo);
+                    vista.txtDescripcion.setText(descripcion);
+                    vista.txtCodigo.setEditable(false);
                 }
             }
         });
@@ -67,32 +73,25 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         // ComboBox: ordenar automáticamente
         vista.cmbOrdenarPor.addActionListener(e -> listarCategorias());
 
-        // Búsqueda: actualizar tabla en tiempo real
+        // Búsqueda en tiempo real
         vista.txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
-            @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
-            @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+            @Override public void insertUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+            @Override public void removeUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
+            @Override public void changedUpdate(javax.swing.event.DocumentEvent e) { listarCategorias(); }
         });
     }
 
-    // ------------------- FUNCIONALIDAD CRUD -------------------
+    // ------------------- CRUD -------------------
     @Override
     public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource() == btnNuevo) {
-            nuevoCategoria();
-        } else if (e.getSource() == btnActualizar) {
-            actualizarCategoria();
-        } else if (e.getSource() == btnEliminar) {
-            eliminarCategoria();
-        } else if (e.getSource() == btnBuscar) {
-            buscarCategoria();
-        } else if (e.getSource() == btnLimpiar) {
+        if (e.getSource() == btnNuevo) nuevoCategoria();
+        else if (e.getSource() == btnActualizar) actualizarCategoria();
+        else if (e.getSource() == btnEliminar) eliminarCategoria();
+        else if (e.getSource() == btnBuscar) buscarCategoria();
+        else if (e.getSource() == btnLimpiar) {
             limpiarCampos();
             modelo.getVista().txtCodigo.setEditable(true);
         }
@@ -104,42 +103,28 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
         List<ModeloCategoria> lista;
         String filtro = modelo.getVista().txtBuscar.getText().trim();
-        if (!filtro.isEmpty()) {
-            lista = implementacion.buscar(filtro);
-        } else {
-            lista = implementacion.obtenerTodos();
-        }
+        lista = filtro.isEmpty() ? implementacion.obtenerTodos() : implementacion.buscar(filtro);
 
-        // Ordenar según ComboBox
         String orden = (String) modelo.getVista().cmbOrdenarPor.getSelectedItem();
-        if ("Código".equals(orden)) {
-            lista.sort((a,b) -> Integer.compare(a.getCodigo(), b.getCodigo()));
-        } else if ("Descripción".equals(orden)) {
-            lista.sort((a,b) -> a.getDescripcion().compareToIgnoreCase(b.getDescripcion()));
-        }
+        if ("Código".equals(orden)) lista.sort((a,b) -> Integer.compare(a.getCodigo(), b.getCodigo()));
+        else if ("Descripción".equals(orden)) lista.sort((a,b) -> a.getDescripcion().compareToIgnoreCase(b.getDescripcion()));
 
-        for (ModeloCategoria c : lista) {
-            tabla.addRow(new Object[]{c.getCodigo(), c.getDescripcion()});
-        }
+        for (ModeloCategoria c : lista) tabla.addRow(new Object[]{c.getCodigo(), c.getDescripcion()});
     }
 
     private ModeloCategoria obtenerDatosVista() {
         ModeloCategoria c = new ModeloCategoria(modelo.getVista());
         try {
-            c.setCodigo(Integer.parseInt(modelo.getVista().txtCodigo.getText()));
-        } catch (Exception ex) {
+            c.setCodigo(Integer.parseInt(modelo.getVista().txtCodigo.getText().trim()));
+        } catch (NumberFormatException ex) {
             c.setCodigo(0);
         }
-        c.setDescripcion(modelo.getVista().txtDescripcion.getText());
+        c.setDescripcion(modelo.getVista().txtDescripcion.getText().trim());
         return c;
     }
 
-    // ------------------- VALIDACIONES -------------------
     private boolean validarCampos(ModeloCategoria c, boolean esNuevo) {
-        if (c.getCodigo() <= 0) {
-            JOptionPane.showMessageDialog(modelo.getVista(), "El código es obligatorio y debe ser mayor que 0");
-            return false;
-        }
+
         if (c.getDescripcion().isEmpty()) {
             JOptionPane.showMessageDialog(modelo.getVista(), "La descripción es obligatoria");
             return false;
@@ -153,7 +138,7 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
     private void nuevoCategoria() {
         ModeloCategoria c = obtenerDatosVista();
-        if (!validarCampos(c, true)) return; // Validaciones antes de insertar
+        if (!validarCampos(c, true)) return;
         if (implementacion.insertar(c)) {
             JOptionPane.showMessageDialog(modelo.getVista(), "✅ Categoría insertada correctamente");
             listarCategorias();
@@ -165,7 +150,7 @@ public class ControladorCategoria implements ActionListener, MouseListener {
 
     private void actualizarCategoria() {
         ModeloCategoria c = obtenerDatosVista();
-        if (!validarCampos(c, false)) return; // Validaciones antes de actualizar
+        if (!validarCampos(c, false)) return;
         if (implementacion.actualizar(c)) {
             JOptionPane.showMessageDialog(modelo.getVista(), "✅ Categoría actualizada correctamente");
             listarCategorias();
@@ -194,17 +179,17 @@ public class ControladorCategoria implements ActionListener, MouseListener {
     }
 
     private void buscarCategoria() {
-        try {
-            int codigo = Integer.parseInt(modelo.getVista().txtBuscar.getText());
-            ModeloCategoria c = implementacion.obtenerPorCodigo(codigo);
-            if (c != null) {
-                modelo.getVista().txtCodigo.setText(String.valueOf(c.getCodigo()));
-                modelo.getVista().txtDescripcion.setText(c.getDescripcion());
-            } else {
-                JOptionPane.showMessageDialog(modelo.getVista(), "Categoría no encontrada");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(modelo.getVista(), "Error: " + ex.getMessage());
+        String texto = modelo.getVista().txtBuscar.getText().trim();
+        if (texto.isEmpty()) return;
+
+        List<ModeloCategoria> resultados = implementacion.buscar(texto);
+        if (!resultados.isEmpty()) {
+            ModeloCategoria c = resultados.get(0);
+            modelo.getVista().txtCodigo.setText(String.valueOf(c.getCodigo()));
+            modelo.getVista().txtDescripcion.setText(c.getDescripcion());
+            modelo.getVista().txtCodigo.setEditable(false);
+        } else {
+            JOptionPane.showMessageDialog(modelo.getVista(), "Categoría no encontrada");
         }
     }
 
@@ -214,11 +199,11 @@ public class ControladorCategoria implements ActionListener, MouseListener {
         modelo.getVista().txtBuscar.setText("");
     }
 
-    // ------------------- EVENTOS ICONOS -------------------
+    // ------------------- Iconos -------------------
     @Override public void mousePressed(MouseEvent e) {}
     @Override public void mouseReleased(MouseEvent e) {}
-    @Override public void mouseEntered(MouseEvent e) { cambiarIconoBoton((JPanel) e.getSource(), true); }
-    @Override public void mouseExited(MouseEvent e) { cambiarIconoBoton((JPanel) e.getSource(), false); }
+    @Override public void mouseEntered(MouseEvent e) { cambiarIconoBoton((JPanel)e.getSource(), true); }
+    @Override public void mouseExited(MouseEvent e) { cambiarIconoBoton((JPanel)e.getSource(), false); }
 
     private void inicializarIconos() {
         iconosBotones.put(btnNuevo, "/com/umg/iconos/IconoBoton1.png");
