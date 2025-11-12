@@ -32,17 +32,15 @@ public class ControladorMovimientoStock implements ActionListener, MouseListener
         btnActualizar = vista.btnActualizar;
         btnBuscar = vista.btnBuscar;
         btnLimpiar = vista.btnLimpiar;
-
-       
         lblActualizar = vista.lblActualizar;
       
         lblBuscar = vista.lblBuscar;
         lblLimpiar = vista.lblLimpiar;
 
         // Dar nombre a los labels para manejar iconos
-        lblNuevo.setName("icono");
+
         lblActualizar.setName("icono");
-        lblEliminar.setName("icono");
+
         lblBuscar.setName("icono");
         lblLimpiar.setName("icono");
 
@@ -80,9 +78,9 @@ public class ControladorMovimientoStock implements ActionListener, MouseListener
     }
 
     private void inicializarIconos() {
-        iconosBotones.put(btnNuevo, "/com/umg/iconos/IconoBoton1.png");
+
         iconosBotones.put(btnActualizar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnEliminar, "/com/umg/iconos/IconoBoton1.png");
+
         iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
     }

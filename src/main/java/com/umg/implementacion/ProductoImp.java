@@ -35,10 +35,10 @@ public class ProductoImp implements IProducto {
             String sql = "SELECT p.codigo, p.nombre, p.descripcion, p.stock_minimo, p.stock_actual, " +
                     "c.descripcion AS categoria, m.descripcion AS marca, me.descripcion AS medida, " +
                     "p.cantidad_medida, p.estado " +
-                    "FROM producto p " +
-                    "LEFT JOIN categoria c ON p.categoria = c.codigo " +
-                    "LEFT JOIN marca m ON p.marca = m.marca " +
-                    "LEFT JOIN medida me ON p.medida = me.codigo " +
+                    "FROM tellix.producto p " +
+                    "LEFT JOIN tellix.categoria c ON p.categoria = c.codigo " +
+                    "LEFT JOIN tellix.marca m ON p.marca = m.marca " +
+                    "LEFT JOIN tellix.medida me ON p.medida = me.codigo " +
                     "WHERE p.estado = 'A' " +
                     "ORDER BY p.codigo";
 
@@ -70,7 +70,7 @@ public class ProductoImp implements IProducto {
     public boolean insertar(ModeloProducto p) {
         try {
             PreparedStatement ps = con.preparar(
-                    "INSERT INTO producto(nombre, descripcion, stock_minimo, stock_actual, estado, categoria, marca, medida, cantidad_medida) " +
+                    "INSERT INTO tellix.producto(nombre, descripcion, stock_minimo, stock_actual, estado, categoria, marca, medida, cantidad_medida) " +
                             "VALUES(?, ?, ?, ?, 'A', ?, ?, ?, ?)"
             );
 
@@ -96,7 +96,7 @@ public class ProductoImp implements IProducto {
         boolean exito = false;
         try {
             PreparedStatement ps = con.preparar(
-                    "UPDATE producto SET nombre=?, descripcion=?, stock_minimo=?, stock_actual=?, estado=?, " +
+                    "UPDATE tellix.producto SET nombre=?, descripcion=?, stock_minimo=?, stock_actual=?, estado=?, " +
                             "categoria=?, marca=?, medida=?, cantidad_medida=? " +
                             "WHERE codigo=?"
             );
@@ -135,7 +135,7 @@ public class ProductoImp implements IProducto {
     public boolean eliminar(int codigo) {
         try {
             PreparedStatement ps = con.preparar(
-                    "UPDATE producto SET estado='I' WHERE codigo=?"
+                    "UPDATE tellix.producto SET estado='I' WHERE codigo=?"
             );
             ps.setInt(1, codigo);
             return ps.executeUpdate() > 0;
@@ -150,7 +150,7 @@ public class ProductoImp implements IProducto {
         ModeloProducto p = null;
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT * FROM producto WHERE codigo=? AND estado='A'"
+                    "SELECT * FROM tellix.producto WHERE codigo=? AND estado='A'"
             );
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -178,7 +178,7 @@ public class ProductoImp implements IProducto {
         List<ModeloProducto> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT * FROM producto WHERE estado='A' ORDER BY codigo"
+                    "SELECT * FROM tellix.producto WHERE estado='A' ORDER BY codigo"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -206,7 +206,7 @@ public class ProductoImp implements IProducto {
         List<Integer> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT codigo FROM producto WHERE estado='A' ORDER BY codigo"
+                    "SELECT codigo FROM tellix.producto WHERE estado='A' ORDER BY codigo"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) lista.add(rs.getInt("codigo"));
@@ -221,7 +221,7 @@ public class ProductoImp implements IProducto {
         List<String> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT nombre FROM producto WHERE estado='A' ORDER BY nombre"
+                    "SELECT nombre FROM telll.xproducto WHERE estado='A' ORDER BY nombre"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) lista.add(rs.getString("nombre"));
@@ -235,11 +235,13 @@ public class ProductoImp implements IProducto {
     public List<ModeloProducto> buscar(String texto) {
         List<ModeloProducto> lista = new ArrayList<>();
         try {
-            String sql = "SELECT p.codigo, p.nombre, p.stock_actual, p.categoria, c.descripcion AS categoria " +
-                    "FROM producto p " +
-                    "LEFT JOIN categoria c ON p.categoria = c.codigo " +
-                    "WHERE p.estado='A' AND (UPPER(p.nombre) LIKE ? OR UPPER(p.descripcion) LIKE ? OR TO_CHAR(p.codigo) LIKE ?) " +
-                    "ORDER BY p.codigo";
+            String sql =
+                    "SELECT p.codigo, p.nombre, p.stock_actual, p.categoria, c.descripcion AS categoria " +
+                            "FROM tellix.producto p " +
+                            "LEFT JOIN tellix.categoria c ON p.categoria = c.codigo " +
+                            "WHERE p.estado='A' AND (UPPER(p.nombre) LIKE ? OR UPPER(p.descripcion) LIKE ? OR TO_CHAR(p.codigo) LIKE ?) " +
+                            "ORDER BY p.codigo";
+            ;
 
             PreparedStatement ps = con.preparar(sql);
             ps.setString(1, "%" + texto.toUpperCase() + "%");
@@ -266,7 +268,7 @@ public class ProductoImp implements IProducto {
         List<ModeloCategoria> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT codigo, descripcion FROM categoria ORDER BY codigo"
+                    "SELECT codigo, descripcion FROM tellix.categoria ORDER BY codigo"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -286,7 +288,7 @@ public class ProductoImp implements IProducto {
         List<ModeloMarcas> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT marca, descripcion FROM marca ORDER BY marca"
+                    "SELECT marca, descripcion FROM tellix.marca ORDER BY marca"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -306,7 +308,7 @@ public class ProductoImp implements IProducto {
         List<ModeloMedidas> lista = new ArrayList<>();
         try {
             PreparedStatement ps = con.preparar(
-                    "SELECT codigo, descripcion FROM medida ORDER BY codigo"
+                    "SELECT codigo, descripcion FROM tellix.medida ORDER BY codigo"
             );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
