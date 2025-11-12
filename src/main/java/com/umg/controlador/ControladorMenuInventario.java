@@ -62,7 +62,7 @@ public class ControladorMenuInventario implements MouseListener {
         Object source = e.getComponent();
 
         if (source.equals(btnMovimientoStock)) {
-//            accionBotones(btnMovimientoStock, e, null);
+          accionBotones(btnMovimientoStock, e, null);
         } else if(source.equals(btnAjustesManuales)) {
 //            accionBotones(btnAjustesManuales, e, null);
         }
