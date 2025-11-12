@@ -1,6 +1,8 @@
 package com.umg.controlador;
 
 import com.umg.modelo.ModeloMenuInventario;
+import com.umg.vistas.VistaMovimentoStock;
+import com.umg.vistas.VistaReporteVentasYCompras;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +26,10 @@ public class ControladorMenuInventario implements MouseListener {
     private JLabel lblMovimientoStockSeleccionado, lblAjustesManualesSeleccionado;
 
     private JPanel botonSeleccionado = null;
+    VistaMovimentoStock vistaMovimientoStock = new VistaMovimentoStock();
+
+
+
 
     public ControladorMenuInventario(ModeloMenuInventario modelo) {
         this.modelo = modelo;
@@ -62,7 +68,7 @@ public class ControladorMenuInventario implements MouseListener {
         Object source = e.getComponent();
 
         if (source.equals(btnMovimientoStock)) {
-          accionBotones(btnMovimientoStock, e, null);
+          accionBotones(btnMovimientoStock, e, vistaMovimientoStock);
         } else if(source.equals(btnAjustesManuales)) {
 //            accionBotones(btnAjustesManuales, e, null);
         }

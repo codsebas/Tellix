@@ -125,7 +125,7 @@ public class MarcaImp {
     public List<ModeloMarcas> buscar(String texto) {
         List<ModeloMarcas> lista = new ArrayList<>();
         try {
-            String sqlBuscar = "SELECT marca, descripcion FROM marca " +
+            String sqlBuscar = "SELECT marca, descripcion FROM tellix.marca " +
                     "WHERE UPPER(descripcion) LIKE ? OR marca LIKE ?";
             PreparedStatement ps = con.preparar(sqlBuscar);
             ps.setString(1, "%" + texto.toUpperCase() + "%");

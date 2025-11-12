@@ -8,42 +8,42 @@ public class Sql {
     // --- CONSTANTES PARA TABLA MARCAS (CRUD) ---
     // ---------------------------------------------------------------------//En esta clase deben colocar todos los SQL que se utlizaran, ya sea para realizar sus cruds, o solamente las consultas.
     // MARCA
-    private final String INSERTAR_MARCA = "INSERT INTO marca (marca, descripcion) VALUES (?, ?)";
-    private final String CONSULTA_TODAS_MARCAS = "SELECT marca, descripcion FROM marca";
-    private final String CONSULTA_MARCA_POR_CODIGO = "SELECT marca, descripcion FROM marca WHERE marca = ?";
-    private final String ACTUALIZAR_MARCA = "UPDATE marca SET descripcion = ? WHERE marca = ?";
-    private final String ELIMINAR_MARCA = "DELETE FROM marca WHERE marca = ?";
+    private final String INSERTAR_MARCA = "INSERT INTO tellix.marca (marca, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_MARCAS = "SELECT marca, descripcion FROM tellix.marca";
+    private final String CONSULTA_MARCA_POR_CODIGO = "SELECT marca, descripcion FROM tellix.marca WHERE marca = ?";
+    private final String ACTUALIZAR_MARCA = "UPDATE tellix.marca SET descripcion = ? WHERE marca = ?";
+    private final String ELIMINAR_MARCA = "DELETE FROM tellix.marca WHERE marca = ?";
     // ---------------------------------------------------------------------
     // --- CONSTANTES PARA TABLA CATEGORIA (CRUD) ---
     // ---------------------------------------------------------------------
 // Para insertar, no se incluye el código porque es autoincremental
-    private final String INSERTAR_CATEGORIA = "INSERT INTO categoria (descripcion) VALUES (?)";
+    private final String INSERTAR_CATEGORIA = "INSERT INTO tellix.categoria (descripcion) VALUES (?)";
 
     // Consultas
-    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM categoria ORDER BY codigo";
-    private final String CONSULTA_CATEGORIA_POR_CODIGO = "SELECT codigo, descripcion FROM categoria WHERE codigo = ?";
+    private final String CONSULTA_TODAS_CATEGORIAS = "SELECT codigo, descripcion FROM tellix.categoria ORDER BY codigo";
+    private final String CONSULTA_CATEGORIA_POR_CODIGO = "SELECT codigo, descripcion FROM tellix.categoria WHERE codigo = ?";
 
     // Actualizar y eliminar siguen incluyendo el código
-    private final String ACTUALIZAR_CATEGORIA = "UPDATE categoria SET descripcion = ? WHERE codigo = ?";
-    private final String ELIMINAR_CATEGORIA = "DELETE FROM categoria WHERE codigo = ?";
+    private final String ACTUALIZAR_CATEGORIA = "UPDATE tellix.categoria SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_CATEGORIA = "DELETE FROM tellix.categoria WHERE codigo = ?";
 
     // Buscar por descripción o código
-    private final String BUSCAR_CATEGORIA = "SELECT codigo, descripcion FROM categoria WHERE UPPER(descripcion) LIKE ? OR CAST(codigo AS VARCHAR) LIKE ?";
+    private final String BUSCAR_CATEGORIA = "SELECT codigo, descripcion FROM tellix.categoria WHERE UPPER(descripcion) LIKE ? OR CAST(codigo AS VARCHAR) LIKE ?";
 
     // Obtener listas de códigos o descripciones
-    private final String OBTENER_CODIGOS = "SELECT codigo FROM categoria ORDER BY codigo";
-    private final String OBTENER_DESCRIPCIONES = "SELECT descripcion FROM categoria ORDER BY descripcion";
+    private final String OBTENER_CODIGOS = "SELECT codigo FROM tellix.categoria ORDER BY codigo";
+    private final String OBTENER_DESCRIPCIONES = "SELECT descripcion FROM tellix.categoria ORDER BY descripcion";
 
     // Para llenar ComboBox por código
-    private final String CONSULTA_CODIGOS_CATEGORIA = "SELECT codigo FROM categoria ORDER BY codigo";
+    private final String CONSULTA_CODIGOS_CATEGORIA = "SELECT codigo FROM tellix.categoria ORDER BY codigo";
 
     // Para llenar ComboBox por descripción
-    private final String CONSULTA_DESCRIPCIONES_CATEGORIA = "SELECT descripcion FROM categoria ORDER BY descripcion";
+    private final String CONSULTA_DESCRIPCIONES_CATEGORIA = "SELECT descripcion FROM tellix.categoria ORDER BY descripcion";
 
     // Para búsqueda insensible a mayúsculas/minúsculas
     private final String BUSCAR_CATEGORIsA = """
     SELECT codigo, descripcion 
-    FROM categoria 
+    FROM tellix.categoria 
     WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
     ORDER BY codigo
 """;

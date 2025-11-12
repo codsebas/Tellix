@@ -59,10 +59,10 @@ public class ControladorProductos implements ActionListener, MouseListener {
         listarProductoss();
 
         // Eventos de botones
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
+        //btnNuevo.addMouseListener(this);
+        //btnActualizar.addMouseListener(this);
+        //btnEliminar.addMouseListener(this);
+        ///btnBuscar.addMouseListener(this);
         btnLimpiar.addMouseListener(this);
 
         // Clic en tabla → llenar datos
@@ -217,6 +217,8 @@ public class ControladorProductos implements ActionListener, MouseListener {
     }
 
     private void actualizarProducto() {
+        System.out.println("🔁 Ejecutando actualizarProducto()");
+
         ModeloProducto p = obtenerDatosVista();
         if (implementacion.actualizar(p)) {
             JOptionPane.showMessageDialog(modelo.getVista(), "✅ Producto actualizado correctamente");

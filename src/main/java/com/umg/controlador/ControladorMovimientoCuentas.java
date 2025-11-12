@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.umg.controlador;
+import com.umg.modelo.ModeloMovimientoCuentas;
 import com.umg.modelo.ModeloMovimientoStock;
 
 import javax.swing.*;
@@ -17,32 +18,33 @@ import java.util.Map;
  *
  * @author Lisi
  */
-public class ControladorMovimientoStock implements ActionListener, MouseListener {
-    ModeloMovimientoStock modelo;
+public class ControladorMovimientoCuentas implements ActionListener, MouseListener {
+    ModeloMovimientoCuentas modelo;
 
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
-    public ControladorMovimientoStock(ModeloMovimientoStock modelo) {
+    public ControladorMovimientoCuentas(ModeloMovimientoCuentas modelo) {
         this.modelo = modelo;
         // Inicializar botones y labels
         var vista = modelo.getVista();
-        btnActualizar = vista.btnActualizar;
+   
         btnBuscar = vista.btnBuscar;
-        btnLimpiar = vista.btnLimpiar;
-        lblActualizar = vista.lblActualizar;
+
+
+       
+     
       
         lblBuscar = vista.lblBuscar;
-        lblLimpiar = vista.lblLimpiar;
+      
 
         // Dar nombre a los labels para manejar iconos
-
-        lblActualizar.setName("icono");
-
+     
+        
         lblBuscar.setName("icono");
-        lblLimpiar.setName("icono");
+     
 
         inicializarIconos();
     }
@@ -79,10 +81,9 @@ public class ControladorMovimientoStock implements ActionListener, MouseListener
 
     private void inicializarIconos() {
 
-        iconosBotones.put(btnActualizar, "/com/umg/iconos/IconoBoton1.png");
-
+  
         iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
+ 
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {

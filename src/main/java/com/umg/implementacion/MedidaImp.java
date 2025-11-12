@@ -17,7 +17,7 @@ public class MedidaImp {
 
     public boolean insertar(ModeloMedidas m) {
         try {
-            PreparedStatement ps = con.preparar("INSERT INTO medida (codigo, descripcion) VALUES (?, ?)");
+            PreparedStatement ps = con.preparar("INSERT INTO tellix.medida (codigo, descripcion) VALUES (?, ?)");
             ps.setString(1, m.getCodigo());
             ps.setString(2, m.getDescripcion());
             return ps.executeUpdate() > 0;
@@ -29,7 +29,7 @@ public class MedidaImp {
 
     public boolean actualizar(ModeloMedidas m) {
         try {
-            PreparedStatement ps = con.preparar("UPDATE medida SET descripcion=? WHERE codigo=?");
+            PreparedStatement ps = con.preparar("UPDATE tellix.medida SET descripcion=? WHERE codigo=?");
             ps.setString(1, m.getDescripcion());
             ps.setString(2, m.getCodigo());
             return ps.executeUpdate() > 0;
@@ -41,7 +41,7 @@ public class MedidaImp {
 
     public boolean eliminar(String codigo) {
         try {
-            PreparedStatement ps = con.preparar("DELETE FROM medida WHERE codigo=?");
+            PreparedStatement ps = con.preparar("DELETE FROM tellix.medida WHERE codigo=?");
             ps.setString(1, codigo);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class MedidaImp {
     public ModeloMedidas obtenerPorCodigo(String codigo) {
         ModeloMedidas m = null;
         try {
-            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM medida WHERE codigo=?");
+            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM tellix.medida WHERE codigo=?");
             ps.setString(1, codigo);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -70,7 +70,7 @@ public class MedidaImp {
     public List<ModeloMedidas> obtenerTodos() {
         List<ModeloMedidas> lista = new ArrayList<>();
         try {
-            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM medida ORDER BY codigo");
+            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM tellix.medida ORDER BY codigo");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ModeloMedidas m = new ModeloMedidas();
@@ -115,7 +115,7 @@ public class MedidaImp {
     public List<ModeloMedidas> buscar(String texto) {
         List<ModeloMedidas> lista = new ArrayList<>();
         try {
-            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM medida WHERE UPPER(descripcion) LIKE ? OR codigo LIKE ?");
+            PreparedStatement ps = con.preparar("SELECT codigo, descripcion FROM tellix.medida WHERE UPPER(descripcion) LIKE ? OR codigo LIKE ?");
             ps.setString(1, "%" + texto.toUpperCase() + "%");
             ps.setString(2, "%" + texto + "%");
             ResultSet rs = ps.executeQuery();
