@@ -2,13 +2,16 @@ package com.umg.controlador;
 
 import com.umg.implementacion.ReporteImp;
 import com.umg.modelo.ModeloReporteVentasYCompras;
+import com.umg.util.Exportador;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +64,10 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         if(e.getComponent().equals(vista.btnVerReporte)) {
             System.out.println("click");
             reportes();
+        } else if (e.getComponent().equals(vista.btnGenerarPDF)) {
+            exportarReportePDF();
+        } else if (e.getComponent().equals(vista.btnGenerarExcel)) {
+            exportarReporteExcel();
         }
     }
 
@@ -94,6 +101,40 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
                     modelo.getVista().txtFechaFin.getText()));
         } else if (tipoReporte == 2){
             vista.tblReporte.setModel(implementacion.ventasMensuales());
+        }
+    }
+
+    private void exportarReportePDF() {
+        var vista = modelo.getVista();
+        TableModel model = vista.tblReporte.getModel();
+        String titulo = vista.cmbTipoReporte.getSelectedItem().toString();
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(new File(titulo.replace(" ", "_") + ".pdf"));
+        if (chooser.showSaveDialog(vista) == JFileChooser.APPROVE_OPTION) {
+            try {
+                Exportador.exportarPDF(model, titulo, chooser.getSelectedFile());
+                JOptionPane.showMessageDialog(vista, "PDF generado correctamente");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(vista, "Error al generar PDF: " + ex.getMessage());
+            }
+        }
+    }
+
+    private void exportarReporteExcel() {
+        var vista = modelo.getVista();
+        TableModel model = vista.tblReporte.getModel();
+        String titulo = vista.cmbTipoReporte.getSelectedItem().toString();
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setSelectedFile(new File(titulo.replace(" ", "_") + ".xlsx"));
+        if (chooser.showSaveDialog(vista) == JFileChooser.APPROVE_OPTION) {
+            try {
+                Exportador.exportarExcel(model, titulo, chooser.getSelectedFile());
+                JOptionPane.showMessageDialog(vista, "Excel generado correctamente");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(vista, "Error al generar Excel: " + ex.getMessage());
+            }
         }
     }
 

@@ -149,6 +149,7 @@ public class ControladorMenu implements MouseListener {
 
         inicializarIconos();
         cargarVistaPanel(vistaInicio);
+        aplicarPermisosPorRol(Sesion.getRol());
     }
 
     // Componentes
@@ -428,6 +429,60 @@ public class ControladorMenu implements MouseListener {
             }
 
             icono.setIcon(new ImageIcon(getClass().getResource(rutaFinal)));
+        }
+    }
+    public void aplicarPermisosPorRol(String rol) {
+        // Por defecto ocultar todos
+        btnClientes.setVisible(false);
+        btnVentas.setVisible(false);
+        btnProductos.setVisible(false);
+        btnCompras.setVisible(false);
+        btnCuentasPorCoPa.setVisible(false);
+        btnUsuariosYRoles.setVisible(false);
+        btnReportes.setVisible(false);
+        btnInventario.setVisible(false);
+        btnConfiguracion.setVisible(false);
+        btnEmpleados.setVisible(false);
+
+        switch (rol) {
+            case "ADMIN":
+                // Todos visibles
+                btnClientes.setVisible(true);
+                btnVentas.setVisible(true);
+                btnProductos.setVisible(true);
+                btnCompras.setVisible(true);
+                btnCuentasPorCoPa.setVisible(true);
+                btnUsuariosYRoles.setVisible(true);
+                btnReportes.setVisible(true);
+                btnInventario.setVisible(true);
+                btnConfiguracion.setVisible(true);
+                btnEmpleados.setVisible(true);
+                break;
+
+            case "VENDEDOR":
+                btnClientes.setVisible(true);
+                btnVentas.setVisible(true);
+                btnProductos.setVisible(true);
+                btnReportes.setVisible(true);
+                break;
+
+            case "CAJERO":
+                btnVentas.setVisible(true);
+                btnCuentasPorCoPa.setVisible(true);
+                btnReportes.setVisible(true);
+                break;
+
+            case "BODEGA":
+                btnProductos.setVisible(true);
+                btnInventario.setVisible(true);
+                btnReportes.setVisible(true);
+                break;
+
+            case "CONTADOR":
+                btnCompras.setVisible(true);
+                btnCuentasPorCoPa.setVisible(true);
+                btnReportes.setVisible(true);
+                break;
         }
     }
 
