@@ -61,7 +61,7 @@ public class VistaMenuCuentas extends javax.swing.JPanel {
         panelMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 40));
 
         btnCuentasPorCobrar.setBackground(new java.awt.Color(245, 247, 250));
-        btnCuentasPorCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCuentasPorCobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCuentasPorCobrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconoCuentasPorCobrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoInicio.png"))); // NOI18N
@@ -79,7 +79,7 @@ public class VistaMenuCuentas extends javax.swing.JPanel {
         panelMenu.add(btnCuentasPorCobrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, 40));
 
         btnCuentasPorPagar.setBackground(new java.awt.Color(245, 247, 250));
-        btnCuentasPorPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCuentasPorPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCuentasPorPagar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIconCuentasPorPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
