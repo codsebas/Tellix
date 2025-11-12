@@ -528,15 +528,15 @@ ORDER BY nit
     """;
 
     // Siguiente ID (simple MAX+1). Si luego usas SEQUENCE/IDENTITY, reemplaza por NEXTVAL/IDENTITY.
-    private final String NEXT_ID_CONTACTO_CLIENTE = """
-        SELECT NVL(MAX(identificacion), 0) + 1 AS next_id
-          FROM contacto_cliente
-    """;
+    private final String NEXT_ID_CONTACTO_CLIENTE =
+            "SELECT NVL(MAX(identificacion),0) + 1 FROM contacto_cliente";
     // NO se inserta correlativo_contacto porque es GENERATED ALWAYS AS IDENTITY
-    private final String INSERTAR_CONTACTO_CLIENTE =
-            "INSERT INTO contacto_cliente (" +
-                    "  identificacion, tipo_contacto, info_contacto, telefono, fk_cliente_nit" +
-                    ") VALUES (?, ?, ?, ?, ?)";
+    private final String INSERTAR_CONTACTO_CLIENTE = """
+        INSERT INTO contacto_cliente
+            (identificacion, tipo_contacto, info_contacto, telefono, fk_cliente_nit)
+        VALUES
+            (?, ?, ?, ?, ?)
+        """;
 
     // Eliminar todos los contactos de un NIT (para reemplazo en actualizar)
     private final String ELIMINAR_CONTACTOS_POR_CLIENTE = """
@@ -587,6 +587,27 @@ FROM cliente
 WHERE estado = 'A'
 ORDER BY nit
 """;
+
+    // ===== Tipos de Contacto =====
+    private final String INSERTAR_TIPO_CONTACTO =
+            "INSERT INTO tipo_contacto (descripcion) VALUES (?)";
+
+    private final String ACTUALIZAR_TIPO_CONTACTO =
+            "UPDATE tipo_contacto SET descripcion = ? WHERE codigo = ?";
+
+    private final String ELIMINAR_TIPO_CONTACTO =
+            "DELETE FROM tipo_contacto WHERE codigo = ?";
+
+    private final String OBTENER_TIPO_CONTACTO_POR_CODIGO =
+            "SELECT codigo, descripcion FROM tipo_contacto WHERE codigo = ?";
+
+    private final String LISTAR_TIPOS_CONTACTO_ORDENADO =
+            // usar :campo como placeholder textual; se reemplaza en código con "codigo" o "descripcion"
+            "SELECT codigo, descripcion FROM tipo_contacto ORDER BY %s";
+
+    private final String BUSCAR_TIPO_CONTACTO =
+            "SELECT codigo, descripcion FROM tipo_contacto " +
+                    "WHERE UPPER(descripcion) LIKE UPPER(?) ORDER BY descripcion";
     //sentencias de tipo de contacto
     private final String INSERTAR_TIPO_CLIENTE = "INSERT INTO tipo_cliente (descripcion) VALUES (?)";
 
@@ -999,6 +1020,30 @@ ORDER BY nit
 
     public String getBUSCAR_TIPO_CLIENTE_POR_DESCRIPCION() {
         return BUSCAR_TIPO_CLIENTE_POR_DESCRIPCION;
+    }
+
+    public String getINSERTAR_TIPO_CONTACTO() {
+        return INSERTAR_TIPO_CONTACTO;
+    }
+
+    public String getACTUALIZAR_TIPO_CONTACTO() {
+        return ACTUALIZAR_TIPO_CONTACTO;
+    }
+
+    public String getELIMINAR_TIPO_CONTACTO() {
+        return ELIMINAR_TIPO_CONTACTO;
+    }
+
+    public String getOBTENER_TIPO_CONTACTO_POR_CODIGO() {
+        return OBTENER_TIPO_CONTACTO_POR_CODIGO;
+    }
+
+    public String getLISTAR_TIPOS_CONTACTO_ORDENADO() {
+        return LISTAR_TIPOS_CONTACTO_ORDENADO;
+    }
+
+    public String getBUSCAR_TIPO_CONTACTO() {
+        return BUSCAR_TIPO_CONTACTO;
     }
 }
 
