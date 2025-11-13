@@ -150,6 +150,7 @@ public class ControladorMenu implements MouseListener {
         inicializarIconos();
         cargarVistaPanel(vistaInicio);
         aplicarPermisosPorRol(Sesion.getRol());
+        reorganizarPanelesMenu();
     }
 
     // Componentes
@@ -486,4 +487,44 @@ public class ControladorMenu implements MouseListener {
         }
     }
 
+    private void reorganizarPanelesMenu() {
+
+        int x = 10;
+        int y = 50;          // posición del primer botón/panel visible
+        int separacion = 50; // distancia vertical entre paneles
+        int ancho = 180;
+        int alto = 40;
+
+        // Lista de paneles que SÍ deben reacomodarse
+        JPanel[] botones = {
+                btnInicio,
+                btnClientes,
+                btnVentas,
+                btnProductos,
+                btnCompras,
+                btnCuentasPorCoPa,
+                btnUsuariosYRoles,
+                btnReportes,
+                btnInventario,
+                btnConfiguracion,
+                btnEmpleados
+        };
+
+        for (JPanel pnl : botones) {
+            if (pnl.isVisible()) {
+                y += separacion;
+            }
+        }
+
+        // btnCerrarSesion DEBE quedar en su lugar original
+        btnCerrarSesion.setBounds(
+                btnCerrarSesion.getX(),
+                btnCerrarSesion.getY(),
+                btnCerrarSesion.getWidth(),
+                btnCerrarSesion.getHeight()
+        );
+
+        vista.panelMenu.revalidate();
+        vista.panelMenu.repaint();
+    }
 }

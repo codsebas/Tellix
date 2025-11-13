@@ -4,7 +4,6 @@ import com.umg.interfaces.IProveedor;
 import com.umg.modelo.ModeloProveedores;
 import com.umg.seguridad.Sesion;
 import sql.Conector;
-import sql.Sql;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,20 +12,60 @@ import java.util.List;
 public class ProveedorImp implements IProveedor {
 
     private final Conector con = Sesion.getConexion();
-    private final Sql sql = new Sql();
+
+    // ======================================================
+    //  SQL PROPIO (sin clase Sql)
+    // ======================================================
+
+    private static final String INSERTAR_PROVEEDOR =
+            "INSERT INTO tellix.proveedor (nit_proveedor, nombre, direccion_fiscal, telefono) " +
+                    "VALUES (?, ?, ?, ?)";
+
+    private static final String ACTUALIZAR_PROVEEDOR =
+            "UPDATE tellix.proveedor " +
+                    "SET nombre = ?, direccion_fiscal = ?, telefono = ? " +
+                    "WHERE nit_proveedor = ?";
+
+    private static final String ELIMINAR_PROVEEDOR =
+            "DELETE FROM tellix.proveedor " +
+                    "WHERE nit_proveedor = ?";
+
+    private static final String OBTENER_PROVEEDOR_POR_NIT =
+            "SELECT nit_proveedor, nombre, direccion_fiscal, telefono " +
+                    "FROM tellix.proveedor " +
+                    "WHERE nit_proveedor = ?";
+
+    // Listar ordenado por NIT
+    private static final String LISTAR_PROV_ORDEN_NIT =
+            "SELECT nit_proveedor, nombre, direccion_fiscal, telefono " +
+                    "FROM tellix.proveedor " +
+                    "ORDER BY nit_proveedor";
+
+    // Listar ordenado por Nombre
+    private static final String LISTAR_PROV_ORDEN_NOMBRE =
+            "SELECT nit_proveedor, nombre, direccion_fiscal, telefono " +
+                    "FROM tellix.proveedor " +
+                    "ORDER BY nombre";
+
+    // Buscar por NIT / Nombre
+    private static final String BUSCAR_PROV =
+            "SELECT nit_proveedor, nombre, direccion_fiscal, telefono " +
+                    "FROM tellix.proveedor " +
+                    "WHERE UPPER(nit_proveedor) LIKE ? " +
+                    "   OR UPPER(nombre)       LIKE ? " +
+                    "ORDER BY nit_proveedor";
 
     // ======================================================
     // CRUD PROVEEDOR
     // ======================================================
 
     @Override
-    public boolean insertarProveedor(String nitProveedor, String nombre, String direccionFiscal, String telefono) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getINSERTAR_PROVEEDOR());
-            ps.setString(1, nitProveedor);
-            ps.setString(2, nombre);
-            ps.setString(3, direccionFiscal);
-            ps.setString(4, telefono);
+    public boolean insertarProveedor(ModeloProveedores proveedor) {
+        try (PreparedStatement ps = con.preparar(INSERTAR_PROVEEDOR)) {
+            ps.setString(1, proveedor.getNitProveedor());
+            ps.setString(2, proveedor.getNombreProveedor());
+            ps.setString(3, proveedor.getDireccionFiscal());
+            ps.setString(4, proveedor.getTelefonoProveedor());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error insertarProveedor: " + e.getMessage());
@@ -35,13 +74,12 @@ public class ProveedorImp implements IProveedor {
     }
 
     @Override
-    public boolean actualizarProveedor(String nitProveedor, String nombre, String direccionFiscal, String telefono) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getACTUALIZAR_PROVEEDOR());
-            ps.setString(1, nombre);
-            ps.setString(2, direccionFiscal);
-            ps.setString(3, telefono);
-            ps.setString(4, nitProveedor);
+    public boolean actualizarProveedor(ModeloProveedores proveedor) {
+        try (PreparedStatement ps = con.preparar(ACTUALIZAR_PROVEEDOR)) {
+            ps.setString(1, proveedor.getNombreProveedor());
+            ps.setString(2, proveedor.getDireccionFiscal());
+            ps.setString(3, proveedor.getTelefonoProveedor());
+            ps.setString(4, proveedor.getNitProveedor());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             System.out.println("Error actualizarProveedor: " + e.getMessage());
@@ -51,8 +89,7 @@ public class ProveedorImp implements IProveedor {
 
     @Override
     public boolean eliminarProveedor(String nitProveedor) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getELIMINAR_PROVEEDOR());
+        try (PreparedStatement ps = con.preparar(ELIMINAR_PROVEEDOR)) {
             ps.setString(1, nitProveedor);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -64,33 +101,16 @@ public class ProveedorImp implements IProveedor {
     @Override
     public ModeloProveedores obtenerProveedorPorNit(String nitProveedor) {
         ModeloProveedores p = null;
-        try {
-            PreparedStatement ps = con.preparar(sql.getCONSULTAR_PROV_DETALLE_POR_NIT());
-            ps.setString(1, nitProveedor); // subquery
-            ps.setString(2, nitProveedor); // where principal
+        try (PreparedStatement ps = con.preparar(OBTENER_PROVEEDOR_POR_NIT)) {
+            ps.setString(1, nitProveedor);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) p = mapProveedorDetalle(rs);
+                if (rs.next()) {
+                    p = mapProveedor(rs);
+                }
             }
         } catch (Exception e) {
             System.out.println("Error obtenerProveedorPorNit: " + e.getMessage());
         }
-        return p;
-    }
-    // Nuevo mapper con columnas del JOIN
-    private ModeloProveedores mapProveedorDetalle(ResultSet rs) throws SQLException {
-        ModeloProveedores p = new ModeloProveedores();
-        p.setNitProveedor(rs.getString("nit_proveedor"));
-        p.setNombreProveedor(rs.getString("nombre_proveedor"));
-        p.setDireccionFiscal(rs.getString("direccion_fiscal"));
-        p.setTelefonoProveedor(rs.getString("telefono"));
-
-        // ---- representante (puede venir null si no existe) ----
-        p.setNitRepresentante(rs.getString("nit_representante"));
-        p.setNombre1(rs.getString("nombre1"));
-        p.setNombre2(rs.getString("nombre2"));
-        p.setApellido1(rs.getString("apellido1"));
-        p.setApellido2(rs.getString("apellido2"));
-        p.setApellidoCasada(rs.getString("apellido_casada"));
         return p;
     }
 
@@ -99,15 +119,29 @@ public class ProveedorImp implements IProveedor {
     // ======================================================
 
     @Override
-    public List<RowProv> listarProveedoresConRepresentante() {
+    public List<RowProv> listarProveedoresOrdenNit() {
         List<RowProv> lista = new ArrayList<>();
-        try {
-            PreparedStatement ps = con.preparar(sql.getLISTAR_PROV_CON_REP());
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) lista.add(mapRowProv(rs));
+        try (PreparedStatement ps = con.preparar(LISTAR_PROV_ORDEN_NIT);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(mapRowProv(rs));
             }
         } catch (Exception e) {
-            System.out.println("Error listarProveedoresConRepresentante: " + e.getMessage());
+            System.out.println("Error listarProveedoresOrdenNit: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    @Override
+    public List<RowProv> listarProveedoresOrdenNombre() {
+        List<RowProv> lista = new ArrayList<>();
+        try (PreparedStatement ps = con.preparar(LISTAR_PROV_ORDEN_NOMBRE);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(mapRowProv(rs));
+            }
+        } catch (Exception e) {
+            System.out.println("Error listarProveedoresOrdenNombre: " + e.getMessage());
         }
         return lista;
     }
@@ -115,13 +149,16 @@ public class ProveedorImp implements IProveedor {
     @Override
     public List<RowProv> buscarProveedores(String texto) {
         List<RowProv> lista = new ArrayList<>();
-        try {
-            PreparedStatement ps = con.preparar(sql.getBUSCAR_PROV_CON_REP());
-            String like = "%" + (texto == null ? "" : texto.trim().toUpperCase()) + "%";
-            ps.setString(1, like);
-            ps.setString(2, like);
+        String filtro = (texto == null ? "" : texto.trim()).toUpperCase();
+        String like = "%" + filtro + "%";
+
+        try (PreparedStatement ps = con.preparar(BUSCAR_PROV)) {
+            ps.setString(1, like); // NIT
+            ps.setString(2, like); // Nombre
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) lista.add(mapRowProv(rs));
+                while (rs.next()) {
+                    lista.add(mapRowProv(rs));
+                }
             }
         } catch (Exception e) {
             System.out.println("Error buscarProveedores: " + e.getMessage());
@@ -130,17 +167,17 @@ public class ProveedorImp implements IProveedor {
     }
 
     // ======================================================
-    // COMBOS / RÁPIDOS
+    // COMBOS / AYUDAS
     // ======================================================
 
     @Override
     public List<String> obtenerNitsProveedor() {
         List<String> out = new ArrayList<>();
         final String Q = "SELECT nit_proveedor FROM proveedor ORDER BY nit_proveedor";
-        try {
-            PreparedStatement ps = con.preparar(Q);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) out.add(rs.getString(1));
+        try (PreparedStatement ps = con.preparar(Q);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.add(rs.getString(1));
             }
         } catch (Exception e) {
             System.out.println("Error obtenerNitsProveedor: " + e.getMessage());
@@ -152,10 +189,10 @@ public class ProveedorImp implements IProveedor {
     public List<String> obtenerNombresProveedor() {
         List<String> out = new ArrayList<>();
         final String Q = "SELECT nombre FROM proveedor ORDER BY nombre";
-        try {
-            PreparedStatement ps = con.preparar(Q);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) out.add(rs.getString(1));
+        try (PreparedStatement ps = con.preparar(Q);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.add(rs.getString(1));
             }
         } catch (Exception e) {
             System.out.println("Error obtenerNombresProveedor: " + e.getMessage());
@@ -164,150 +201,8 @@ public class ProveedorImp implements IProveedor {
     }
 
     @Override
-    public String decirHola() { return ""; }
-
-    // ======================================================
-    // REPRESENTANTE
-    // ======================================================
-
-    @Override
-    public int nextCodigoRepresentante(String nitProveedor) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getNEXT_CODIGO_REPRESENTANTE());
-            ps.setString(1, nitProveedor);
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next() ? rs.getInt(1) : 1;
-            }
-        } catch (Exception e) {
-            System.out.println("Error nextCodigoRepresentante: " + e.getMessage());
-            return 1;
-        }
-    }
-
-    @Override
-    public boolean insertarRepresentante(String nitRepresentante,
-                                         String fkProveedorNit,
-                                         int codigo,
-                                         String nombre1,
-                                         String nombre2,
-                                         String apellido1,
-                                         String apellido2,
-                                         String apellidoCasada) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getINSERTAR_REPRESENTANTE());
-            int i = 1;
-            ps.setString(i++, nitRepresentante);
-            ps.setString(i++, fkProveedorNit);
-            ps.setInt(i++,    codigo);
-            ps.setString(i++, nombre1);
-            ps.setString(i++, nombre2);
-            ps.setString(i++, apellido1);
-            ps.setString(i++, apellido2);
-            ps.setString(i++, apellidoCasada);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.out.println("Error insertarRepresentante: " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean actualizarRepresentante(String nitRepresentante,
-                                           String fkProveedorNit,
-                                           int codigo,
-                                           String nombre1,
-                                           String nombre2,
-                                           String apellido1,
-                                           String apellido2,
-                                           String apellidoCasada) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getACTUALIZAR_REPRESENTANTE());
-            int i = 1;
-            ps.setString(i++, nombre1);
-            ps.setString(i++, nombre2);
-            ps.setString(i++, apellido1);
-            ps.setString(i++, apellido2);
-            ps.setString(i++, apellidoCasada);
-            ps.setString(i++, nitRepresentante);
-            ps.setString(i++, fkProveedorNit);
-            ps.setInt(i++,    codigo);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.out.println("Error actualizarRepresentante: " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean eliminarRepresentantesDeProveedor(String nitProveedor) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getELIMINAR_REPRESENTANTES_DE_PROV());
-            ps.setString(1, nitProveedor);
-            ps.executeUpdate(); // aunque borre 0, OK
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error eliminarRepresentantesDeProveedor: " + e.getMessage());
-            return false;
-        }
-    }
-
-    // ======================================================
-    // CONTACTOS DE REPRESENTANTE
-    // ======================================================
-
-    @Override
-    public List<ContactoRep> obtenerContactosRepresentante(String nitRepresentante) {
-        List<ContactoRep> lista = new ArrayList<>();
-        try {
-            PreparedStatement ps = con.preparar(sql.getOBTENER_CONTACTOS_REPRESENTANTE());
-            ps.setString(1, nitRepresentante);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    ContactoRep c = new ContactoRep();
-                    c.correlativoContacto = getIntOrNull(rs, "correlativo_contacto");
-                    c.tipoContacto        = getIntOrNull(rs, "tipo_contacto");
-                    c.infoContacto        = rs.getString("info_contacto");
-                    c.fkRepresentante     = nitRepresentante;
-                    lista.add(c);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Error obtenerContactosRepresentante: " + e.getMessage());
-        }
-        return lista;
-    }
-
-    @Override
-    public boolean insertarContactoRepresentante(String nitRepresentante,
-                                                 Integer tipoContacto,
-                                                 String infoContacto) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getINSERTAR_CONTACTO_REPRESENTANTE());
-            int i = 1;
-            // INSERT ... (correlativo_contacto, codigo, info_contacto, tipo_contacto, fk_representante)
-            // VALUES (DEFAULT, 1, ?, ?, ?)
-            ps.setString(i++, infoContacto);
-            if (tipoContacto == null) ps.setNull(i++, Types.INTEGER);
-            else                      ps.setInt(i++,  tipoContacto);
-            ps.setString(i++, nitRepresentante);
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.out.println("Error insertarContactoRepresentante: " + e.getMessage());
-            return false;
-        }
-    }
-
-    @Override
-    public boolean eliminarContactosRepresentante(String nitRepresentante) {
-        try {
-            PreparedStatement ps = con.preparar(sql.getELIMINAR_CONTACTOS_REPRESENTANTE());
-            ps.setString(1, nitRepresentante);
-            ps.executeUpdate(); // aunque 0 filas
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error eliminarContactosRepresentante: " + e.getMessage());
-            return false;
-        }
+    public String decirHola() {
+        return "";
     }
 
     // ======================================================
@@ -316,12 +211,10 @@ public class ProveedorImp implements IProveedor {
 
     private IProveedor.RowProv mapRowProv(ResultSet rs) throws SQLException {
         IProveedor.RowProv r = new IProveedor.RowProv();
-        r.nitProveedor       = rs.getString("nit_proveedor");
-        r.nombreProveedor    = rs.getString("nombre_proveedor");
-        r.nitRepresentante   = rs.getString("nit_representante");
-        r.nombreRepresentante= rs.getString("nombre_representante");
-        r.direccionFiscal    = rs.getString("direccion_fiscal");
-        r.telefono           = rs.getString("telefono");
+        r.nitProveedor    = rs.getString("nit_proveedor");
+        r.nombreProveedor = rs.getString("nombre");
+        r.direccionFiscal = rs.getString("direccion_fiscal");
+        r.telefono        = rs.getString("telefono");
         return r;
     }
 
@@ -331,16 +224,6 @@ public class ProveedorImp implements IProveedor {
         p.setNombreProveedor(rs.getString("nombre"));
         p.setDireccionFiscal(rs.getString("direccion_fiscal"));
         p.setTelefonoProveedor(rs.getString("telefono"));
-        // estado opcional si existe en tu tabla
         return p;
-    }
-
-    // ======================================================
-    // Helpers
-    // ======================================================
-
-    private Integer getIntOrNull(ResultSet rs, String col) throws SQLException {
-        java.math.BigDecimal bd = rs.getBigDecimal(col);
-        return (bd == null) ? null : bd.intValue();
     }
 }

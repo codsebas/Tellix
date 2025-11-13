@@ -4,6 +4,7 @@ import com.umg.modelo.ModeloMenuCompras;
 import com.umg.vistas.VistaCompras;
 import com.umg.vistas.VistaCuentasPorPagar;
 import com.umg.vistas.VistaProveedores;
+import com.umg.vistas.VistaRepresentantes;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,10 +22,12 @@ public class ControladorMenuCompras implements MouseListener {
     Color grisOscuro = new Color(51,51,51);
     Color blancoPuro = new Color(255,255,255);
 
-    private JPanel btnRegistrarCompra, btnConsultaCompras, btnProveedores, btnCuentasPorPagar;
-    private JLabel lblRegistrarCompra, lblConsultaCompras, lblProveedores, lblCuentasPorPagar;
-    private JLabel lblIconoRegistrarCompra, lblIconoConsultaCompras, lblIconoProveedores, lblIconoCuentasPorPagar;
-    private JLabel lblRegistrarCompraSeleccionado, lblConsultaComprasSeleccionado, lblProveedoresSeleccionado, lblCuentasPorPagarSeleccionado;
+    private JPanel btnRegistrarCompra, btnConsultaCompras, btnProveedores, btnCuentasPorPagar, btnRepresentantes;
+    private JLabel lblRegistrarCompra, lblConsultaCompras, lblProveedores, lblCuentasPorPagar, lblRepresentantes;
+    private JLabel lblIconoRegistrarCompra, lblIconoConsultaCompras, lblIconoProveedores, lblIconoCuentasPorPagar,
+                    lblIconoRepresentantes;
+    private JLabel lblRegistrarCompraSeleccionado, lblConsultaComprasSeleccionado, lblProveedoresSeleccionado,
+                    lblCuentasPorPagarSeleccionado, lblRepresentantesSeleccionado;
 
     private JPanel botonSeleccionado = null;
 
@@ -32,6 +35,7 @@ public class ControladorMenuCompras implements MouseListener {
 
     VistaProveedores vistaProveedores = new VistaProveedores();
     VistaCuentasPorPagar vistaCuentasPorPagar = new VistaCuentasPorPagar();
+    VistaRepresentantes vistaRepresentantes = new VistaRepresentantes();
 
     public ControladorMenuCompras(ModeloMenuCompras modelo) {
         this.modelo = modelo;
@@ -42,41 +46,49 @@ public class ControladorMenuCompras implements MouseListener {
         btnConsultaCompras = vista.btnConsultaCompras;
         btnProveedores = vista.btnProveedores;
         btnCuentasPorPagar = vista.btnCuentasPorPagar;
+        btnRepresentantes = vista.btnRepresentantes;
 
         lblRegistrarCompra =  vista.lblRegistrarCompra;
         lblConsultaCompras =  vista.lblConsultaCompras;
         lblProveedores =  vista.lblProveedores;
         lblCuentasPorPagar =  vista.lblCuentasPorPagar;
+        lblRepresentantes =  vista.lblRepresentantes;
 
         lblRegistrarCompra.setName("texto");
         lblConsultaCompras.setName("texto");
         lblProveedores.setName("texto");
         lblCuentasPorPagar.setName("texto");
+        lblRepresentantes.setName("texto");
 
         lblIconoRegistrarCompra = vista.lblIconoRegistrarCompra;
         lblIconoConsultaCompras = vista.lblIconoConsultaCompras;
         lblIconoProveedores = vista.lblIconoProveedores;
         lblIconoCuentasPorPagar = vista.lblIconoCuentasPorPagar;
+        lblIconoRepresentantes = vista.lblIconoRepresentantes;
 
         lblIconoRegistrarCompra.setName("icono");
         lblIconoConsultaCompras.setName("icono");
         lblIconoProveedores.setName("icono");
         lblIconoCuentasPorPagar.setName("icono");
+        lblIconoRepresentantes.setName("icono");
 
         lblRegistrarCompraSeleccionado = vista.lblRegistrarCompraSeleccionado;
         lblConsultaComprasSeleccionado = vista.lblConsultaComprasSeleccionado;
         lblProveedoresSeleccionado = vista.lblProveedoresSeleccionado;
         lblCuentasPorPagarSeleccionado = vista.lblCuentasPorPagarSeleccionado;
+        lblRepresentantesSeleccionado = vista.lblRepresentantesSeleccionado;
 
         lblRegistrarCompraSeleccionado.setName("efecto");
         lblConsultaComprasSeleccionado.setName("efecto");
         lblProveedoresSeleccionado.setName("efecto");
         lblCuentasPorPagarSeleccionado.setName("efecto");
+        lblRepresentantesSeleccionado.setName("efecto");
 
         lblRegistrarCompraSeleccionado.setVisible(false);
         lblConsultaComprasSeleccionado.setVisible(false);
         lblProveedoresSeleccionado.setVisible(false);
         lblCuentasPorPagarSeleccionado.setVisible(false);
+        lblRepresentantesSeleccionado.setVisible(false);
 
         inicializarIconos();
     }
@@ -91,6 +103,8 @@ public class ControladorMenuCompras implements MouseListener {
 //            accionBotones(btnPrecios, e, vistaPrecios);
         } else if(source.equals(btnProveedores)) {
             accionBotones(btnProveedores, e, vistaProveedores);
+        } else if(source.equals(btnRepresentantes)) {
+            accionBotones(btnRepresentantes, e, vistaRepresentantes);
         } else if(source.equals(btnCuentasPorPagar)) {
             accionBotones(btnCuentasPorPagar, e, vistaCuentasPorPagar);
         }
@@ -231,6 +245,7 @@ public class ControladorMenuCompras implements MouseListener {
         iconosBotones.put(btnConsultaCompras, "/com/umg/iconos/IconoClientes.png");
         iconosBotones.put(btnProveedores, "/com/umg/iconos/IconoClientes.png");
         iconosBotones.put(btnCuentasPorPagar, "/com/umg/iconos/IconoClientes.png");
+        iconosBotones.put(btnRepresentantes, "/com/umg/iconos/IconoClientes.png");
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {

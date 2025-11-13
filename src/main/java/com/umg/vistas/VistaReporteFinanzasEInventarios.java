@@ -40,13 +40,10 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        lblBuscar = new javax.swing.JLabel();
-        cmbOrdenarPor = new javax.swing.JComboBox<>();
+        cmbTipoReporte = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCategorias = new javax.swing.JTable();
+        tblReporte = new javax.swing.JTable();
         btnVerReporte = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblVerReporte = new javax.swing.JLabel();
@@ -59,22 +56,10 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
         btnLimpiar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblLimpiar = new javax.swing.JLabel();
-        cmbOrdenarCuentasPor = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
-        cmbOrdenarMovInventarioPor = new javax.swing.JComboBox<>();
-        jLabel23 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        txtFechaInicio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        cmbBuscarProveedorPor = new javax.swing.JComboBox<>();
-        jLabel24 = new javax.swing.JLabel();
-        txtBuscarProveedor = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        txtNombreProveedor = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        txtNITProveedor = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        txtFechaFin = new javax.swing.JTextField();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
         setPreferredSize(new java.awt.Dimension(880, 720));
@@ -88,27 +73,12 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
         jLabel1.setText("Reporte de Finanzas e Inventarios");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
-        btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Buscar");
-        btnBuscar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnBuscar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
-
-        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cuentas por cobrar", "Cuentas por pagar", "Movimientos de inventario" }));
-        cmbOrdenarPor.setBorder(null);
-        jPanel1.add(cmbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
+        cmbTipoReporte.setBackground(new java.awt.Color(255, 255, 255));
+        cmbTipoReporte.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        cmbTipoReporte.setForeground(new java.awt.Color(108, 117, 125));
+        cmbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cuentas por cobrar", "Cuentas por pagar", "Movimientos de inventario" }));
+        cmbTipoReporte.setBorder(null);
+        jPanel1.add(cmbTipoReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
 
         jLabel16.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(33, 37, 41));
@@ -118,7 +88,7 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
-        tblCategorias.setModel(new javax.swing.table.DefaultTableModel(
+        tblReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -129,7 +99,7 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
                 "Reporte"
             }
         ));
-        jScrollPane1.setViewportView(tblCategorias);
+        jScrollPane1.setViewportView(tblReporte);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 610, 560));
 
@@ -193,95 +163,25 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
 
         jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, -1, -1));
 
-        cmbOrdenarCuentasPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbOrdenarCuentasPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbOrdenarCuentasPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbOrdenarCuentasPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vencidas", "Próximas" }));
-        cmbOrdenarCuentasPor.setBorder(null);
-        jPanel1.add(cmbOrdenarCuentasPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
-
-        jLabel22.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Ordenar Cuentas Por");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
-
-        cmbOrdenarMovInventarioPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbOrdenarMovInventarioPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbOrdenarMovInventarioPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbOrdenarMovInventarioPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fecha", "Producto", "Usuario" }));
-        cmbOrdenarMovInventarioPor.setBorder(null);
-        jPanel1.add(cmbOrdenarMovInventarioPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 200, 30));
-
-        jLabel23.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel23.setText("Ordenar Mov. de Inventario Por");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 200, 20));
-
-        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
-        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 200, 30));
+        txtFechaInicio.setBackground(new java.awt.Color(255, 255, 255));
+        txtFechaInicio.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
 
         jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(33, 37, 41));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Fecha de Inicio");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 200, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
 
         jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(33, 37, 41));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Fecha de Fin");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 200, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 200, 20));
 
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 200, 30));
-
-        cmbBuscarProveedorPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbBuscarProveedorPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbBuscarProveedorPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbBuscarProveedorPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo Producto", "Nombre Producto", "Usuario" }));
-        cmbBuscarProveedorPor.setBorder(null);
-        jPanel1.add(cmbBuscarProveedorPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 200, 30));
-
-        jLabel24.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel24.setText("Buscar Por");
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 110, 20));
-
-        txtBuscarProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtBuscarProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtBuscarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 200, 30));
-
-        jLabel14.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setText("Buscar");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 200, 20));
-
-        txtNombreProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombreProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 200, 30));
-
-        jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Nombre Producto/Usuario");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 200, 20));
-
-        txtNITProveedor.setEditable(false);
-        txtNITProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtNITProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtNITProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 200, 30));
-
-        jLabel7.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Codigo de Producto/Usuario");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 200, 20));
+        txtFechaFin.setBackground(new java.awt.Color(255, 255, 255));
+        txtFechaFin.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel1.add(txtFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 200, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -297,49 +197,33 @@ public class VistaReporteFinanzasEInventarios extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel btnBuscar;
     public javax.swing.JPanel btnGenerarExcel;
     public javax.swing.JPanel btnGenerarPDF;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnVerReporte;
-    private javax.swing.JComboBox<String> cmbBuscarProveedorPor;
-    private javax.swing.JComboBox<String> cmbOrdenarCuentasPor;
-    private javax.swing.JComboBox<String> cmbOrdenarMovInventarioPor;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbTipoReporte;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JLabel lblBuscar;
     public javax.swing.JLabel lblGenerarExcel;
     public javax.swing.JLabel lblGenerarPDF;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblVerReporte;
-    private javax.swing.JTable tblCategorias;
-    public javax.swing.JTextField txtBuscarProveedor;
-    public javax.swing.JTextField txtCodigo;
-    public javax.swing.JTextField txtDescripcion;
-    public javax.swing.JTextField txtNITProveedor;
-    public javax.swing.JTextField txtNombreProveedor;
+    public javax.swing.JTable tblReporte;
+    public javax.swing.JTextField txtFechaFin;
+    public javax.swing.JTextField txtFechaInicio;
     // End of variables declaration//GEN-END:variables
     public void setControlador(ControladorReporteFinanzasEInventarios controlador) {
         this.btnGenerarExcel.addMouseListener(controlador);
         this.btnLimpiar.addMouseListener(controlador);
         this.btnGenerarPDF.addMouseListener(controlador);
-        this.btnBuscar.addMouseListener(controlador);
         this.btnVerReporte.addMouseListener(controlador);
     }
 }
