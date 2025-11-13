@@ -26,30 +26,19 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCuentasPorPagar = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
-        lblBuscar1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        btnBuscar1 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCuentasPorPagar = new javax.swing.JTable();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
         setPreferredSize(new java.awt.Dimension(880, 720));
-
-        tblCuentasPorPagar.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(tblCuentasPorPagar);
 
         jLabel1.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(108, 117, 125));
@@ -65,33 +54,55 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(108, 117, 125));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Cuentas Por Pagar");
+
         jLabel16.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Buscar");
 
-        lblBuscar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
+        btnBuscar1.setBackground(new java.awt.Color(245, 247, 250));
+        btnBuscar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnBuscar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(108, 117, 125));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Cuentas Por Pagar");
+        jLabel17.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Buscar");
+        btnBuscar1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+
+        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
+        btnBuscar1.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+
+        tblCuentasPorPagar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblCuentasPorPagar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBuscar1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,14 +126,19 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
                         .addGap(39, 39, 39)
                         .addComponent(jLabel15))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBuscar1)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(347, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(14, 14, 14)
+                                        .addComponent(btnBuscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(344, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -134,12 +150,14 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel btnBuscar;
+    public javax.swing.JPanel btnBuscar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JLabel lblBuscar1;
+    public javax.swing.JLabel lblBuscar;
     public javax.swing.JTable tblCuentasPorPagar;
     // End of variables declaration//GEN-END:variables
 }
