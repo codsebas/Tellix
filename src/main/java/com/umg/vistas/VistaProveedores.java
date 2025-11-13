@@ -41,18 +41,8 @@ public class VistaProveedores extends javax.swing.JPanel {
         txtNombreProveedor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtDireccionFiscal = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        txtSegundoApellido = new javax.swing.JTextField();
         txtTelefonoProveedor = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        txtNitRepresentante = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        txtPrimerNombre = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        txtSegundoNombre = new javax.swing.JTextField();
-        txtApellidoCasada = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
@@ -75,26 +65,9 @@ public class VistaProveedores extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblClientes1 = new javax.swing.JTable();
-        cmbTipoContacto = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
-        txtInfoContacto = new javax.swing.JTextField();
-        jLabel21 = new javax.swing.JLabel();
-        txtTelContacto = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
         btnNuevo1 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        lblNuevo1 = new javax.swing.JLabel();
         btnActualizar1 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        lblActualizar1 = new javax.swing.JLabel();
         btnEliminar1 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        lblEliminar1 = new javax.swing.JLabel();
-        txtPrimerApellido = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
         setPreferredSize(new java.awt.Dimension(880, 720));
@@ -140,15 +113,6 @@ public class VistaProveedores extends javax.swing.JPanel {
         txtDireccionFiscal.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtDireccionFiscal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, 30));
 
-        jLabel10.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("Segundo Apellido");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 490, 200, 20));
-
-        txtSegundoApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 200, 30));
-
         txtTelefonoProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 200, 30));
 
@@ -158,42 +122,6 @@ public class VistaProveedores extends javax.swing.JPanel {
         jLabel19.setText("Teléfono");
         jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 20));
 
-        txtNitRepresentante.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtNitRepresentante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 200, 30));
-
-        jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("NIT Representante");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 200, 20));
-
-        jLabel9.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Primer Nombre");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 200, 20));
-
-        txtPrimerNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtPrimerNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 200, 30));
-
-        jLabel20.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Segundo Nombre");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 200, 20));
-
-        txtSegundoNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtSegundoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 200, 30));
-
-        txtApellidoCasada.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtApellidoCasada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 200, 30));
-
-        jLabel11.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("Apellido de Casada");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 550, 200, 20));
-
         panelTabla.setBackground(new java.awt.Color(245, 247, 250));
         panelTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -201,13 +129,13 @@ public class VistaProveedores extends javax.swing.JPanel {
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "NIT Proveedor", "Nombre Proveedor", "NIT Representante", "Nombre Representante"
+                "NIT Proveedor", "Nombre Proveedor"
             }
         ));
         jScrollPane1.setViewportView(tblClientes);
@@ -312,111 +240,20 @@ public class VistaProveedores extends javax.swing.JPanel {
 
         jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Skoda Pro", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(108, 117, 125));
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Contacto Prepresentante");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 220, -1));
-
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(660, 480));
-
-        tblClientes1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "No.", "Tipo", "Información", "Teléfono"
-            }
-        ));
-        jScrollPane2.setViewportView(tblClientes1);
-
-        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 380, 170));
-
-        cmbTipoContacto.setForeground(new java.awt.Color(108, 117, 125));
-        cmbTipoContacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbTipoContacto.setBorder(null);
-        jPanel2.add(cmbTipoContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 200, 30));
-
-        jLabel17.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("Tipo de Contacto");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 200, 20));
-
-        txtInfoContacto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtInfoContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 510, 200, 30));
-
-        jLabel21.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Información");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 200, 20));
-
-        txtTelContacto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtTelContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 570, 200, 30));
-
-        jLabel22.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Teléfono");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, 200, 20));
-
         btnNuevo1.setBackground(new java.awt.Color(245, 247, 250));
         btnNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNuevo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel23.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("Nuevo C.");
-        btnNuevo1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblNuevo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnNuevo1.add(lblNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
         jPanel2.add(btnNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 610, -1, -1));
 
         btnActualizar1.setBackground(new java.awt.Color(245, 247, 250));
         btnActualizar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel24.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Actualizar C.");
-        btnActualizar1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblActualizar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnActualizar1.add(lblActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
         jPanel2.add(btnActualizar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 610, -1, 30));
 
         btnEliminar1.setBackground(new java.awt.Color(245, 247, 250));
         btnEliminar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel25.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Eliminar C.");
-        btnEliminar1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblEliminar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnEliminar1.add(lblEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
         jPanel2.add(btnEliminar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 610, -1, -1));
-
-        txtPrimerApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 30));
-
-        jLabel26.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel26.setText("Primer Apellido");
-        jPanel2.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 20));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 870, 670));
 
@@ -443,59 +280,32 @@ public class VistaProveedores extends javax.swing.JPanel {
     public javax.swing.JPanel btnNuevo;
     public javax.swing.JPanel btnNuevo1;
     private javax.swing.JComboBox<String> cmbOrdenarPor;
-    private javax.swing.JComboBox<String> cmbTipoContacto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel lblActualizar;
-    public javax.swing.JLabel lblActualizar1;
     public javax.swing.JLabel lblBuscar;
     public javax.swing.JLabel lblEliminar;
-    public javax.swing.JLabel lblEliminar1;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    public javax.swing.JLabel lblNuevo1;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tblClientes;
-    private javax.swing.JTable tblClientes1;
-    public javax.swing.JTextField txtApellidoCasada;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtDireccionFiscal;
-    public javax.swing.JTextField txtInfoContacto;
     public javax.swing.JTextField txtNIT;
-    public javax.swing.JTextField txtNitRepresentante;
     public javax.swing.JTextField txtNombreProveedor;
-    public javax.swing.JTextField txtPrimerApellido;
-    public javax.swing.JTextField txtPrimerNombre;
-    public javax.swing.JTextField txtSegundoApellido;
-    public javax.swing.JTextField txtSegundoNombre;
-    public javax.swing.JTextField txtTelContacto;
     public javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
 
@@ -510,14 +320,6 @@ public class VistaProveedores extends javax.swing.JPanel {
         return tblClientes;   // <-- reemplaza por el nombre real de la tabla de clientes
     }
 
-    public javax.swing.JTable getTablaContactos() {
-        return tblClientes1;  // <-- reemplaza por el nombre real de la tabla de contactos
-    }
-    // En VistaClientes.java
-    public javax.swing.JComboBox<String> getCmbTipoContacto() {
-        return cmbTipoContacto;
-    }
-
-
+   
 
 }
