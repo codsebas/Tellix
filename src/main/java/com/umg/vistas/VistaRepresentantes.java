@@ -9,6 +9,8 @@ import com.umg.controlador.ControladorRepresentantes;
 import com.umg.modelo.ModeloProveedores;
 import com.umg.modelo.ModeloRepresentates;
 
+import javax.swing.*;
+
 /**
  *
  * @author axels
@@ -452,9 +454,9 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
     public javax.swing.JPanel btnNuevo1;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
-    private javax.swing.JComboBox<String> cmbProveedores;
-    private javax.swing.JComboBox<String> cmbTipoContacto;
+    public javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbProveedores;
+    public javax.swing.JComboBox<String> cmbTipoContacto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -516,18 +518,19 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         this.btnBuscar.addMouseListener(controlador);
         this.btnLimpiar.addMouseListener(controlador);
     }
-    public javax.swing.JTable getTablaClientes() {
-        return tblClientes;   // <-- reemplaza por el nombre real de la tabla de clientes
+    public javax.swing.JTable getTablaContactos() {
+        return tblClientes1;
     }
 
-    public javax.swing.JTable getTablaContactos() {
-        return tblClientes1;  // <-- reemplaza por el nombre real de la tabla de contactos
-    }
-    // En VistaClientes.java
     public javax.swing.JComboBox<String> getCmbTipoContacto() {
         return cmbTipoContacto;
     }
 
-
+    public javax.swing.JComboBox<String> getCmbProveedores() {
+        return cmbProveedores;
+    }
+    public javax.swing.JTable getTablaClientes() {
+        return tblClientes;   // tabla de representantes
+    }
 
 }

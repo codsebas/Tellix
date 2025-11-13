@@ -1,14 +1,17 @@
 package com.umg.controlador;
 
 import com.umg.implementacion.ProveedorImp;
+import com.umg.implementacion.RepresentantesImp;
 import com.umg.implementacion.TipoContactoImp;
 import com.umg.interfaces.IProveedor;
+import com.umg.interfaces.IRepresentantes;
 import com.umg.interfaces.ITipoContacto;
-import com.umg.modelo.ModeloProveedores;
 import com.umg.modelo.ModeloRepresentates;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -17,10 +20,12 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ControladorRepresentantes implements ActionListener, MouseListener {
-    ModeloRepresentates modelo;
 
-    // ===== Modelo y servicios =====
-    private final IProveedor servicio = new ProveedorImp();
+    private ModeloRepresentates modelo;
+
+    // ===== Servicios =====
+    private final IProveedor servicioProv = new ProveedorImp();
+    private final IRepresentantes servicioRep = new RepresentantesImp();
     private final ITipoContacto.Servicio svcTipoContacto = new TipoContactoImp();
 
     // ===== Botones (superior) =====
@@ -30,6 +35,9 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
     // ===== Botones (contactos) =====
     private final JPanel btnNuevoC, btnActualizarC, btnEliminarC;
     private final JLabel  lblNuevoC, lblActualizarC, lblEliminarC;
+
+    // ===== Combos =====
+    private final JComboBox<String> cmbProveedores;
 
     // Cache para iconos (hover)
     private final Map<JPanel,String> iconosBotones = new HashMap<>();
@@ -46,6 +54,10 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
     // ===== Cache tipo_contacto =====
     private final Map<Integer,String> tcod2desc = new HashMap<>();
     private final Map<String,Integer> tdesc2cod = new HashMap<>();
+
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
     public ControladorRepresentantes(ModeloRepresentates modelo) {
         this.modelo = modelo;
         var v = modelo.getVista();
@@ -82,9 +94,12 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         if (lblActualizarC != null) lblActualizarC.setName("icono");
         if (lblEliminarC != null)   lblEliminarC.setName("icono");
 
+        // Combo de proveedores
+        cmbProveedores = v.getCmbProveedores();
+
         inicializarIconos();
 
-        // Listeners de mouse (como en clientes)
+        // Listeners de mouse
         if (btnNuevo != null)      btnNuevo.addMouseListener(this);
         if (btnActualizar != null) btnActualizar.addMouseListener(this);
         if (btnEliminar != null)   btnEliminar.addMouseListener(this);
@@ -99,7 +114,25 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         cargarCacheTiposContacto();
         poblarComboTipoContacto(); // usa vista.getCmbTipoContacto()
 
-        // ===== Datos iniciales =====
+        // Cargar proveedores inicialmente
+        cargarProveedoresEnCombo();
+
+        // Recargar proveedores CADA VEZ que abras el combo
+        if (cmbProveedores != null) {
+            cmbProveedores.addPopupMenuListener(new PopupMenuListener() {
+                @Override
+                public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                    cargarProveedoresEnCombo();
+                }
+                @Override public void popupMenuWillBecomeInvisible(PopupMenuEvent e) { }
+                @Override public void popupMenuCanceled(PopupMenuEvent e) { }
+            });
+
+            // Al seleccionar un proveedor -> autollenar nombre/dirección/teléfono
+            cmbProveedores.addActionListener(ev -> onSeleccionProveedorDesdeCombo());
+        }
+
+        // ===== Datos iniciales: tabla de representantes =====
         refrescarTabla();
 
         // Selección en tabla superior -> llenar formulario + cargar contactos
@@ -107,7 +140,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         if (tbl != null) {
             tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             tbl.getSelectionModel().addListSelectionListener(ev -> {
-                if (!ev.getValueIsAdjusting()) onSeleccionProveedor();
+                if (!ev.getValueIsAdjusting()) onSeleccionRepresentante();
             });
         }
 
@@ -134,131 +167,145 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
                 || d.contains("WHATS") || d.contains("PHONE");
     }
 
-    // ===================== Acciones de barra superior =====================
-//    private void onNuevo() {
-//        try {
-//            var v = modelo.getVista();
-//            String nitProv = safe(v.txtNIT.getText());
-//            String nomProv = safe(v.txtNombreProveedor.getText());
-//            if (nitProv == null || nomProv == null) {
-//                mensaje("NIT Proveedor y Nombre son obligatorios.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
-//
-//            String dir = nvl(safe(v.txtDireccionFiscal.getText()));
-//            String tel = nvl(safe(v.txtTelefonoProveedor.getText()));
-//
-//            if (!servicio.insertarProveedor(nitProv, nomProv, dir, tel)) {
-//                mensaje("No se pudo guardar el proveedor.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
-//
-//            // Representante (opcional)
-//            String nitRep = safe(v.txtNitRepresentante.getText());
-//            if (nitRep != null) {
-//                int codigo = servicio.nextCodigoRepresentante(nitProv);
-//                servicio.insertarRepresentante(
-//                        nitRep, nitProv, codigo,
-//                        nvl(safe(v.txtPrimerNombre.getText())),
-//                        nvl(safe(v.txtSegundoNombre.getText())),
-//                        nvl(safe(v.txtPrimerApellido.getText())),
-//                        nvl(safe(v.txtSegundoApellido.getText())),
-//                        nvl(safe(v.txtApellidoCasada.getText()))
-//                );
-//                // Contactos del buffer
-//                for (ContactoTmp c : bufferContactos) {
-//                    String info = decideInfoParaBD(c);
-//                    servicio.insertarContactoRepresentante(nitRep, c.tipoContacto, info);
-//                }
-//            }
-//
-//            mensaje("Proveedor guardado.", "OK", JOptionPane.INFORMATION_MESSAGE);
-//            limpiarFormulario();
-//            refrescarTabla();
-//        } catch (Exception ex) {
-//            mensaje("Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
+    // =========================================================
+    // ACCIONES BARRA SUPERIOR (REPRESENTANTE)
+    // =========================================================
 
-//    private void onActualizar() {
-//        try {
-//            var v = modelo.getVista();
-//            String nitProv = safe(v.txtNIT.getText());
-//            if (nitProv == null) { mensaje("Indica el NIT del proveedor.", "Aviso", JOptionPane.WARNING_MESSAGE); return; }
-//
-//            if (!servicio.actualizarProveedor(
-//                    nitProv,
-//                    nvl(safe(v.txtNombreProveedor.getText())),
-//                    nvl(safe(v.txtDireccionFiscal.getText())),
-//                    nvl(safe(v.txtTelefonoProveedor.getText()))
-//            )) {
-//                mensaje("No se pudo actualizar el proveedor.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//                return;
-//            }
-//
-//            // upsert del representante + reemplazo de contactos
-//            String nitRep = safe(v.txtNitRepresentante.getText());
-//            if (nitRep != null) {
-//                int codigo = 1; // si manejas varios reps por proveedor, el que corresponda
-//                boolean okRep = servicio.actualizarRepresentante(
-//                        nitRep, nitProv, codigo,
-//                        nvl(safe(v.txtPrimerNombre.getText())),
-//                        nvl(safe(v.txtSegundoNombre.getText())),
-//                        nvl(safe(v.txtPrimerApellido.getText())),
-//                        nvl(safe(v.txtSegundoApellido.getText())),
-//                        nvl(safe(v.txtApellidoCasada.getText()))
-//                );
-//                if (!okRep) {
-//                    servicio.insertarRepresentante(
-//                            nitRep, nitProv, codigo,
-//                            nvl(safe(v.txtPrimerNombre.getText())),
-//                            nvl(safe(v.txtSegundoNombre.getText())),
-//                            nvl(safe(v.txtPrimerApellido.getText())),
-//                            nvl(safe(v.txtSegundoApellido.getText())),
-//                            nvl(safe(v.txtApellidoCasada.getText()))
-//                    );
-//                }
-//
-//                servicio.eliminarContactosRepresentante(nitRep);
-//                for (ContactoTmp c : bufferContactos) {
-//                    servicio.insertarContactoRepresentante(nitRep, c.tipoContacto, decideInfoParaBD(c));
-//                }
-//            }
-//
-//            mensaje("Proveedor actualizado.", "OK", JOptionPane.INFORMATION_MESSAGE);
-//            refrescarTabla();
-//        } catch (Exception ex) {
-//            mensaje("Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//    }
-//
-//    private void onEliminar() {
-//        var v = modelo.getVista();
-//        String nitProv = safe(v.txtNIT.getText());
-//        if (nitProv == null) { mensaje("Indica el NIT del proveedor.", "Aviso", JOptionPane.WARNING_MESSAGE); return; }
-//
-//        int r = JOptionPane.showConfirmDialog(v, "¿Eliminar proveedor " + nitProv + "?", "Confirmar",
-//                JOptionPane.YES_NO_OPTION);
-//        if (r != JOptionPane.YES_OPTION) return;
-//
-//        servicio.eliminarRepresentantesDeProveedor(nitProv);
-//        if (servicio.eliminarProveedor(nitProv)) {
-//            mensaje("Proveedor eliminado.", "OK", JOptionPane.INFORMATION_MESSAGE);
-//            limpiarFormulario();
-//            refrescarTabla();
-//        } else {
-//            mensaje("No se pudo eliminar.", "Aviso", JOptionPane.WARNING_MESSAGE);
-//        }
-//    }
+    private void onNuevo() {
+        try {
+            var v = modelo.getVista();
+
+            String nitProv = obtenerNitProveedorSeleccionado();
+            if (nitProv == null) {
+                mensaje("Seleccione un proveedor en el combo.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String nitRep   = safe(v.txtNitRepresentante.getText());
+            String priNom   = safe(v.txtPrimerNombre.getText());
+            String priApe   = safe(v.txtPrimerApellido.getText());
+
+            if (nitRep == null || priNom == null || priApe == null) {
+                mensaje("NIT Representante, Primer Nombre y Primer Apellido son obligatorios.",
+                        "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ModeloRepresentates rep = new ModeloRepresentates(v);
+            rep.setNitProveedor(nitProv);
+            rep.setNitRepresentante(nitRep);
+            rep.setPrimerNombre(priNom);
+            rep.setSegundoNombre(nvl(safe(v.txtSegundoNombre.getText())));
+            rep.setPrimerApellido(priApe);
+            rep.setSegundoApellido(nvl(safe(v.txtSegundoApellido.getText())));
+            rep.setApellidoCasada(nvl(safe(v.txtApellidoCasada.getText())));
+
+            if (!servicioRep.insertarRepresentante(rep)) {
+                mensaje("No se pudo guardar el representante.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Contactos del buffer -> BD
+            for (ContactoTmp c : bufferContactos) {
+                String info = decideInfoParaBD(c);
+                servicioRep.insertarContactoRepresentante(nitRep, c.tipoContacto, info);
+            }
+
+            mensaje("Representante guardado.", "OK", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            refrescarTabla();
+        } catch (Exception ex) {
+            mensaje("Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void onActualizar() {
+        try {
+            var v = modelo.getVista();
+
+            String nitProv = obtenerNitProveedorSeleccionado();
+            if (nitProv == null) {
+                mensaje("Seleccione un proveedor en el combo.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String nitRep = safe(v.txtNitRepresentante.getText());
+            if (nitRep == null) {
+                mensaje("Indica el NIT del representante.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            ModeloRepresentates rep = new ModeloRepresentates(v);
+            rep.setNitProveedor(nitProv);
+            rep.setNitRepresentante(nitRep);
+            rep.setPrimerNombre(nvl(safe(v.txtPrimerNombre.getText())));
+            rep.setSegundoNombre(nvl(safe(v.txtSegundoNombre.getText())));
+            rep.setPrimerApellido(nvl(safe(v.txtPrimerApellido.getText())));
+            rep.setSegundoApellido(nvl(safe(v.txtSegundoApellido.getText())));
+            rep.setApellidoCasada(nvl(safe(v.txtApellidoCasada.getText())));
+
+            if (!servicioRep.actualizarRepresentante(rep)) {
+                mensaje("No se pudo actualizar el representante.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Reemplazar contactos: borrar todos y volver a insertar buffer
+            servicioRep.eliminarContactosRepresentante(nitRep);
+            for (ContactoTmp c : bufferContactos) {
+                servicioRep.insertarContactoRepresentante(nitRep, c.tipoContacto, decideInfoParaBD(c));
+            }
+
+            mensaje("Representante actualizado.", "OK", JOptionPane.INFORMATION_MESSAGE);
+            refrescarTabla();
+        } catch (Exception ex) {
+            mensaje("Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void onEliminar() {
+        var v = modelo.getVista();
+
+        String nitProv = obtenerNitProveedorSeleccionado();
+        if (nitProv == null) {
+            mensaje("Seleccione un proveedor en el combo.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nitRep = safe(v.txtNitRepresentante.getText());
+        if (nitRep == null) {
+            mensaje("Indica el NIT del representante.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int r = JOptionPane.showConfirmDialog(v,
+                "¿Eliminar representante " + nitRep + " del proveedor " + nitProv + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (r != JOptionPane.YES_OPTION) return;
+
+        servicioRep.eliminarContactosRepresentante(nitRep);
+        if (servicioRep.eliminarRepresentante(nitProv, nitRep)) {
+            mensaje("Representante eliminado.", "OK", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            refrescarTabla();
+        } else {
+            mensaje("No se pudo eliminar el representante.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 
     private void onBuscar() {
         String txt = safe(modelo.getVista().txtBuscar.getText());
-        cargarTabla(servicio.buscarProveedores(txt));
+        if (txt == null || txt.isEmpty()) {
+            refrescarTabla();
+        } else {
+            cargarTabla(servicioRep.buscarRepresentantes(txt));
+        }
     }
 
     private void onLimpiar() { limpiarFormulario(); }
 
-    // ===================== Contactos (buffer) =====================
+    // =========================================================
+    // Contactos (buffer UI)
+    // =========================================================
     private void onNuevoContacto() {
         var v = modelo.getVista();
         ContactoTmp c = new ContactoTmp();
@@ -292,44 +339,50 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         refrescarTablaContactos();
     }
 
-    private void onSeleccionProveedor() {
+    // =========================================================
+    // Selección en tabla superior (representantes)
+    // =========================================================
+    private void onSeleccionRepresentante() {
         JTable tbl = modelo.getVista().getTablaClientes();
         int row = (tbl == null) ? -1 : tbl.getSelectedRow();
         if (row < 0) return;
 
-        String nitProv = valStr(tbl.getValueAt(row, 0));
-        if (nitProv == null) return;
+        row = tbl.convertRowIndexToModel(row);
 
-        var p = servicio.obtenerProveedorPorNit(nitProv);
-        if (p == null) return;
+        String nitProv = valStr(tbl.getModel().getValueAt(row, 0));
+        String nitRep  = valStr(tbl.getModel().getValueAt(row, 2));
+        if (nitProv == null || nitRep == null) return;
+
+        var rep  = servicioRep.obtenerRepresentante(nitProv, nitRep);
+        var prov = servicioProv.obtenerProveedorPorNit(nitProv);
+        if (rep == null || prov == null) return;
 
         var v = modelo.getVista();
 
-        // Proveedor (incluye su teléfono propio)
-//        v.txtNIT.setText(nvl(p.getNitProveedor()));
-        v.txtNombreProveedor.setText(nvl(p.getNombreProveedor()));
-        v.txtDireccionFiscal.setText(nvl(p.getDireccionFiscal()));
-        v.txtTelefonoProveedor.setText(nvl(p.getTelefonoProveedor()));  // <- teléfono del PROVEEDOR
+        // Proveedor: combo + datos autollenados
+        setComboProveedorByNit(nitProv);  // esto dispara el ActionListener que llena Nombre/Dir/Tel
 
-        // Representante (si lo tienes en el modelo)
-        v.txtNitRepresentante.setText(nvl(p.getNitRepresentante()));
-        v.txtPrimerNombre.setText(nvl(p.getNombre1()));
-        v.txtSegundoNombre.setText(nvl(p.getNombre2()));
-        v.txtPrimerApellido.setText(nvl(p.getApellido1()));
-        v.txtSegundoApellido.setText(nvl(p.getApellido2()));
-        v.txtApellidoCasada.setText(nvl(p.getApellidoCasada()));
+        // Representante
+        v.txtNitRepresentante.setText(nvl(rep.getNitRepresentante()));
+        v.txtPrimerNombre.setText(nvl(rep.getPrimerNombre()));
+        v.txtSegundoNombre.setText(nvl(rep.getSegundoNombre()));
+        v.txtPrimerApellido.setText(nvl(rep.getPrimerApellido()));
+        v.txtSegundoApellido.setText(nvl(rep.getSegundoApellido()));
+        v.txtApellidoCasada.setText(nvl(rep.getApellidoCasada()));
 
-        // Cargar contactos del representante → esto llenará la tabla y
-        // dejará listo el cuadro "Teléfono" del contacto cuando selecciones una fila abajo
-        cargarContactosDeRepresentante(valStr(p.getNitRepresentante()));
+        // Cargar contactos del representante
+        cargarContactosDeRepresentante(nitRep);
     }
 
     private void cargarContactosDeRepresentante(String nitRep) {
         bufferContactos.clear();
-        if (nitRep == null || nitRep.isBlank()) { refrescarTablaContactos(); return; }
+        if (nitRep == null || nitRep.isBlank()) {
+            refrescarTablaContactos();
+            return;
+        }
 
         try {
-            var lista = servicio.obtenerContactosRepresentante(nitRep);
+            var lista = servicioRep.obtenerContactosRepresentante(nitRep);
             int i = 1;
             for (var x : lista) {
                 ContactoTmp c = new ContactoTmp();
@@ -352,14 +405,14 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         refrescarTablaContactos();
     }
 
-
-
-    // ===================== Tablas UI =====================
+    // =========================================================
+    // Tablas UI
+    // =========================================================
     private void refrescarTabla() {
-        cargarTabla(servicio.listarProveedoresConRepresentante());
+        cargarTabla(servicioRep.listarRepresentantesOrdenNitProveedor());
     }
 
-    private void cargarTabla(java.util.List<IProveedor.RowProv> data) {
+    private void cargarTabla(java.util.List<IRepresentantes.RowRep> data) {
         JTable t = modelo.getVista().getTablaClientes();
         if (t == null) return;
 
@@ -389,7 +442,9 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         t.setModel(m);
     }
 
-    // ===================== Combos / caches =====================
+    // =========================================================
+    // Combos / caches
+    // =========================================================
     private void cargarCacheTiposContacto() {
         tcod2desc.clear(); tdesc2cod.clear();
         try {
@@ -436,15 +491,72 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         }
     }
 
-    // ===================== Util / UI =====================
+    // ====== Proveedores (combo) ======
+    private void cargarProveedoresEnCombo() {
+        if (cmbProveedores == null) return;
+        cmbProveedores.removeAllItems();
+        cmbProveedores.addItem("-- Seleccione --");
+
+        try {
+            var nits = servicioProv.obtenerNitsProveedor();
+            for (String nit : nits) {
+                cmbProveedores.addItem(nit);
+            }
+        } catch (Exception e) {
+            System.out.println("cargarProveedoresEnCombo: " + e.getMessage());
+        }
+    }
+
+    private void onSeleccionProveedorDesdeCombo() {
+        if (cmbProveedores == null) return;
+        Object sel = cmbProveedores.getSelectedItem();
+        if (sel == null) return;
+        String nit = sel.toString().trim();
+        if (nit.equals("-- Seleccione --") || nit.isEmpty()) {
+            var v = modelo.getVista();
+            v.txtNombreProveedor.setText("");
+            v.txtDireccionFiscal.setText("");
+            v.txtTelefonoProveedor.setText("");
+            return;
+        }
+
+        var p = servicioProv.obtenerProveedorPorNit(nit);
+        if (p == null) return;
+
+        var v = modelo.getVista();
+        v.txtNombreProveedor.setText(nvl(p.getNombreProveedor()));
+        v.txtDireccionFiscal.setText(nvl(p.getDireccionFiscal()));
+        v.txtTelefonoProveedor.setText(nvl(p.getTelefonoProveedor()));
+    }
+
+    private String obtenerNitProveedorSeleccionado() {
+        if (cmbProveedores == null) return null;
+        Object sel = cmbProveedores.getSelectedItem();
+        if (sel == null) return null;
+        String nit = sel.toString().trim();
+        if (nit.equals("-- Seleccione --") || nit.isEmpty()) return null;
+        return nit;
+    }
+
+    private void setComboProveedorByNit(String nit) {
+        if (cmbProveedores == null || nit == null) return;
+        for (int i = 0; i < cmbProveedores.getItemCount(); i++) {
+            if (nit.equalsIgnoreCase(cmbProveedores.getItemAt(i))) {
+                cmbProveedores.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
+    // =========================================================
+    // Util / UI
+    // =========================================================
     private void limpiarFormulario() {
         var v = modelo.getVista();
 
-        // Proveedor
-//        v.txtNIT.setText("");
-        v.txtNombreProveedor.setText("");
-        v.txtDireccionFiscal.setText("");
-        v.txtTelefonoProveedor.setText("");
+        // NO tocamos el combo de proveedores ni sus txt, para poder crear
+        // varios representantes para el mismo proveedor seguidos.
+
         v.txtBuscar.setText("");
 
         // Representante
@@ -463,6 +575,9 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
 
         bufferContactos.clear();
         refrescarTablaContactos();
+
+        JTable t = v.getTablaClientes();
+        if (t != null) t.clearSelection();
     }
 
     private String decideInfoParaBD(ContactoTmp c) {
@@ -478,17 +593,19 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
     private static String safe(String s){ if (s==null) return null; String t=s.trim(); return t.isEmpty()? null : t; }
     private static String valStr(Object o){ return (o==null)? null : String.valueOf(o).trim(); }
 
-    // ===================== MouseListener / iconos =====================
+    // =========================================================
+    // MouseListener / iconos
+    // =========================================================
     @Override public void mouseClicked(MouseEvent e) {
         Object src = e.getSource();
-//        if (src == btnNuevo) onNuevo();
-//        else if (src == btnActualizar) onActualizar();
-//        else if (src == btnEliminar) onEliminar();
-//        else if (src == btnBuscar) onBuscar();
-//        else if (src == btnLimpiar) onLimpiar();
-//        else if (src == btnNuevoC) onNuevoContacto();
-//        else if (src == btnActualizarC) onActualizarContacto();
-//        else if (src == btnEliminarC) onEliminarContacto();
+        if      (src == btnNuevo)       onNuevo();
+        else if (src == btnActualizar)  onActualizar();
+        else if (src == btnEliminar)    onEliminar();
+        else if (src == btnBuscar)      onBuscar();
+        else if (src == btnLimpiar)     onLimpiar();
+        else if (src == btnNuevoC)      onNuevoContacto();
+        else if (src == btnActualizarC) onActualizarContacto();
+        else if (src == btnEliminarC)   onEliminarContacto();
     }
     @Override public void mousePressed(MouseEvent e) { }
     @Override public void mouseReleased(MouseEvent e) { }
@@ -498,11 +615,11 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
 
     private void inicializarIconos() {
         String ruta = "/com/umg/iconos/IconoBoton1.png";
-        if (btnNuevo!=null)      iconosBotones.put(btnNuevo, ruta);
-        if (btnActualizar!=null) iconosBotones.put(btnActualizar, ruta);
-        if (btnEliminar!=null)   iconosBotones.put(btnEliminar, ruta);
-        if (btnBuscar!=null)     iconosBotones.put(btnBuscar, ruta);
-        if (btnLimpiar!=null)    iconosBotones.put(btnLimpiar, ruta);
+        if (btnNuevo!=null)       iconosBotones.put(btnNuevo, ruta);
+        if (btnActualizar!=null)  iconosBotones.put(btnActualizar, ruta);
+        if (btnEliminar!=null)    iconosBotones.put(btnEliminar, ruta);
+        if (btnBuscar!=null)      iconosBotones.put(btnBuscar, ruta);
+        if (btnLimpiar!=null)     iconosBotones.put(btnLimpiar, ruta);
         if (btnNuevoC!=null)      iconosBotones.put(btnNuevoC, ruta);
         if (btnActualizarC!=null) iconosBotones.put(btnActualizarC, ruta);
         if (btnEliminarC!=null)   iconosBotones.put(btnEliminarC, ruta);
