@@ -1,15 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.umg.modelo;
+
 import com.umg.vistas.VistaMetodosDeLiquidacion;
-/**
- *
- * @author Lisi
- */
+
 public class ModeloMetodosDeLiquidacion {
-    VistaMetodosDeLiquidacion vista;
+
+    private VistaMetodosDeLiquidacion vista;
+
+    private Integer codigo;
+    private String descripcion;
 
     public ModeloMetodosDeLiquidacion(VistaMetodosDeLiquidacion vista) {
         this.vista = vista;
@@ -21,5 +19,22 @@ public class ModeloMetodosDeLiquidacion {
 
     public void setVista(VistaMetodosDeLiquidacion vista) {
         this.vista = vista;
+    }
+
+    // ===== Campos de la tabla metodo_liquidacion =====
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
