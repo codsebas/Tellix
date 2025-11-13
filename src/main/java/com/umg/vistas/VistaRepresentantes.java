@@ -37,7 +37,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         panelFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtNIT = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtNombreProveedor = new javax.swing.JTextField();
@@ -96,6 +95,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jLabel25 = new javax.swing.JLabel();
         lblEliminar1 = new javax.swing.JLabel();
         txtPrimerApellido = new javax.swing.JTextField();
+        cmbProveedores = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
@@ -115,9 +115,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(245, 247, 250));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNIT.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 200, 30));
-
         jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(33, 37, 41));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -130,6 +127,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jLabel6.setText("Nombre");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 20));
 
+        txtNombreProveedor.setEditable(false);
         txtNombreProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, 30));
 
@@ -139,6 +137,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jLabel7.setText("Dirección Fiscal");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 200, 20));
 
+        txtDireccionFiscal.setEditable(false);
         txtDireccionFiscal.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtDireccionFiscal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, 30));
 
@@ -151,6 +150,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         txtSegundoApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 200, 30));
 
+        txtTelefonoProveedor.setEditable(false);
         txtTelefonoProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 200, 30));
 
@@ -233,6 +233,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
 
         jPanel2.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
 
+        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
         cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
         cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIT Proveedor", "Nombre Proveedor", "NIT Representante", "Nombre Representante" }));
@@ -337,6 +338,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 380, 170));
 
+        cmbTipoContacto.setBackground(new java.awt.Color(255, 255, 255));
         cmbTipoContacto.setForeground(new java.awt.Color(108, 117, 125));
         cmbTipoContacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbTipoContacto.setBorder(null);
@@ -414,6 +416,12 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         txtPrimerApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 30));
 
+        cmbProveedores.setBackground(new java.awt.Color(255, 255, 255));
+        cmbProveedores.setForeground(new java.awt.Color(108, 117, 125));
+        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbProveedores.setBorder(null);
+        jPanel2.add(cmbProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 200, 30));
+
         jLabel26.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(33, 37, 41));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -445,6 +453,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     public javax.swing.JPanel btnNuevo;
     public javax.swing.JPanel btnNuevo1;
     private javax.swing.JComboBox<String> cmbOrdenarPor;
+    private javax.swing.JComboBox<String> cmbProveedores;
     private javax.swing.JComboBox<String> cmbTipoContacto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -490,7 +499,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtDireccionFiscal;
     public javax.swing.JTextField txtInfoContacto;
-    public javax.swing.JTextField txtNIT;
     public javax.swing.JTextField txtNitRepresentante;
     public javax.swing.JTextField txtNombreProveedor;
     public javax.swing.JTextField txtPrimerApellido;
