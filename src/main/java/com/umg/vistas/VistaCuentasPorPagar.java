@@ -67,13 +67,13 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
 
         tblCuentasPorPagar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-
+                "Correlativo", "No. Documen", "Metodo Pago", "Valor Total", "Valor Pagado", "Fecha Limite", "No. Cuenta", "Banco"
             }
         ));
         jScrollPane1.setViewportView(tblCuentasPorPagar);
