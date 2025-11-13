@@ -3,28 +3,31 @@ package com.umg.modelo;
 import oracle.sql.DATE;
 import oracle.sql.TIMESTAMP;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class ModeloVentaDB {
     private String nit;
-    private DATE fecha_operacion;
-    private TIMESTAMP hora_operacion;
-    private String usuario_sistema;
-    private int metodo_pago;
-    private int plazo_credito;
-    private char tipo_plazo;
-    private char estado;
+    private Date fechaOperacion;
+    private Timestamp horaOperacion;
+    private String usuarioSistema;
+    private int metodoPago;
+    private int plazoCredito;
+    private String tipoPlazo;
+    private String estado;
     private float total;
 
     public ModeloVentaDB() {
     }
 
-    public ModeloVentaDB(String nit, DATE fecha_operacion, TIMESTAMP hora_operacion, String usuario_sistema, int metodo_pago, int plazo_credito, char tipo_plazo, char estado, float total) {
+    public ModeloVentaDB(String nit, Date fechaOperacion, Timestamp horaOperacion, String usuarioSistema, int metodoPago, int plazoCredito, String tipoPlazo, String estado, float total) {
         this.nit = nit;
-        this.fecha_operacion = fecha_operacion;
-        this.hora_operacion = hora_operacion;
-        this.usuario_sistema = usuario_sistema;
-        this.metodo_pago = metodo_pago;
-        this.plazo_credito = plazo_credito;
-        this.tipo_plazo = tipo_plazo;
+        this.fechaOperacion = fechaOperacion;
+        this.horaOperacion = horaOperacion;
+        this.usuarioSistema = usuarioSistema;
+        this.metodoPago = metodoPago;
+        this.plazoCredito = plazoCredito;
+        this.tipoPlazo = tipoPlazo;
         this.estado = estado;
         this.total = total;
     }
@@ -37,59 +40,59 @@ public class ModeloVentaDB {
         this.nit = nit;
     }
 
-    public DATE getFecha_operacion() {
-        return fecha_operacion;
+    public Date getFechaOperacion() {
+        return fechaOperacion;
     }
 
-    public void setFecha_operacion(DATE fecha_operacion) {
-        this.fecha_operacion = fecha_operacion;
+    public void setFechaOperacion(Date fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
     }
 
-    public TIMESTAMP getHora_operacion() {
-        return hora_operacion;
+    public Timestamp getHoraOperacion() {
+        return horaOperacion;
     }
 
-    public void setHora_operacion(TIMESTAMP hora_operacion) {
-        this.hora_operacion = hora_operacion;
+    public void setHoraOperacion(Timestamp horaOperacion) {
+        this.horaOperacion = horaOperacion;
     }
 
-    public String getUsuario_sistema() {
-        return usuario_sistema;
+    public String getUsuarioSistema() {
+        return usuarioSistema;
     }
 
-    public void setUsuario_sistema(String usuario_sistema) {
-        this.usuario_sistema = usuario_sistema;
+    public void setUsuarioSistema(String usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
 
-    public int getMetodo_pago() {
-        return metodo_pago;
+    public int getMetodoPago() {
+        return metodoPago;
     }
 
-    public void setMetodo_pago(int metodo_pago) {
-        this.metodo_pago = metodo_pago;
+    public void setMetodoPago(int metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
-    public int getPlazo_credito() {
-        return plazo_credito;
+    public int getPlazoCredito() {
+        return plazoCredito;
     }
 
-    public void setPlazo_credito(int plazo_credito) {
-        this.plazo_credito = plazo_credito;
+    public void setPlazoCredito(int plazoCredito) {
+        this.plazoCredito = plazoCredito;
     }
 
-    public char getTipo_plazo() {
-        return tipo_plazo;
+    public String getTipoPlazo() {
+        return tipoPlazo;
     }
 
-    public void setTipo_plazo(char tipo_plazo) {
-        this.tipo_plazo = tipo_plazo;
+    public void setTipoPlazo(String tipoPlazo) {
+        this.tipoPlazo = tipoPlazo;
     }
 
-    public char getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(char estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

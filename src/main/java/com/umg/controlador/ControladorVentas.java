@@ -49,12 +49,18 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(e.getComponent().equals(modelo.getVista().btnBuscarCliente)){
 
+        } else if (e.getComponent().equals(modelo.getVista().btnNuevo)){
+        } else if (e.getComponent().equals(modelo.getVista().btnBuscarProducto)){
+        } else if (e.getComponent().equals(modelo.getVista().btnEliminar)){
+        } else if(e.getComponent().equals(modelo.getVista().btnNuevo)){
+        } else if(e.getComponent().equals(modelo.getVista().btnActualizar)){
+        }
     }
 
     @Override

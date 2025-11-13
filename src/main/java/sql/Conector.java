@@ -71,4 +71,21 @@ public class Conector {
     public void mensaje(String mensaje, String titulo, int tipoMensaje) {
         JOptionPane.showMessageDialog(null, mensaje, titulo, tipoMensaje);
     }
+
+    public PreparedStatement preparar(String sql, boolean retornarLlaves) {
+        if (this.link == null) {
+            System.out.println("ERROR: La conexión no está activa. Llama a conectar().");
+            return null;
+        }
+        try {
+            if (retornarLlaves) {
+                ps = link.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            } else {
+                ps = link.prepareStatement(sql);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return ps;
+    }
 }
