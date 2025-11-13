@@ -50,12 +50,12 @@ public class ControladorMetodosDeLiquidacion implements ActionListener, MouseLis
 
         inicializarIconos();
 
-//        // Listeners de botones
-//        if (btnNuevo != null)      btnNuevo.addMouseListener(this);
-//        if (btnActualizar != null) btnActualizar.addMouseListener(this);
-//        if (btnEliminar != null)   btnEliminar.addMouseListener(this);
-//        if (btnBuscar != null)     btnBuscar.addMouseListener(this);
-//        if (btnLimpiar != null)    btnLimpiar.addMouseListener(this);
+        // Listeners de botones
+        if (btnNuevo != null)      btnNuevo.addMouseListener(this);
+        if (btnActualizar != null) btnActualizar.addMouseListener(this);
+        if (btnEliminar != null)   btnEliminar.addMouseListener(this);
+        if (btnBuscar != null)     btnBuscar.addMouseListener(this);
+        if (btnLimpiar != null)    btnLimpiar.addMouseListener(this);
 
         if (cmbOrdenarPor != null) {
             cmbOrdenarPor.addActionListener(e -> refrescarTabla());
