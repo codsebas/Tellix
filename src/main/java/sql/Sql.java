@@ -623,6 +623,120 @@ ORDER BY nit
 
     private final String BUSCAR_TIPO_CLIENTE_POR_DESCRIPCION = "SELECT codigo, descripcion FROM tipo_cliente WHERE UPPER(descripcion) LIKE UPPER(?) ORDER BY codigo";
 
+    // ===== PROVEEDOR =====
+    private final String INSERTAR_PROVEEDOR =
+            "INSERT INTO proveedor (nit_proveedor, nombre, direccion_fiscal, telefono) " +
+                    "VALUES (?, ?, ?, ?)";
+    private final String CONSULTAR_PROVEEDOR_POR_NIT =
+            "SELECT nit_proveedor, nombre, direccion_fiscal, telefono FROM proveedor WHERE nit_proveedor = ?";
+
+    private final String LISTAR_PROVEEDORES =
+            "SELECT nit_proveedor, nombre, '' AS nit_representante, '' AS nombre_representante FROM proveedor ORDER BY nit_proveedor";
+
+
+    private final String ACTUALIZAR_PROVEEDOR =
+            "UPDATE proveedor SET nombre=?, direccion_fiscal=?, telefono=? WHERE nit_proveedor=?";
+
+    private final String ELIMINAR_PROVEEDOR =
+            "DELETE FROM proveedor WHERE nit_proveedor=?";
+
+    // Tabla para vista: proveedor + (su primer representante si existe)
+    private final String LISTAR_PROV_CON_REP = """
+  SELECT  p.nit_proveedor,
+          p.nombre                          AS nombre_proveedor,
+          r.nit_representante,
+          TRIM( COALESCE(r.nombre1,'')||' '||
+                COALESCE(r.nombre2,'')||' '||
+                COALESCE(r.apellido1,'')||' '||
+                COALESCE(r.apellido2,'')||' '||
+                COALESCE(r.apellido_casada,'') ) AS nombre_representante,
+          p.direccion_fiscal,
+          p.telefono
+  FROM proveedor p
+  LEFT JOIN representante r
+    ON r.fk_proveedor_nit = p.nit_proveedor
+  ORDER BY p.nit_proveedor
+""";
+
+    private final String BUSCAR_PROV_CON_REP = """
+  SELECT  p.nit_proveedor,
+          p.nombre                          AS nombre_proveedor,
+          r.nit_representante,
+          TRIM( COALESCE(r.nombre1,'')||' '||
+                COALESCE(r.nombre2,'')||' '||
+                COALESCE(r.apellido1,'')||' '||
+                COALESCE(r.apellido2,'')||' '||
+                COALESCE(r.apellido_casada,'') ) AS nombre_representante,
+          p.direccion_fiscal,
+          p.telefono
+  FROM proveedor p
+  LEFT JOIN representante r
+    ON r.fk_proveedor_nit = p.nit_proveedor
+  WHERE UPPER(p.nit_proveedor) LIKE ?
+     OR UPPER(p.nombre)        LIKE ?
+  ORDER BY p.nit_proveedor
+""";
+
+    // En Sql.java
+    private final String CONSULTAR_PROV_DETALLE_POR_NIT = """
+SELECT  p.nit_proveedor,
+        p.nombre                         AS nombre_proveedor,
+        p.direccion_fiscal,
+        p.telefono,
+        r.nit_representante,
+        r.nombre1,
+        r.nombre2,
+        r.apellido1,
+        r.apellido2,
+        r.apellido_casada
+FROM proveedor p
+LEFT JOIN (
+    SELECT r1.*
+    FROM representante r1
+    WHERE r1.fk_proveedor_nit = ?
+      AND r1.codigo = (
+            SELECT MIN(r2.codigo)
+            FROM representante r2
+            WHERE r2.fk_proveedor_nit = r1.fk_proveedor_nit
+      )
+) r ON r.fk_proveedor_nit = p.nit_proveedor
+WHERE p.nit_proveedor = ?
+""";
+
+    public String getCONSULTAR_PROV_DETALLE_POR_NIT() { return CONSULTAR_PROV_DETALLE_POR_NIT; }
+
+    // ===== REPRESENTANTE =====
+    private final String NEXT_CODIGO_REPRESENTANTE =
+            "SELECT NVL(MAX(codigo),0)+1 FROM representante WHERE fk_proveedor_nit=?";
+
+    private final String INSERTAR_REPRESENTANTE = """
+    INSERT INTO representante
+    (nit_representante, fk_proveedor_nit, codigo, nombre1, nombre2, apellido1, apellido2, apellido_casada)
+    VALUES (?,?,?,?,?,?,?,?)
+    """;
+
+    private final String ACTUALIZAR_REPRESENTANTE = """
+    UPDATE representante
+       SET nombre1=?, nombre2=?, apellido1=?, apellido2=?, apellido_casada=?
+     WHERE nit_representante=? AND fk_proveedor_nit=? AND codigo=?
+    """;
+
+    private final String ELIMINAR_REPRESENTANTES_DE_PROV =
+            "DELETE FROM representante WHERE fk_proveedor_nit=?";
+
+    // ===== CONTACTO REPRESENTANTE =====
+    private final String OBTENER_CONTACTOS_REPRESENTANTE =
+            "SELECT correlativo_contacto, tipo_contacto, info_contacto " +
+                    "  FROM contacto_representante WHERE fk_representante=? ORDER BY correlativo_contacto";
+
+    private final String ELIMINAR_CONTACTOS_REPRESENTANTE =
+            "DELETE FROM contacto_representante WHERE fk_representante=?";
+
+    private final String INSERTAR_CONTACTO_REPRESENTANTE = """
+    INSERT INTO contacto_representante (correlativo_contacto, codigo, info_contacto, tipo_contacto, fk_representante)
+    VALUES (DEFAULT, 1, ?, ?, ?)  -- codigo = 1 fijo; si quieres, puedes usar NVL(MAX)+1 con otro select
+    """;
+
 
 
     // --- CONSTRUCTOR ---
@@ -1044,6 +1158,62 @@ ORDER BY nit
 
     public String getBUSCAR_TIPO_CONTACTO() {
         return BUSCAR_TIPO_CONTACTO;
+    }
+
+    public String getINSERTAR_PROVEEDOR() {
+        return INSERTAR_PROVEEDOR;
+    }
+
+    public String getACTUALIZAR_PROVEEDOR() {
+        return ACTUALIZAR_PROVEEDOR;
+    }
+
+    public String getELIMINAR_PROVEEDOR() {
+        return ELIMINAR_PROVEEDOR;
+    }
+
+    public String getLISTAR_PROV_CON_REP() {
+        return LISTAR_PROV_CON_REP;
+    }
+
+    public String getBUSCAR_PROV_CON_REP() {
+        return BUSCAR_PROV_CON_REP;
+    }
+
+    public String getNEXT_CODIGO_REPRESENTANTE() {
+        return NEXT_CODIGO_REPRESENTANTE;
+    }
+
+    public String getINSERTAR_REPRESENTANTE() {
+        return INSERTAR_REPRESENTANTE;
+    }
+
+    public String getACTUALIZAR_REPRESENTANTE() {
+        return ACTUALIZAR_REPRESENTANTE;
+    }
+
+    public String getELIMINAR_REPRESENTANTES_DE_PROV() {
+        return ELIMINAR_REPRESENTANTES_DE_PROV;
+    }
+
+    public String getOBTENER_CONTACTOS_REPRESENTANTE() {
+        return OBTENER_CONTACTOS_REPRESENTANTE;
+    }
+
+    public String getELIMINAR_CONTACTOS_REPRESENTANTE() {
+        return ELIMINAR_CONTACTOS_REPRESENTANTE;
+    }
+
+    public String getINSERTAR_CONTACTO_REPRESENTANTE() {
+        return INSERTAR_CONTACTO_REPRESENTANTE;
+    }
+
+    public String getCONSULTAR_PROVEEDOR_POR_NIT() {
+        return CONSULTAR_PROVEEDOR_POR_NIT;
+    }
+
+    public String getLISTAR_PROVEEDORES() {
+        return LISTAR_PROVEEDORES;
     }
 }
 

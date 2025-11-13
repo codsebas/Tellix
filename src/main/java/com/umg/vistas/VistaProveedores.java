@@ -506,4 +506,18 @@ public class VistaProveedores extends javax.swing.JPanel {
         this.btnBuscar.addMouseListener(controlador);
         this.btnLimpiar.addMouseListener(controlador);
     }
+    public javax.swing.JTable getTablaClientes() {
+        return tblClientes;   // <-- reemplaza por el nombre real de la tabla de clientes
+    }
+
+    public javax.swing.JTable getTablaContactos() {
+        return tblClientes1;  // <-- reemplaza por el nombre real de la tabla de contactos
+    }
+    // En VistaClientes.java
+    public javax.swing.JComboBox<String> getCmbTipoContacto() {
+        return cmbTipoContacto;
+    }
+
+
+
 }
