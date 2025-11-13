@@ -20,5 +20,51 @@ public class ModeloDetalleVentaDB {
         this.impuestos = impuestos;
     }
 
-    
+    public int getSecuencia() {
+        return secuencia;
+    }
+
+    public void setSecuencia(int secuencia) {
+        this.secuencia = secuencia;
+    }
+
+    public int getCodigo_producto() {
+        return codigo_producto;
+    }
+
+    public void setCodigo_producto(int codigo_producto) {
+        this.codigo_producto = codigo_producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public float getPrecio_bruto() {
+        return precio_bruto;
+    }
+
+    public void setPrecio_bruto(float precio_bruto) {
+        this.precio_bruto = precio_bruto;
+    }
+
+    public float getDescuentos() {
+        return descuentos;
+    }
+
+    public void setDescuentos(float descuentos) {
+        this.descuentos = descuentos;
+    }
+
+    public float getImpuestos() {
+        return impuestos;
+    }
+
+    public void setImpuestos(float impuestos) {
+        this.impuestos = impuestos;
+    }
 }

@@ -1,8 +1,9 @@
 package com.umg.controlador;
 
-import com.umg.modelo.ModeloVentas;
+import com.umg.modelo.*;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
+import com.umg.implementacion.VentaImp;
 
 public class ControladorVentas implements ActionListener, MouseListener {
     ModeloVentas modelo;
@@ -17,6 +19,12 @@ public class ControladorVentas implements ActionListener, MouseListener {
     // Componentes de la vista
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
+    private VentaImp venta = new VentaImp();
+
+    private ModeloResumProd resumProd = new ModeloResumProd();
+    private ModeloVentaDB ventaDB = new ModeloVentaDB();
+    private ModeloDetalleVentaDB detalleVentaDB = new ModeloDetalleVentaDB();
+    private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
@@ -26,7 +34,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
         var vista = modelo.getVista();
         // Inicializar botones y labels
         btnNuevo = vista.btnNuevo;
-        btnActualizar = vista.btnActualizar;
+        btnActualizar = vista.btnInsertar;
         btnEliminar = vista.btnEliminar;
         btnBuscar = vista.btnBuscarProducto;
         btnLimpiar = vista.btnBuscarCliente;
@@ -45,6 +53,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
         lblLimpiar.setName("icono");
 
         inicializarIconos();
+        configurarTabla();
     }
 
     @Override
@@ -54,12 +63,17 @@ public class ControladorVentas implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getComponent().equals(modelo.getVista().btnBuscarCliente)){
-
+            traerCliente();
         } else if (e.getComponent().equals(modelo.getVista().btnNuevo)){
+            agregarProducto();
         } else if (e.getComponent().equals(modelo.getVista().btnBuscarProducto)){
+            traerProducto();
         } else if (e.getComponent().equals(modelo.getVista().btnEliminar)){
+
         } else if(e.getComponent().equals(modelo.getVista().btnNuevo)){
-        } else if(e.getComponent().equals(modelo.getVista().btnActualizar)){
+
+        } else if(e.getComponent().equals(modelo.getVista().btnInsertar)){
+
         }
     }
 
@@ -109,4 +123,135 @@ public class ControladorVentas implements ActionListener, MouseListener {
         }
         return null;
     }
+
+    public void traerProducto(){
+        if(!modelo.getVista().txtBuscarProducto.getText().equals("")){
+            int valor = Integer.parseInt(modelo.getVista().txtBuscarProducto.getText());
+            resumProd = venta.seleccionarProducto(valor);
+            modelo.getVista().txtPrecioProducto.setText(String.valueOf(resumProd.getPrecioFinal()));
+            modelo.getVista().txtNombreProducto.setText(resumProd.getNombre());
+            modelo.getVista().txtStockDisponible.setText(String.valueOf(resumProd.getStockDisponible()));
+        }
+    }
+
+    public void configurarTabla(){
+        DefaultTableModel modeloTabla = new DefaultTableModel(
+                new Object[]{
+                        "Producto",
+                        "Precio base",
+                        "Impuestos",
+                        "Descuentos",
+                        "Precio final",
+                        "Cantidad",
+                        "Subtotal"
+                }, 0 // 0 filas iniciales
+        );
+        modelo.getVista().tblProductos.setModel(modeloTabla);
+    }
+
+    public void agregarProducto() {
+        String txtCant = modelo.getVista().txtCantidadProducto.getText().trim();
+
+        if (txtCant.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "Debe ingresar una cantidad.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(txtCant);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "La cantidad debe ser numérica.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (resumProd == null) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "No hay producto seleccionado.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        float precioFinal = resumProd.getPrecioFinal();
+        float subtotal = precioFinal * cantidad;
+
+        DefaultTableModel dtm = (DefaultTableModel) modelo.getVista().tblProductos.getModel();
+
+        Object[] fila = new Object[]{
+                resumProd.getNombre(),          // Producto
+                resumProd.getPrecioBase(),      // Precio base
+                resumProd.getTotalImpuestos(),  // Impuestos
+                resumProd.getTotalDescuentos(), // Descuentos
+                resumProd.getPrecioFinal(),     // Precio final
+                cantidad,                       // Cantidad
+                subtotal                        // Subtotal
+        };
+
+        dtm.addRow(fila);
+
+        float totalVenta = 0f;
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            Object valor = dtm.getValueAt(i, 6); // columna "Subtotal"
+            if (valor instanceof Number) {
+                totalVenta += ((Number) valor).floatValue();
+            } else if (valor != null) {
+                try {
+                    totalVenta += Float.parseFloat(valor.toString());
+                } catch (NumberFormatException ex) {
+                }
+            }
+        }
+
+        modelo.getVista().txtTotalVenta.setText(String.valueOf(totalVenta));
+
+        modelo.getVista().txtCantidadProducto.setText("");
+        modelo.getVista().txtBuscarProducto.setText("");
+        modelo.getVista().txtNombreProducto.setText("");
+        modelo.getVista().txtStockDisponible.setText("");
+        modelo.getVista().txtPrecioProducto.setText("");
+        resumProd = null;
+    }
+
+    public void traerCliente() {
+        if (!modelo.getVista().txtBuscarCliente.getText().equals("")) {
+            String nit = modelo.getVista().txtBuscarCliente.getText().trim();
+            clienteRes = venta.seleccionarCliente(nit);
+
+            if (clienteRes != null) {
+                modelo.getVista().txtNITCliente.setText(clienteRes.getNit());
+                modelo.getVista().txtNombreCliente.setText(clienteRes.getNombre());
+            } else {
+                JOptionPane.showMessageDialog(
+                        modelo.getVista(),
+                        "No se encontró ningún cliente con el NIT: " + nit,
+                        "Cliente no encontrado",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                modelo.getVista().txtNITCliente.setText("");
+                modelo.getVista().txtNombreCliente.setText("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "Debe ingresar un NIT para buscar.",
+                    "Validación",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+
 }

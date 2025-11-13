@@ -4,12 +4,8 @@
  */
 package com.umg.vistas;
 
-import com.umg.controlador.ControladorProductos;
 import com.umg.controlador.ControladorVentas;
-import com.umg.modelo.ModeloProducto;
 import com.umg.modelo.ModeloVentas;
-
-import javax.swing.*;
 
 /**
  *
@@ -49,7 +45,7 @@ public class VistaVentas extends javax.swing.JPanel {
         btnEliminar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblEliminar = new javax.swing.JLabel();
-        btnActualizar = new javax.swing.JPanel();
+        btnInsertar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblActualizar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -65,33 +61,25 @@ public class VistaVentas extends javax.swing.JPanel {
         cmbTipoPlazo = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         txtBuscarCliente = new javax.swing.JTextField();
-        cmbCliente = new javax.swing.JComboBox<>();
-        jLabel21 = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblBuscarCliente = new javax.swing.JLabel();
-        cmbBuscarClientePor = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
         txtBuscarProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnBuscarProducto = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         lblBuscarProducto = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        cmbBuscarProductoPor = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         txtNombreProducto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        cmbProducto = new javax.swing.JComboBox<>();
         txtPrecioProducto = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtCantidadProducto = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtStockDisponible = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        txtStockActual = new javax.swing.JTextField();
+        txtTotalVenta = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
@@ -138,20 +126,20 @@ public class VistaVentas extends javax.swing.JPanel {
 
         panelFondo.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 250, 100, 30));
 
-        btnActualizar.setBackground(new java.awt.Color(245, 247, 250));
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnInsertar.setBackground(new java.awt.Color(245, 247, 250));
+        btnInsertar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInsertar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Reg. Venta");
-        btnActualizar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+        btnInsertar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
         lblActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnActualizar.add(lblActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+        btnInsertar.add(lblActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        panelFondo.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 640, 100, 30));
+        panelFondo.add(btnInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 640, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(245, 247, 250));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,18 +209,6 @@ public class VistaVentas extends javax.swing.JPanel {
         txtBuscarCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 200, 30));
 
-        cmbCliente.setBackground(new java.awt.Color(255, 255, 255));
-        cmbCliente.setForeground(new java.awt.Color(108, 117, 125));
-        cmbCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbCliente.setBorder(null);
-        jPanel2.add(cmbCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 200, 30));
-
-        jLabel21.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel21.setText("Cliente");
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 200, 20));
-
         btnBuscarCliente.setBackground(new java.awt.Color(245, 247, 250));
         btnBuscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -247,19 +223,6 @@ public class VistaVentas extends javax.swing.JPanel {
         btnBuscarCliente.add(lblBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
         jPanel2.add(btnBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
-
-        cmbBuscarClientePor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbBuscarClientePor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbBuscarClientePor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbBuscarClientePor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIT", "Nombre" }));
-        cmbBuscarClientePor.setBorder(null);
-        jPanel2.add(cmbBuscarClientePor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 30));
-
-        jLabel22.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Buscar Por");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 110, 20));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 230, 670));
 
@@ -288,30 +251,14 @@ public class VistaVentas extends javax.swing.JPanel {
 
         panelFondo.add(btnBuscarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, 100, 30));
 
-        jLabel16.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("Buscar Por");
-        panelFondo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 110, 20));
-
-        cmbBuscarProductoPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbBuscarProductoPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbBuscarProductoPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbBuscarProductoPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Categoría" }));
-        cmbBuscarProductoPor.setBorder(null);
-        panelFondo.add(cmbBuscarProductoPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 200, 30));
-
         jScrollPane1.setPreferredSize(new java.awt.Dimension(660, 480));
 
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Código", "Nombre", "Cantidad", "Precio U.", "Descuento", "Impuesto", "Precio F.", "Subtotal"
+
             }
         ));
         jScrollPane1.setViewportView(tblProductos);
@@ -321,25 +268,13 @@ public class VistaVentas extends javax.swing.JPanel {
         txtNombreProducto.setEditable(false);
         txtNombreProducto.setBackground(new java.awt.Color(255, 255, 255));
         txtNombreProducto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        panelFondo.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 200, 30));
+        panelFondo.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 200, 30));
 
         jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(33, 37, 41));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Nombre Producto");
-        panelFondo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 160, 20));
-
-        jLabel11.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("Producto");
-        panelFondo.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 200, 20));
-
-        cmbProducto.setBackground(new java.awt.Color(255, 255, 255));
-        cmbProducto.setForeground(new java.awt.Color(108, 117, 125));
-        cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbProducto.setBorder(null);
-        panelFondo.add(cmbProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 200, 30));
+        panelFondo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 160, 20));
 
         txtPrecioProducto.setEditable(false);
         txtPrecioProducto.setBackground(new java.awt.Color(255, 255, 255));
@@ -365,18 +300,18 @@ public class VistaVentas extends javax.swing.JPanel {
         txtStockDisponible.setEditable(false);
         txtStockDisponible.setBackground(new java.awt.Color(255, 255, 255));
         txtStockDisponible.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        panelFondo.add(txtStockDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 170, 30));
+        panelFondo.add(txtStockDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 170, 30));
 
         jLabel19.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(33, 37, 41));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel19.setText("Stock Disponible");
-        panelFondo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, 170, 20));
+        panelFondo.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 170, 20));
 
-        txtStockActual.setEditable(false);
-        txtStockActual.setBackground(new java.awt.Color(255, 255, 255));
-        txtStockActual.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        panelFondo.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 640, 200, 30));
+        txtTotalVenta.setEditable(false);
+        txtTotalVenta.setBackground(new java.awt.Color(255, 255, 255));
+        txtTotalVenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        panelFondo.add(txtTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 640, 200, 30));
 
         jLabel9.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(33, 37, 41));
@@ -398,31 +333,23 @@ public class VistaVentas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel btnActualizar;
     public javax.swing.JPanel btnBuscarCliente;
     public javax.swing.JPanel btnBuscarProducto;
     public javax.swing.JPanel btnEliminar;
+    public javax.swing.JPanel btnInsertar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbBuscarClientePor;
-    private javax.swing.JComboBox<String> cmbBuscarProductoPor;
-    public javax.swing.JComboBox<String> cmbCliente;
     public javax.swing.JComboBox<String> cmbMetodoDePago;
-    public javax.swing.JComboBox<String> cmbProducto;
     public javax.swing.JComboBox<String> cmbTipoPlazo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -448,12 +375,12 @@ public class VistaVentas extends javax.swing.JPanel {
     public javax.swing.JTextField txtNombreProducto;
     public javax.swing.JTextField txtPlazoCredito;
     public javax.swing.JTextField txtPrecioProducto;
-    public javax.swing.JTextField txtStockActual;
     public javax.swing.JTextField txtStockDisponible;
+    public javax.swing.JTextField txtTotalVenta;
     // End of variables declaration//GEN-END:variables
 
     public void setControlador (ControladorVentas controlador) {
-        this.btnActualizar.addMouseListener(controlador);
+        this.btnInsertar.addMouseListener(controlador);
         this.btnEliminar.addMouseListener(controlador);
         this.btnNuevo.addMouseListener(controlador);
         this.btnBuscarProducto.addMouseListener(controlador);
