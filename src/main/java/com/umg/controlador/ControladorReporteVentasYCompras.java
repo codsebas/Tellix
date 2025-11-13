@@ -18,8 +18,8 @@ import java.util.Map;
 public class ControladorReporteVentasYCompras implements ActionListener, MouseListener {
     ModeloReporteVentasYCompras modelo;
 
-    private JPanel btnGenerarPDF, btnGenerarExcel, btnLimpiar, btnBuscar, btnVerReporte;
-    private JLabel lblGenerarPDF, lblGenerarExcel, lblLimpiar, lblBuscar, lblVerReporte;
+    private JPanel btnGenerarPDF, btnGenerarExcel, btnLimpiar, btnVerReporte;
+    private JLabel lblGenerarPDF, lblGenerarExcel, lblLimpiar, lblVerReporte;
 
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
@@ -34,20 +34,17 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         btnGenerarPDF = vista.btnGenerarPDF;
         btnGenerarExcel = vista.btnGenerarExcel;
         btnLimpiar = vista.btnLimpiar;
-        btnBuscar = vista.btnBuscar;
         btnVerReporte = vista.btnVerReporte;
 
         lblGenerarPDF = vista.lblGenerarPDF;
         lblGenerarExcel = vista.lblGenerarExcel;
         lblLimpiar = vista.lblLimpiar;
-        lblBuscar = vista.lblBuscar;
         lblVerReporte = vista.lblVerReporte;
 
         // Dar nombre a los labels para manejar iconos
         lblGenerarPDF.setName("icono");
         lblGenerarExcel.setName("icono");
         lblLimpiar.setName("icono");
-        lblBuscar.setName("icono");
         lblVerReporte.setName("icono");
 
         inicializarIconos();
@@ -62,7 +59,6 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
     public void mouseClicked(MouseEvent e) {
         var vista = modelo.getVista();
         if(e.getComponent().equals(vista.btnVerReporte)) {
-            System.out.println("click");
             reportes();
         } else if (e.getComponent().equals(vista.btnGenerarPDF)) {
             exportarReportePDF();
@@ -101,6 +97,15 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
                     modelo.getVista().txtFechaFin.getText()));
         } else if (tipoReporte == 2){
             vista.tblReporte.setModel(implementacion.ventasMensuales());
+        } else if (tipoReporte == 3){
+            vista.tblReporte.setModel(implementacion.ventasMensualesComparativo());
+        } else if (tipoReporte == 4){
+            vista.tblReporte.setModel(implementacion.comprasDelDia());
+        } else if (tipoReporte == 5){
+            vista.tblReporte.setModel(implementacion.comprasPorRangoFechas(modelo.getVista().txtFechaInicio.getText(),
+                    modelo.getVista().txtFechaFin.getText()));
+        } else if (tipoReporte == 6){
+            vista.tblReporte.setModel(implementacion.comprasPorProveedor());
         }
     }
 
@@ -142,7 +147,6 @@ public class ControladorReporteVentasYCompras implements ActionListener, MouseLi
         iconosBotones.put(btnGenerarPDF, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnGenerarExcel, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnLimpiar, "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnBuscar, "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnVerReporte, "/com/umg/iconos/IconoBoton1.png");
     }
 

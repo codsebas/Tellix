@@ -36,11 +36,6 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnBuscar = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        lblBuscar = new javax.swing.JLabel();
-        txtBuscarProveedor = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         cmbTipoReporte = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -61,12 +56,6 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         btnLimpiar = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lblLimpiar = new javax.swing.JLabel();
-        cmbBuscarProveedorPor = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
-        txtNITProveedor = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtNombreProveedor = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(880, 720));
         setPreferredSize(new java.awt.Dimension(880, 720));
@@ -80,35 +69,10 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
         jLabel1.setText("Reporte de Ventas y Compras");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
-        btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("Buscar");
-        btnBuscar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnBuscar.add(lblBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, -1, -1));
-
-        txtBuscarProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtBuscarProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtBuscarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 200, 30));
-
-        jLabel14.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setText("Buscar Proveedor");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 200, 20));
-
         cmbTipoReporte.setBackground(new java.awt.Color(255, 255, 255));
         cmbTipoReporte.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbTipoReporte.setForeground(new java.awt.Color(108, 117, 125));
-        cmbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas del día", "Ventas por rango de fechas", "Ventas mensuales y comparativo intermensual", "Compras del día", "Compras por rango de fechas", "Compras por proveedor y saldo por pagar" }));
+        cmbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ventas del día", "Ventas por rango de fechas", "Ventas mensuales", "Ventas comparativo intermensual", "Compras del día", "Compras por rango de fechas", "Compras por proveedor y saldo por pagar" }));
         cmbTipoReporte.setBorder(null);
         jPanel1.add(cmbTipoReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 340, 30));
 
@@ -215,40 +179,6 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
 
         jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 80, -1, -1));
 
-        cmbBuscarProveedorPor.setBackground(new java.awt.Color(255, 255, 255));
-        cmbBuscarProveedorPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        cmbBuscarProveedorPor.setForeground(new java.awt.Color(108, 117, 125));
-        cmbBuscarProveedorPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIT", "Nombre" }));
-        cmbBuscarProveedorPor.setBorder(null);
-        jPanel1.add(cmbBuscarProveedorPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 200, 30));
-
-        jLabel22.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Buscar Por");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 110, 20));
-
-        txtNITProveedor.setEditable(false);
-        txtNITProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtNITProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtNITProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 200, 30));
-
-        jLabel7.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("NIT Proveedor");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 200, 20));
-
-        txtNombreProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombreProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel1.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 200, 30));
-
-        jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Nombre Proveedor");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 200, 20));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,47 +193,34 @@ public class VistaReporteVentasYCompras extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel btnBuscar;
     public javax.swing.JPanel btnGenerarExcel;
     public javax.swing.JPanel btnGenerarPDF;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnVerReporte;
-    public javax.swing.JComboBox<String> cmbBuscarProveedorPor;
     public javax.swing.JComboBox<String> cmbTipoReporte;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JLabel lblBuscar;
     public javax.swing.JLabel lblGenerarExcel;
     public javax.swing.JLabel lblGenerarPDF;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblVerReporte;
     public javax.swing.JTable tblReporte;
-    public javax.swing.JTextField txtBuscarProveedor;
     public javax.swing.JTextField txtFechaFin;
     public javax.swing.JTextField txtFechaInicio;
-    public javax.swing.JTextField txtNITProveedor;
-    public javax.swing.JTextField txtNombreProveedor;
     // End of variables declaration//GEN-END:variables
     public void setControlador(ControladorReporteVentasYCompras controlador) {
         this.btnGenerarExcel.addMouseListener(controlador);
         this.btnLimpiar.addMouseListener(controlador);
         this.btnGenerarPDF.addMouseListener(controlador);
-        this.btnBuscar.addMouseListener(controlador);
         this.btnVerReporte.addMouseListener(controlador);
         this.cmbTipoReporte.addActionListener(controlador);
-        this.cmbBuscarProveedorPor.addActionListener(controlador);
     }
 }
