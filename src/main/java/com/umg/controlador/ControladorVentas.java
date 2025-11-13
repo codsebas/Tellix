@@ -1,6 +1,9 @@
 package com.umg.controlador;
 
 import com.umg.modelo.*;
+import com.umg.implementacion.VentaImp;
+import com.umg.implementacion.MetodosDeLiquidacionImp;
+import com.umg.interfaces.IMetodosDeLiquidacion;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,10 +14,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
-import com.umg.implementacion.VentaImp;
 
 public class ControladorVentas implements ActionListener, MouseListener {
     ModeloVentas modelo;
+
+    // ===== Servicio para métodos de liquidación (igual que en Compras) =====
+    private final IMetodosDeLiquidacion svcMetodos = new MetodosDeLiquidacionImp();
 
     // Componentes de la vista
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
@@ -26,6 +31,10 @@ public class ControladorVentas implements ActionListener, MouseListener {
     private ModeloDetalleVentaDB detalleVentaDB = new ModeloDetalleVentaDB();
     private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
 
+    // Combos para método de pago y tipo de plazo
+    private JComboBox<String> cmbMetodoDePago;
+    private JComboBox<String> cmbTipoPlazo;
+
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
     public ControladorVentas(ModeloVentas modelo) {
@@ -33,17 +42,17 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
         var vista = modelo.getVista();
         // Inicializar botones y labels
-        btnNuevo = vista.btnNuevo;
+        btnNuevo      = vista.btnNuevo;
         btnActualizar = vista.btnInsertar;
-        btnEliminar = vista.btnEliminar;
-        btnBuscar = vista.btnBuscarProducto;
-        btnLimpiar = vista.btnBuscarCliente;
+        btnEliminar   = vista.btnEliminar;
+        btnBuscar     = vista.btnBuscarProducto;
+        btnLimpiar    = vista.btnBuscarCliente;
 
-        lblNuevo = vista.lblNuevo;
+        lblNuevo      = vista.lblNuevo;
         lblActualizar = vista.lblActualizar;
-        lblEliminar = vista.lblEliminar;
-        lblBuscar = vista.lblBuscarProducto;
-        lblLimpiar = vista.lblBuscarCliente;
+        lblEliminar   = vista.lblEliminar;
+        lblBuscar     = vista.lblBuscarProducto;
+        lblLimpiar    = vista.lblBuscarCliente;
 
         // Dar nombre a los labels para manejar iconos
         lblNuevo.setName("icono");
@@ -54,38 +63,156 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
         inicializarIconos();
         configurarTabla();
+
+        // ====== Combos de Método de Pago y Tipo de Plazo ======
+        // Ojo: uso los nombres como en Compras. Si en tu vista se llaman diferente, solo cambia aquí.
+        cmbMetodoDePago = vista.cmbMetodoDePago;
+        cmbTipoPlazo    = vista.cmbTipoPlazo;
+
+        cargarMetodosDePagoEnCombo();
+        cargarTiposPlazoEnCombo();
     }
 
+    // =========================================================
+    // CARGAR MÉTODOS DE PAGO EN EL COMBO (desde metodo_liquidacion)
+    // =========================================================
+    private void cargarMetodosDePagoEnCombo() {
+        if (cmbMetodoDePago == null) return;
+
+        cmbMetodoDePago.removeAllItems();
+        cmbMetodoDePago.addItem("-- Seleccione --");
+
+        try {
+            var lista = svcMetodos.listarOrdenadoPor("DESCRIPCION");
+            for (IMetodosDeLiquidacion.RowMetodo r : lista) {
+                // Mostramos solo la DESCRIPCIÓN (nombre bonito del método)
+                cmbMetodoDePago.addItem(r.descripcion);
+            }
+        } catch (Exception e) {
+            System.out.println("cargarMetodosDePagoEnCombo (Ventas): " + e.getMessage());
+        }
+    }
+
+    // Si luego quieres el CÓDIGO del método seleccionado, podemos hacer
+    // un mapa desc→código igual que en Representantes / Compras.
+
+    // =========================================================
+    // CARGAR TIPO DE PLAZO EN EL COMBO (Día / Mes / Año -> D/M/A)
+    // =========================================================
+    private void cargarTiposPlazoEnCombo() {
+        if (cmbTipoPlazo == null) return;
+
+        cmbTipoPlazo.removeAllItems();
+        cmbTipoPlazo.addItem("-- Seleccione --");
+        cmbTipoPlazo.addItem("Día");
+        cmbTipoPlazo.addItem("Mes");
+        cmbTipoPlazo.addItem("Año");
+    }
+
+    // Devuelve "D", "M" o "A" según lo seleccionado en cmbTipoPlazo
+    private String obtenerCodigoTipoPlazoSeleccionado() {
+        if (cmbTipoPlazo == null) return null;
+
+        Object sel = cmbTipoPlazo.getSelectedItem();
+        if (sel == null) return null;
+
+        String texto = sel.toString().trim();
+
+        if (texto.equalsIgnoreCase("Día") || texto.equalsIgnoreCase("Dia")) {
+            return "D";
+        } else if (texto.equalsIgnoreCase("Mes")) {
+            return "M";
+        } else if (texto.equalsIgnoreCase("Año") || texto.equalsIgnoreCase("Ano")) {
+            return "A";
+        }
+
+        // "-- Seleccione --" u otra cosa
+        return null;
+    }
+
+    // =========================================================
+    // REGISTRAR VENTA (aquí usas D/M/A cuando guardes en BD)
+    // =========================================================
+    private void onRegistrarVenta() {
+        var vista = modelo.getVista();
+
+        // 1) Tipo de plazo en formato D / M / A
+        String tipoPlazo = obtenerCodigoTipoPlazoSeleccionado();
+        if (tipoPlazo == null) {
+            JOptionPane.showMessageDialog(
+                    vista,
+                    "Seleccione un Tipo de Plazo (Día, Mes o Año).",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // 2) Plazo de crédito numérico (opcional)
+        String plazoTxt = vista.txtPlazoCredito.getText().trim();
+        Integer plazoCredito = null;
+        if (!plazoTxt.isEmpty()) {
+            try {
+                plazoCredito = Integer.parseInt(plazoTxt);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(
+                        vista,
+                        "El Plazo de Crédito debe ser numérico.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+        }
+
+        // 3) Aquí armas tu ModeloVentaDB / ModeloVentas y le seteas D/M/A
+        //    (ajusta según tu modelo real)
+        ventaDB.setTipoPlazo(tipoPlazo);       // <-- AQUÍ QUEDA SOLO D / M / A
+        ventaDB.setPlazoCredito(plazoCredito); // si tu modelo lo tiene
+
+        // Aquí también deberás setear:
+        // - NIT cliente
+        // - Método de pago (código)
+        // - Total de la venta
+        // - etc.
+        //
+        // y luego mandar a guardar con tu VentaImp:
+        //
+        // boolean ok = venta.insertarVenta(ventaDB, detalleVentaDB, ...);
+        // if (ok) { ... }
+    }
+
+    // =========================================================
+    // ActionListener
+    // =========================================================
     @Override
     public void actionPerformed(ActionEvent e) {
     }
 
+    // =========================================================
+    // MouseListener
+    // =========================================================
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getComponent().equals(modelo.getVista().btnBuscarCliente)){
+        if (e.getComponent().equals(modelo.getVista().btnBuscarCliente)) {
             traerCliente();
-        } else if (e.getComponent().equals(modelo.getVista().btnNuevo)){
+        } else if (e.getComponent().equals(modelo.getVista().btnNuevo)) {
             agregarProducto();
-        } else if (e.getComponent().equals(modelo.getVista().btnBuscarProducto)){
+        } else if (e.getComponent().equals(modelo.getVista().btnBuscarProducto)) {
             traerProducto();
-        } else if (e.getComponent().equals(modelo.getVista().btnEliminar)){
+        } else if (e.getComponent().equals(modelo.getVista().btnEliminar)) {
 
-        } else if(e.getComponent().equals(modelo.getVista().btnNuevo)){
+        } else if (e.getComponent().equals(modelo.getVista().btnNuevo)) {
 
-        } else if(e.getComponent().equals(modelo.getVista().btnInsertar)){
-
+        } else if (e.getComponent().equals(modelo.getVista().btnInsertar)) {
+            // Aquí llamamos a registrar venta para usar D/M/A
+            onRegistrarVenta();
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
+    @Override public void mousePressed(MouseEvent e) { }
 
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    @Override public void mouseReleased(MouseEvent e) { }
 
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -124,8 +251,8 @@ public class ControladorVentas implements ActionListener, MouseListener {
         return null;
     }
 
-    public void traerProducto(){
-        if(!modelo.getVista().txtBuscarProducto.getText().equals("")){
+    public void traerProducto() {
+        if (!modelo.getVista().txtBuscarProducto.getText().equals("")) {
             int valor = Integer.parseInt(modelo.getVista().txtBuscarProducto.getText());
             resumProd = venta.seleccionarProducto(valor);
             modelo.getVista().txtPrecioProducto.setText(String.valueOf(resumProd.getPrecioFinal()));
@@ -134,7 +261,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
         }
     }
 
-    public void configurarTabla(){
+    public void configurarTabla() {
         DefaultTableModel modeloTabla = new DefaultTableModel(
                 new Object[]{
                         "Producto",
@@ -144,7 +271,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
                         "Precio final",
                         "Cantidad",
                         "Subtotal"
-                }, 0 // 0 filas iniciales
+                }, 0
         );
         modelo.getVista().tblProductos.setModel(modeloTabla);
     }
@@ -253,5 +380,4 @@ public class ControladorVentas implements ActionListener, MouseListener {
             );
         }
     }
-
 }
