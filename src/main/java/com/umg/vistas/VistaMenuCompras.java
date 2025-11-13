@@ -56,6 +56,10 @@ public class VistaMenuCompras extends javax.swing.JPanel {
         lblIconoCuentasPorPagar = new javax.swing.JLabel();
         lblCuentasPorPagar = new javax.swing.JLabel();
         lblCuentasPorPagarSeleccionado = new javax.swing.JLabel();
+        btnRepresentantes = new javax.swing.JPanel();
+        lblIconoRepresentantes = new javax.swing.JLabel();
+        lblRepresentantes = new javax.swing.JLabel();
+        lblRepresentantesSeleccionado = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -146,7 +150,25 @@ public class VistaMenuCompras extends javax.swing.JPanel {
         lblCuentasPorPagarSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
         btnCuentasPorPagar.add(lblCuentasPorPagarSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
-        panelMenu.add(btnCuentasPorPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 40));
+        panelMenu.add(btnCuentasPorPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 180, 40));
+
+        btnRepresentantes.setBackground(new java.awt.Color(245, 247, 250));
+        btnRepresentantes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRepresentantes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIconoRepresentantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoVentas.png"))); // NOI18N
+        btnRepresentantes.add(lblIconoRepresentantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        lblRepresentantes.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblRepresentantes.setForeground(new java.awt.Color(51, 51, 51));
+        lblRepresentantes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblRepresentantes.setText("Representantes");
+        btnRepresentantes.add(lblRepresentantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+
+        lblRepresentantesSeleccionado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnRepresentantes.add(lblRepresentantesSeleccionado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+
+        panelMenu.add(btnRepresentantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 180, 40));
 
         panelFondo.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
@@ -168,6 +190,7 @@ public class VistaMenuCompras extends javax.swing.JPanel {
     public javax.swing.JPanel btnCuentasPorPagar;
     public javax.swing.JPanel btnProveedores;
     public javax.swing.JPanel btnRegistrarCompra;
+    public javax.swing.JPanel btnRepresentantes;
     public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JLabel lblConsultaCompras;
@@ -178,10 +201,13 @@ public class VistaMenuCompras extends javax.swing.JPanel {
     public javax.swing.JLabel lblIconoCuentasPorPagar;
     public javax.swing.JLabel lblIconoProveedores;
     public javax.swing.JLabel lblIconoRegistrarCompra;
+    public javax.swing.JLabel lblIconoRepresentantes;
     public javax.swing.JLabel lblProveedores;
     public javax.swing.JLabel lblProveedoresSeleccionado;
     public javax.swing.JLabel lblRegistrarCompra;
     public javax.swing.JLabel lblRegistrarCompraSeleccionado;
+    public javax.swing.JLabel lblRepresentantes;
+    public javax.swing.JLabel lblRepresentantesSeleccionado;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
@@ -191,5 +217,6 @@ public class VistaMenuCompras extends javax.swing.JPanel {
         this.btnConsultaCompras.addMouseListener(controlador);
         this.btnProveedores.addMouseListener(controlador);
         this.btnCuentasPorPagar.addMouseListener(controlador);
+        this.btnRepresentantes.addMouseListener(controlador);
     }
 }

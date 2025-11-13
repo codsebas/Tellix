@@ -386,6 +386,6 @@ public class VistaMenu extends javax.swing.JPanel {
     public javax.swing.JLabel lblUsuariosYRolesSeleccionado;
     public javax.swing.JLabel lblVentas;
     public javax.swing.JLabel lblVentasSeleccionado;
-    private javax.swing.JPanel panelMenu;
+    public javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -650,7 +650,7 @@ public class ControladorClientes implements ActionListener, MouseListener {
         if (!cacheTipoCliente.isEmpty()) return;
         try {
             var con = com.umg.seguridad.Sesion.getConexion();
-            var ps  = con.preparar("SELECT codigo, descripcion FROM tipo_cliente");
+            var ps  = con.preparar("SELECT codigo, descripcion FROM tellix.tipo_cliente");
             var rs  = ps.executeQuery();
             while (rs.next()) {
                 java.math.BigDecimal bd = rs.getBigDecimal(1);
