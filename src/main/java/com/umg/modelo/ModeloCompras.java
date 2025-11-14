@@ -15,7 +15,7 @@ public class ModeloCompras {
     long usuarioSistema;
     long metodoPago;
     Integer plazoCredito;      // null si contado
-    String tipoPlazo;         // "DIAS" o null
+         // "DIAS" o null
     boolean esCredito;
     String numeroCuenta;       // opcional para CxP
     String banco       ;
@@ -27,7 +27,19 @@ public class ModeloCompras {
     String cuentaNumero;
     BigDecimal monto;
 
+    private String tipoPlazo;
+    public void setTipoPlazo(String tipoPlazo) { this.tipoPlazo = tipoPlazo; }
+    public String getTipoPlazo() { return tipoPlazo; }
+
     public ModeloCompras() {
+    }
+
+    public Integer getPlazoCredito() {
+        return plazoCredito;
+    }
+
+    public void setPlazoCredito(Integer plazoCredito) {
+        this.plazoCredito = plazoCredito;
     }
 
     public ModeloCompras(VistaCompras vista) {

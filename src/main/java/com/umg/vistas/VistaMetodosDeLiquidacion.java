@@ -113,6 +113,7 @@ public class VistaMetodosDeLiquidacion extends javax.swing.JPanel {
         jLabel5.setText("Código");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
 
+        txtCodigo.setEditable(false);
         txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 200, 30));
 
@@ -221,7 +222,7 @@ public class VistaMetodosDeLiquidacion extends javax.swing.JPanel {
     public javax.swing.JPanel btnEliminar;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbOrdenarPor;
+    public javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -239,7 +240,7 @@ public class VistaMetodosDeLiquidacion extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    private javax.swing.JTable tblMetodosDeLiquidacion;
+    public javax.swing.JTable tblMetodosDeLiquidacion;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;

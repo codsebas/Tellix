@@ -461,4 +461,8 @@ public class VistaCompras extends javax.swing.JPanel {
         this.btnBuscarProducto.addMouseListener(controlador);
         this.btnBuscarProveedor.addMouseListener(controlador);
     }
+    public javax.swing.JComboBox<String> getCmbMetodoDePago() {
+        return cmbMetodoDePago;
+    }
+
 }
