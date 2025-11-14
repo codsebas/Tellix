@@ -74,7 +74,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 40));
 
         btnBuscar.setBackground(new java.awt.Color(245, 247, 250));
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -88,7 +88,6 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
 
         jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, -1, -1));
 
-        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 220, 30));
 
@@ -98,7 +97,6 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jLabel14.setText("Buscar");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 200, 20));
 
-        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
         cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
         cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código", "Descripción" }));
@@ -117,7 +115,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jLabel5.setText("Código");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 200, 20));
 
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodigo.setEditable(false);
         txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 200, 30));
 
@@ -127,7 +125,6 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jLabel6.setText("Descripción");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 20));
 
-        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel1.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 200, 30));
 
@@ -149,7 +146,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 600, 460));
 
         btnLimpiar.setBackground(new java.awt.Color(245, 247, 250));
-        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -164,7 +161,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jPanel1.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 100, 30));
 
         btnNuevo.setBackground(new java.awt.Color(245, 247, 250));
-        btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNuevo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -179,7 +176,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jPanel1.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
 
         btnActualizar.setBackground(new java.awt.Color(245, 247, 250));
-        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnActualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -194,7 +191,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, -1, 30));
 
         btnEliminar.setBackground(new java.awt.Color(245, 247, 250));
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEliminar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
@@ -245,7 +242,7 @@ public class VistaTiposDeCliente extends javax.swing.JPanel {
     public javax.swing.JLabel lblEliminar;
     public javax.swing.JLabel lblLimpiar;
     public javax.swing.JLabel lblNuevo;
-    public  javax.swing.JTable tblTiposDeCliente;
+    private javax.swing.JTable tblTiposDeCliente;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtCodigo;
     public javax.swing.JTextField txtDescripcion;

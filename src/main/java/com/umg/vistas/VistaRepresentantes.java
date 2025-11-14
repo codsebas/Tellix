@@ -85,8 +85,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         txtInfoContacto = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        txtTelContacto = new javax.swing.JTextField();
-        jLabel22 = new javax.swing.JLabel();
         btnNuevo1 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         lblNuevo1 = new javax.swing.JLabel();
@@ -235,7 +233,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
 
         jPanel2.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
 
-        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
         cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
         cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIT Proveedor", "Nombre Proveedor", "NIT Representante", "Nombre Representante" }));
@@ -327,20 +324,19 @@ public class VistaRepresentantes extends javax.swing.JPanel {
 
         tblClientes1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "No.", "Tipo", "Información", "Teléfono"
+                "No.", "Tipo", "Información"
             }
         ));
         jScrollPane2.setViewportView(tblClientes1);
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 380, 170));
 
-        cmbTipoContacto.setBackground(new java.awt.Color(255, 255, 255));
         cmbTipoContacto.setForeground(new java.awt.Color(108, 117, 125));
         cmbTipoContacto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbTipoContacto.setBorder(null);
@@ -360,15 +356,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Información");
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 200, 20));
-
-        txtTelContacto.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtTelContacto, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 570, 200, 30));
-
-        jLabel22.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel22.setText("Teléfono");
-        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 550, 200, 20));
 
         btnNuevo1.setBackground(new java.awt.Color(245, 247, 250));
         btnNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -418,7 +405,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
         txtPrimerApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtPrimerApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 30));
 
-        cmbProveedores.setBackground(new java.awt.Color(255, 255, 255));
         cmbProveedores.setForeground(new java.awt.Color(108, 117, 125));
         cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbProveedores.setBorder(null);
@@ -454,9 +440,9 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
     public javax.swing.JPanel btnNuevo1;
-    public javax.swing.JComboBox<String> cmbOrdenarPor;
+    private javax.swing.JComboBox<String> cmbOrdenarPor;
     public javax.swing.JComboBox<String> cmbProveedores;
-    public javax.swing.JComboBox<String> cmbTipoContacto;
+    private javax.swing.JComboBox<String> cmbTipoContacto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -470,7 +456,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -507,7 +492,6 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     public javax.swing.JTextField txtPrimerNombre;
     public javax.swing.JTextField txtSegundoApellido;
     public javax.swing.JTextField txtSegundoNombre;
-    public javax.swing.JTextField txtTelContacto;
     public javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
 
