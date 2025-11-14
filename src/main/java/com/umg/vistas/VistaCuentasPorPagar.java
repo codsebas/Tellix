@@ -4,6 +4,9 @@
  */
 package com.umg.vistas;
 
+import com.umg.controlador.ControladorCuentasPorPagar;
+import com.umg.modelo.ModeloCuentasPorPagar;
+
 /**
  *
  * @author axels
@@ -15,7 +18,14 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
      */
     public VistaCuentasPorPagar() {
         initComponents();
+        ModeloCuentasPorPagar modelo = new ModeloCuentasPorPagar(this);
+        ControladorCuentasPorPagar controlador = new ControladorCuentasPorPagar(modelo);
+        setControlador(controlador);
+
+
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -133,4 +143,7 @@ public class VistaCuentasPorPagar extends javax.swing.JPanel {
     public javax.swing.JLabel lblBuscar;
     public javax.swing.JTable tblCuentasPorPagar;
     // End of variables declaration//GEN-END:variables
+
+    private void setControlador(ControladorCuentasPorPagar controlador) {
+    }
 }

@@ -4,6 +4,9 @@
  */
 package com.umg.vistas;
 
+import com.umg.controlador.ControladorCuentasPorCobrar;
+import com.umg.modelo.ModeloCuentasPorCobrar;
+
 /**
  *
  * @author axels
@@ -15,6 +18,10 @@ public class VistaCuentasPorCobrar extends javax.swing.JPanel {
      */
     public VistaCuentasPorCobrar() {
         initComponents();
+        ModeloCuentasPorCobrar modelo = new ModeloCuentasPorCobrar(this);
+        ControladorCuentasPorCobrar controlador = new ControladorCuentasPorCobrar(modelo);
+        setControlador(controlador);
+
     }
 
     /**
@@ -106,4 +113,10 @@ public class VistaCuentasPorCobrar extends javax.swing.JPanel {
     public javax.swing.JLabel lblBuscar;
     public javax.swing.JTable tblCuentasPorCobrar;
     // End of variables declaration//GEN-END:variables
+
+    public void setControlador(ControladorCuentasPorCobrar controlador) {
+
+        this.btnBuscar.addMouseListener(controlador);
+
+    }
 }
