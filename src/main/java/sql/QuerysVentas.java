@@ -41,9 +41,17 @@ public class QuerysVentas {
                     "impuestos" +
                     ") VALUES (?, ?, ?, ?, ?, ?)";
 
+    private final String INSERTAR_INVENTARIO = "INSERT INTO TELLIX.INVENTARIO (" +
+            "codigo_producto, cantidad_afectada, motivo, operacion, usuario) VALUES (?, ?, ?, ?, ?)";
+
+    private final String ACTUALIZAR_STOCK_PRODUCTO = "UPDATE TELLIX.PRODUCTO SET stock_actual = ? " +
+            "WHERE codigo = ?";
+
     public String getSelectAllVentas() { return SELECT_ALL_VENTAS; }
     public String getSelectUnaVenta() { return SELECT_UNA_VENTA; }
     public String getSelectDetVenta() { return SELECT_DET_VENTA; }
     public String getInsertVenta() { return INSERT_VENTA; }
     public String getInsertDetalleVenta() { return INSERT_DETALLE_VENTA; }
+    public String getINSERTAR_INVENTARIO() { return INSERTAR_INVENTARIO; }
+    public String getACTUALIZAR_STOCK_PRODUCTO() { return ACTUALIZAR_STOCK_PRODUCTO; }
 }

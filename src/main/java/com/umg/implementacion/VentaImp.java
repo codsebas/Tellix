@@ -22,7 +22,8 @@ public class VentaImp implements IVenta {
         boolean resultado = false;
 
         try {
-            PreparedStatement ps = con.preparar(querys.getInsertVenta(), true);
+            PreparedStatement ps = con.prepararVenta(querys.getInsertVenta(), true);
+
             ps.setString(1, venta.getNit());
             ps.setDate(2, venta.getFechaOperacion());
             ps.setTimestamp(3, venta.getHoraOperacion());
@@ -40,10 +41,10 @@ public class VentaImp implements IVenta {
             } else {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
-                        int sec = rs.getInt(1); // o long según tu PK
+                        int sec = rs.getInt(1);
 
                         for (ModeloDetalleVentaDB det : detalle) {
-                            det.setSecuencia(sec);  // asumiendo que existe este setter
+                            det.setSecuencia(sec);
                         }
 
                         resultado = insertarDetalleVenta(detalle);
@@ -99,6 +100,23 @@ public class VentaImp implements IVenta {
             for (int f : filas) {
                 if (f == PreparedStatement.EXECUTE_FAILED || f == 0) {
                     resultado = false;
+                    break;
+                }
+            }
+
+            if(!resultado){
+                return false;
+            }
+
+            for(ModeloDetalleVentaDB det : modelo){
+                int codigoProd = det.getCodigo_producto();
+                int cantidad = det.getCantidad();
+
+                boolean invOk = insertarInventario(codigoProd, cantidad);
+                boolean stockOk = actualizarStock(codigoProd, cantidad);
+
+                if(!invOk || !stockOk){
+                    resultado =  false;
                     break;
                 }
             }
@@ -185,6 +203,46 @@ public class VentaImp implements IVenta {
         } catch (Exception e) {
             throw new RuntimeException("Error al seleccionar producto con código " + codigo, e);
         }
+    }
+
+    @Override
+    public boolean insertarInventario(int codigo, int cantidad) {
+        boolean resultado = false;
+        try{
+            PreparedStatement ps = con.preparar(querys.getINSERTAR_INVENTARIO());
+            ps.setInt(1, codigo);
+            ps.setInt(2, cantidad);
+            ps.setString(3, "Venta de productos");
+            ps.setString(4, "V");
+            ps.setString(5, Sesion.getUsuario());
+            int filas = ps.executeUpdate();
+            resultado = (filas > 0);
+        } catch(Exception e){
+        }
+        return resultado;
+    }
+
+    @Override
+    public boolean actualizarStock(int codigo, int stock) {
+        boolean resultado = false;
+        try{
+            ModeloResumProd producto = seleccionarProducto(codigo);
+            int stockNuevo = producto.getStockDisponible() - stock;
+
+            PreparedStatement ps = con.preparar(querys.getACTUALIZAR_STOCK_PRODUCTO());
+            ps.setInt(1, stockNuevo);
+            ps.setInt(2, codigo);
+            int files = ps.executeUpdate();
+            resultado = (files > 0);
+        } catch(Exception e){
+            throw new RuntimeException("Error al actualizar stock", e);
+        }
+        return resultado;
+    }
+
+    @Override
+    public boolean insertarCuentaPorCobrar() {
+        return false;
     }
 
 }

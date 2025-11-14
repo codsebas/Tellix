@@ -12,8 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import com.umg.implementacion.VentaImp;
+import com.umg.seguridad.Sesion;
 
 public class ControladorVentas implements ActionListener, MouseListener {
     ModeloVentas modelo;
@@ -28,7 +36,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
     private ModeloResumProd resumProd = new ModeloResumProd();
     private ModeloVentaDB ventaDB = new ModeloVentaDB();
-    private ModeloDetalleVentaDB detalleVentaDB = new ModeloDetalleVentaDB();
+    private List<ModeloDetalleVentaDB> detalleVentaDB = new ArrayList();
     private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
 
     // Combos para método de pago y tipo de plazo
@@ -200,6 +208,9 @@ public class ControladorVentas implements ActionListener, MouseListener {
             agregarProducto();
         } else if (e.getComponent().equals(modelo.getVista().btnBuscarProducto)) {
             traerProducto();
+        } else if (e.getComponent().equals(modelo.getVista().btnEliminar)){
+        } else if(e.getComponent().equals(modelo.getVista().btnInsertar)){
+            agregarVenta();
         } else if (e.getComponent().equals(modelo.getVista().btnEliminar)) {
 
         } else if (e.getComponent().equals(modelo.getVista().btnNuevo)) {
@@ -342,6 +353,14 @@ public class ControladorVentas implements ActionListener, MouseListener {
             }
         }
 
+        ModeloDetalleVentaDB detalle = new ModeloDetalleVentaDB();
+        detalle.setCodigo_producto(resumProd.getCodigo());
+        detalle.setDescuentos(resumProd.getTotalDescuentos());
+        detalle.setImpuestos(resumProd.getTotalImpuestos());
+        detalle.setPrecio_bruto(resumProd.getPrecioBase());
+        detalle.setCantidad(cantidad);
+        agregarDetalle(detalle);
+
         modelo.getVista().txtTotalVenta.setText(String.valueOf(totalVenta));
 
         modelo.getVista().txtCantidadProducto.setText("");
@@ -379,5 +398,51 @@ public class ControladorVentas implements ActionListener, MouseListener {
                     JOptionPane.INFORMATION_MESSAGE
             );
         }
+    }
+
+    public void agregarDetalle(ModeloDetalleVentaDB modeloDetalle){
+        detalleVentaDB.add(modeloDetalle);
+    }
+
+    public void agregarVenta(){
+        ventaDB.setNit(modelo.getVista().txtNITCliente.getText());
+        ventaDB.setFechaOperacion(Date.valueOf(LocalDate.now()));
+        ventaDB.setHoraOperacion(Timestamp.valueOf(LocalDateTime.now()));
+        ventaDB.setUsuarioSistema(Sesion.getUsuario());
+        ventaDB.setMetodoPago(3);
+        ventaDB.setPlazoCredito(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
+        ventaDB.setTipoPlazo("");
+        ventaDB.setEstado("E");
+
+        boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB);
+        if(resultado){
+            limpiarTodo();
+        } else {
+            System.out.println("Errores");
+        }
+    }
+
+    public boolean validarTodo(){
+        return false;
+    }
+
+    public void limpiarTodo(){
+        modelo.getVista().txtCantidadProducto.setText("");
+        modelo.getVista().txtBuscarProducto.setText("");
+        modelo.getVista().txtNombreProducto.setText("");
+        modelo.getVista().txtStockDisponible.setText("");
+        modelo.getVista().txtPrecioProducto.setText("");
+        modelo.getVista().tblProductos.setModel(new DefaultTableModel());
+        configurarTabla();
+        modelo.getVista().txtBuscarCliente.setText("");
+        modelo.getVista().txtNITCliente.setText("");
+        modelo.getVista().txtNombreCliente.setText("");
+        modelo.getVista().txtPlazoCredito.setText("");
+        modelo.getVista().cmbMetodoDePago.setSelectedItem(0);
+        modelo.getVista().cmbTipoPlazo.setSelectedItem(0);
+        resumProd = null;
+        ventaDB = null;
+        detalleVentaDB = null;
+        clienteRes = null;
     }
 }

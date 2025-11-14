@@ -72,14 +72,14 @@ public class Conector {
         JOptionPane.showMessageDialog(null, mensaje, titulo, tipoMensaje);
     }
 
-    public PreparedStatement preparar(String sql, boolean retornarLlaves) {
+    public PreparedStatement prepararVenta(String sql, boolean retornarLlaves) {
         if (this.link == null) {
             System.out.println("ERROR: La conexión no está activa. Llama a conectar().");
             return null;
         }
         try {
             if (retornarLlaves) {
-                ps = link.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps = link.prepareStatement(sql, new String[]{"SECUENCIA"});
             } else {
                 ps = link.prepareStatement(sql);
             }
@@ -88,4 +88,5 @@ public class Conector {
         }
         return ps;
     }
+
 }
