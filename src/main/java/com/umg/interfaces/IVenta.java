@@ -1,8 +1,6 @@
 package com.umg.interfaces;
-import com.umg.modelo.ModeloClienteVistaRes;
-import com.umg.modelo.ModeloVentaDB;
-import com.umg.modelo.ModeloDetalleVentaDB;
-import com.umg.modelo.ModeloResumProd;
+import com.umg.modelo.*;
+
 import java.util.List;
 
 public interface IVenta {
@@ -18,4 +16,5 @@ public interface IVenta {
     boolean insertarInventario(int codigo, int cantidad);
     boolean actualizarStock(int codigo, int cantidad    );
     boolean insertarCuentaPorCobrar();
+    List<ModeloMetodoPagoDB> seleccionarMetodosPago();
 }

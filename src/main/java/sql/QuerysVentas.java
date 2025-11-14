@@ -47,6 +47,11 @@ public class QuerysVentas {
     private final String ACTUALIZAR_STOCK_PRODUCTO = "UPDATE TELLIX.PRODUCTO SET stock_actual = ? " +
             "WHERE codigo = ?";
 
+    private final String SELECT_ALL_METODOS_PAGO =
+            "SELECT codigo, descripcion " +
+                    "FROM TELLIX.METODO_LIQUIDACION " +
+                    "ORDER BY descripcion";
+
     public String getSelectAllVentas() { return SELECT_ALL_VENTAS; }
     public String getSelectUnaVenta() { return SELECT_UNA_VENTA; }
     public String getSelectDetVenta() { return SELECT_DET_VENTA; }
@@ -54,4 +59,5 @@ public class QuerysVentas {
     public String getInsertDetalleVenta() { return INSERT_DETALLE_VENTA; }
     public String getINSERTAR_INVENTARIO() { return INSERTAR_INVENTARIO; }
     public String getACTUALIZAR_STOCK_PRODUCTO() { return ACTUALIZAR_STOCK_PRODUCTO; }
+    public String getSELECT_ALL_METODOS_PAGO(){ return SELECT_ALL_METODOS_PAGO;}
 }

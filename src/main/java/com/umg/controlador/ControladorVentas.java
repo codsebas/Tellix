@@ -40,6 +40,9 @@ public class ControladorVentas implements ActionListener, MouseListener {
     private JComboBox<String> cmbMetodoDePago;
     private JComboBox<String> cmbTipoPlazo;
 
+    private List<ModeloMetodoPagoDB> listaMetodosPago = new ArrayList<>();
+    private int[] arrCodMetodosPago;
+
     private Map<JPanel, String> iconosBotones = new HashMap<>();
 
     public ControladorVentas(ModeloVentas modelo) {
@@ -68,6 +71,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
         inicializarIconos();
         configurarTabla();
+        cargarMetodosPagoEnCombo();
 
         cmbMetodoDePago = vista.cmbMetodoDePago;
         cmbTipoPlazo    = vista.cmbTipoPlazo;
@@ -367,11 +371,16 @@ public class ControladorVentas implements ActionListener, MouseListener {
     }
 
     public void agregarVenta(){
-        registrarComboBox();
+        //registrarComboBox();
+        int idxMet = modelo.getVista().cmbMetodoDePago.getSelectedIndex();
+        Integer codMetodo = (idxMet > 0) ? arrCodMetodosPago[idxMet - 1] : null;
+
         ventaDB.setNit(modelo.getVista().txtNITCliente.getText());
         ventaDB.setFechaOperacion(Date.valueOf(LocalDate.now()));
         ventaDB.setHoraOperacion(Timestamp.valueOf(LocalDateTime.now()));
         ventaDB.setUsuarioSistema(Sesion.getUsuario());
+        ventaDB.setMetodoPago(codMetodo);
+        ventaDB.setTipoPlazo(obtenerCodigoTipoPlazoSeleccionado());
         ventaDB.setEstado("E");
 
         boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB);
@@ -404,5 +413,23 @@ public class ControladorVentas implements ActionListener, MouseListener {
         ventaDB = null;
         detalleVentaDB = null;
         clienteRes = null;
+    }
+
+    public void cargarMetodosPagoEnCombo(){
+        var vista = modelo.getVista();
+        JComboBox<String> cmbMetodo = vista.cmbMetodoDePago;
+
+        cmbMetodo.removeAllItems();
+        cmbMetodo.addItem("-- Seleccione --");
+
+        listaMetodosPago = venta.seleccionarMetodosPago();
+        arrCodMetodosPago = new int[listaMetodosPago.size()];
+
+        int i = 0;
+        for (ModeloMetodoPagoDB mp : listaMetodosPago) {
+            cmbMetodo.addItem(mp.getMetodo_pago());
+            arrCodMetodosPago[i] = mp.getCodigo();
+            i++;
+        }
     }
 }
