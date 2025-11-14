@@ -52,12 +52,7 @@ public class ControladorProveedores implements ActionListener, MouseListener {
 
         inicializarIconos();
 
-        // Listeners de mouse
-        if (btnNuevo != null)      btnNuevo.addMouseListener(this);
-        if (btnActualizar != null) btnActualizar.addMouseListener(this);
-        if (btnEliminar != null)   btnEliminar.addMouseListener(this);
-        if (btnBuscar != null)     btnBuscar.addMouseListener(this);
-        if (btnLimpiar != null)    btnLimpiar.addMouseListener(this);
+
 
         // ===== Datos iniciales: llenar tabla =====
         refrescarTabla();

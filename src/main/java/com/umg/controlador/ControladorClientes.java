@@ -99,15 +99,15 @@ public class ControladorClientes implements ActionListener, MouseListener {
         inicializarIconos();
 
         // listeners
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
-        btnLimpiar.addMouseListener(this);
-
-        btnNuevoC.addMouseListener(this);
-        btnActualizarC.addMouseListener(this);
-        btnEliminarC.addMouseListener(this);
+//        btnNuevo.addMouseListener(this);
+//        btnActualizar.addMouseListener(this);
+//        btnEliminar.addMouseListener(this);
+//        btnBuscar.addMouseListener(this);
+//        btnLimpiar.addMouseListener(this);
+//
+//        btnNuevoC.addMouseListener(this);
+//        btnActualizarC.addMouseListener(this);
+//        btnEliminarC.addMouseListener(this);
 
         // Combos
         cargarCacheTiposContacto();

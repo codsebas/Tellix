@@ -57,12 +57,7 @@ public class ControladorTiposDeCliente implements ActionListener, MouseListener 
 
         inicializarIconos();
 
-        /* ======== NUEVO: registrar listeners de los panel-botón ======== */
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
-        btnLimpiar.addMouseListener(this);
+
 
         /* ======== NUEVO: ENTER en caja de búsqueda ======== */
         vista.txtBuscar.addKeyListener(new KeyAdapter() {

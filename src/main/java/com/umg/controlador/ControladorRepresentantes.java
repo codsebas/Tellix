@@ -99,16 +99,6 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
 
         inicializarIconos();
 
-        // Listeners de mouse
-        if (btnNuevo != null)      btnNuevo.addMouseListener(this);
-        if (btnActualizar != null) btnActualizar.addMouseListener(this);
-        if (btnEliminar != null)   btnEliminar.addMouseListener(this);
-        if (btnBuscar != null)     btnBuscar.addMouseListener(this);
-        if (btnLimpiar != null)    btnLimpiar.addMouseListener(this);
-
-        if (btnNuevoC != null)      btnNuevoC.addMouseListener(this);
-        if (btnActualizarC != null) btnActualizarC.addMouseListener(this);
-        if (btnEliminarC != null)   btnEliminarC.addMouseListener(this);
 
         // ===== Combos =====
         cargarCacheTiposContacto();
