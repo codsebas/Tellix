@@ -1,23 +1,24 @@
 package com.umg.modelo;
 
-import oracle.sql.DATE;
-import oracle.sql.TIMESTAMP;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ModeloComprasDB {
     private String proveedor;
     private String representante;
-    private DATE fecha_operacion;
-    private TIMESTAMP hora_operacion;
+    private Date fecha_operacion;
+    private Timestamp hora_operacion;
     private String usuario_sistema;
     private int metodo_pago;
     private int plazo_credito;
-    private char tipo_plazo;
-    private char estado;
+    private String tipo_plazo;
+    private String estado;
 
     public ModeloComprasDB() {
     }
 
-    public ModeloComprasDB(String proveedor, String representante, DATE fecha_operacion, TIMESTAMP hora_operacion, String usuario_sistema, int metodo_pago, int plazo_credito, char tipo_plazo, char estado) {
+    public ModeloComprasDB(String proveedor, String representante, Date fecha_operacion, Timestamp hora_operacion, String usuario_sistema, int metodo_pago, int plazo_credito, String tipo_plazo, String estado) {
         this.proveedor = proveedor;
         this.representante = representante;
         this.fecha_operacion = fecha_operacion;
@@ -45,19 +46,19 @@ public class ModeloComprasDB {
         this.representante = representante;
     }
 
-    public DATE getFecha_operacion() {
+    public Date getFecha_operacion() {
         return fecha_operacion;
     }
 
-    public void setFecha_operacion(DATE fecha_operacion) {
+    public void setFecha_operacion(Date fecha_operacion) {
         this.fecha_operacion = fecha_operacion;
     }
 
-    public TIMESTAMP getHora_operacion() {
+    public Timestamp getHora_operacion() {
         return hora_operacion;
     }
 
-    public void setHora_operacion(TIMESTAMP hora_operacion) {
+    public void setHora_operacion(Timestamp hora_operacion) {
         this.hora_operacion = hora_operacion;
     }
 
@@ -85,19 +86,19 @@ public class ModeloComprasDB {
         this.plazo_credito = plazo_credito;
     }
 
-    public char getTipo_plazo() {
+    public String getTipo_plazo() {
         return tipo_plazo;
     }
 
-    public void setTipo_plazo(char tipo_plazo) {
+    public void setTipo_plazo(String tipo_plazo) {
         this.tipo_plazo = tipo_plazo;
     }
 
-    public char getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(char estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }

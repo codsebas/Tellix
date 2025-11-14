@@ -16,6 +16,6 @@ public interface IVenta {
     ModeloResumProd seleccionarProducto(int codigo);
     ModeloClienteVistaRes seleccionarCliente(String codigo);
     boolean insertarInventario(int codigo, int cantidad);
-    boolean actualizarStock(int codigo, int cantidad);
+    boolean actualizarStock(int codigo, int cantidad    );
     boolean insertarCuentaPorCobrar();
 }

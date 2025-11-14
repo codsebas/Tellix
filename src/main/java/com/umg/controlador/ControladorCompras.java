@@ -1,39 +1,54 @@
 package com.umg.controlador;
 
-import com.umg.modelo.ModeloCompras;
+import com.umg.implementacion.CompraImp;
+import com.umg.modelo.*;
 import com.umg.implementacion.MetodosDeLiquidacionImp;
 import com.umg.interfaces.IMetodosDeLiquidacion;
+import com.umg.seguridad.Sesion;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ControladorCompras implements ActionListener, MouseListener {
 
     private ModeloCompras modelo;
 
-    // ===== Servicio para métodos de liquidación =====
-// ASÍ (correcto)
-    private final IMetodosDeLiquidacion svcMetodos = new MetodosDeLiquidacionImp();
-
-
-    // ===== Componentes de la vista =====
     private final JPanel btnAgregar;
     private final JPanel btnRegistrarCompra;
     private final JPanel btnEliminar;
     private final JPanel btnBuscarProducto;
-    private final JPanel btnBuscarProveedor;
 
     private final JLabel lblAgregar;
     private final JLabel lblRegistrarCompra;
     private final JLabel lblEliminar;
     private final JLabel lblBuscarProducto;
-    private final JLabel lblBuscarCliente;
 
-    // Combo de método de pago
     private final JComboBox<String> cmbMetodoDePago;
+
+    private  ModeloResumProd resumProd = new ModeloResumProd();
+    private  ModeloComprasDB comprasDB = new ModeloComprasDB();
+    private  List<ModeloDetalleCompraDB> detallleCompraDB = new ArrayList<>();
+
+    private List<ModeloProveedoresDB> listaProveedores = new ArrayList<>();
+    private List<ModeloMetodoPagoDB> listaMetodosPago = new ArrayList<>();
+    private List<ModeloRepresentanteDB> listaRepresentantes = new ArrayList<>();
+
+    // Arreglos paralelos para mapear índices del combo -> código/NIT
+    private String[] arrNitProveedores;        // para cmbProveedor
+    private int[]    arrCodMetodosPago;        // para cmbMetodoDePago
+    private String[] arrNitRepresentantes;     // para cmRepresentante
+
+    private CompraImp compra = new CompraImp();
 
     private final Map<JPanel, String> iconosBotones = new HashMap<>();
 
@@ -42,112 +57,56 @@ public class ControladorCompras implements ActionListener, MouseListener {
 
         var vista = modelo.getVista();
 
-        // Inicializar botones y labels
         btnAgregar          = vista.btnAgregar;
         btnRegistrarCompra  = vista.btnRegistrarCompra;
         btnEliminar         = vista.btnEliminar;
         btnBuscarProducto   = vista.btnBuscarProducto;
-        btnBuscarProveedor  = vista.btnBuscarProveedor;
 
         lblAgregar          = vista.lblAgregar;
         lblRegistrarCompra  = vista.lblRegistrarCompra;
         lblEliminar         = vista.lblEliminar;
         lblBuscarProducto   = vista.lblBuscarProducto;
-        lblBuscarCliente    = vista.lblBuscarCliente;
 
-        // Dar nombre a los labels para manejar iconos
         if (lblAgregar         != null) lblAgregar.setName("icono");
         if (lblRegistrarCompra != null) lblRegistrarCompra.setName("icono");
         if (lblEliminar        != null) lblEliminar.setName("icono");
         if (lblBuscarProducto  != null) lblBuscarProducto.setName("icono");
-        if (lblBuscarCliente   != null) lblBuscarCliente.setName("icono");
 
         inicializarIconos();
 
-        // Listeners de mouse (igual que en otros controladores)
         if (btnAgregar         != null) btnAgregar.addMouseListener(this);
         if (btnRegistrarCompra != null) btnRegistrarCompra.addMouseListener(this);
         if (btnEliminar        != null) btnEliminar.addMouseListener(this);
         if (btnBuscarProducto  != null) btnBuscarProducto.addMouseListener(this);
-        if (btnBuscarProveedor != null) btnBuscarProveedor.addMouseListener(this);
 
-        // ===== Combo de Métodos de Pago =====
         cmbMetodoDePago = vista.getCmbMetodoDePago();
-        cargarMetodosDePagoEnCombo();
+
+        // ===== INICIALIZACIONES RELACIONADAS A TABLA Y COMBOS =====
+        configurarTabla();
+        cargarProveedoresEnCombo();
+        cargarMetodosPagoEnCombo();
         cargarTiposPlazoEnCombo();
-    }
 
-    // =========================================================
-    // Cargar Métodos de Pago en el combo
-    // =========================================================
-    private void cargarMetodosDePagoEnCombo() {
-        if (cmbMetodoDePago == null) return;
+        // Cuando cambie el proveedor, actualizamos NIT/nombre y representantes
+        if (vista.cmbProveedor != null) {
+            vista.cmbProveedor.addActionListener(e -> onProveedorSeleccionado());
+        }
 
-        cmbMetodoDePago.removeAllItems();
-        cmbMetodoDePago.addItem("-- Seleccione --");
-
-        try {
-            var lista = svcMetodos.listarOrdenadoPor("DESCRIPCION");
-            for (IMetodosDeLiquidacion.RowMetodo r : lista) {
-                // Solo mostramos el nombre del método como pediste
-                cmbMetodoDePago.addItem(r.descripcion);
-            }
-        } catch (Exception e) {
-            System.out.println("cargarMetodosDePagoEnCombo: " + e.getMessage());
+        // Cuando cambie el representante, actualizamos el textbox de info
+        if (vista.cmRepresentante != null) {
+            vista.cmRepresentante.addActionListener(e -> onRepresentanteSeleccionado());
         }
     }
 
-    // Si más adelante querés el código del método seleccionado, aquí puedes
-    // hacer un mapa desc→código igual que en Representantes, pero por ahora
-    // solo mostramos los nombres en el combo.
-
-    // =========================================================
-    // ActionListener
-    // =========================================================
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Por ahora vacío; puedes enrutar acciones aquí si luego usas ActionListener
     }
 
-    // =========================================================
-    // MouseListener
-    // =========================================================
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        Object src = e.getSource();
-
-        if (src == btnRegistrarCompra) {
-            onRegistrarCompra();
-        }
-
-        // Aquí luego puedes poner la lógica:
-        // if (src == btnAgregar) { ... }
-        // if (src == btnRegistrarCompra) { ... }
-        // etc.
-    }
-
-    @Override public void mousePressed(MouseEvent e) { }
-    @Override public void mouseReleased(MouseEvent e) { }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        cambiarIconoBoton((JPanel) e.getSource(), true);
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        cambiarIconoBoton((JPanel) e.getSource(), false);
-    }
-
-    // =========================================================
-    // Iconos
-    // =========================================================
     private void inicializarIconos() {
         iconosBotones.put(btnAgregar,          "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnRegistrarCompra,  "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnEliminar,         "/com/umg/iconos/IconoBoton1.png");
         iconosBotones.put(btnBuscarProducto,   "/com/umg/iconos/IconoBoton1.png");
-        iconosBotones.put(btnBuscarProveedor,  "/com/umg/iconos/IconoBoton1.png");
     }
 
     private void cambiarIconoBoton(JPanel boton, boolean activo) {
@@ -169,92 +128,324 @@ public class ControladorCompras implements ActionListener, MouseListener {
         }
         return null;
     }
-    // =========================================================
-// Cargar Tipo de Plazo en el combo
-// =========================================================
-    private void cargarTiposPlazoEnCombo() {
-        var vista = modelo.getVista();
-        JComboBox<String> cb = vista.cmbTipoPlazo;   // es public, lo usas directo
 
-        if (cb == null) return;
-
-        cb.removeAllItems();
-        cb.addItem("-- Seleccione --");
-        cb.addItem("Día");
-        cb.addItem("Mes");
-        cb.addItem("Año");
-    }
-    // Devuelve D / M / A según lo que se haya elegido en el combo
-    private String obtenerTipoPlazoSeleccionado() {
-        var vista = modelo.getVista();
-        JComboBox<String> cb = vista.cmbTipoPlazo;
-        if (cb == null) return null;
-
-        Object sel = cb.getSelectedItem();
-        if (sel == null) return null;
-
-        String txt = sel.toString().trim();
-
-        if (txt.equalsIgnoreCase("Día") || txt.equalsIgnoreCase("Dia")) {
-            return "D";
-        } else if (txt.equalsIgnoreCase("Mes")) {
-            return "M";
-        } else if (txt.equalsIgnoreCase("Año") || txt.equalsIgnoreCase("Ano")) {
-            return "A";
-        } else {
-            return null;  // "-- Seleccione --" u otra cosa
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getComponent().equals(modelo.getVista().btnBuscarProducto)) {
+            traerProducto();
+        } else if(e.getComponent().equals(modelo.getVista().btnAgregar)) {
+            agregarProducto();
+        } else if(e.getComponent().equals(modelo.getVista().btnRegistrarCompra)) {
+            agregarCompra();
+        } else if(e.getComponent().equals(modelo.getVista().btnEliminar)) {
+            // aquí luego puedes implementar eliminar fila de la tabla, si quieres
         }
     }
-    private void onRegistrarCompra() {
-        var vista = modelo.getVista();
 
-        // 1) Obtener tipo de plazo en formato D / M / A
-        String tipoPlazo = obtenerCodigoTipoPlazoSeleccionado();
-        if (tipoPlazo == null) {
-            JOptionPane.showMessageDialog(vista,
-                    "Seleccione un Tipo de Plazo (Día, Mes o Año).",
-                    "Aviso",
-                    JOptionPane.WARNING_MESSAGE);
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        if (e.getSource() instanceof JPanel panel) {
+            cambiarIconoBoton(panel, true);
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        if (e.getSource() instanceof JPanel panel) {
+            cambiarIconoBoton(panel, false);
+        }
+    }
+
+    public void traerProducto() {
+        if (!modelo.getVista().txtBuscarProducto.getText().equals("")) {
+            int valor = Integer.parseInt(modelo.getVista().txtBuscarProducto.getText());
+            resumProd = compra.seleccionarProducto(valor);
+            modelo.getVista().txtPrecioProducto.setText(String.valueOf(resumProd.getPrecioFinal()));
+            modelo.getVista().txtNombreProducto.setText(resumProd.getNombre());
+            modelo.getVista().txtStockDisponible.setText(String.valueOf(resumProd.getStockDisponible()));
+        }
+    }
+
+    public void configurarTabla() {
+        DefaultTableModel modeloTabla = new DefaultTableModel(
+                new Object[]{
+                        "Producto",
+                        "Precio base",
+                        "Impuestos",
+                        "Descuentos",
+                        "Precio final",
+                        "Cantidad",
+                        "Subtotal"
+                }, 0
+        );
+        modelo.getVista().tblProductos.setModel(modeloTabla);
+    }
+
+    public void agregarProducto() {
+        String txtCant = modelo.getVista().txtCantidadProducto.getText().trim();
+
+        if (txtCant.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "Debe ingresar una cantidad.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE
+            );
             return;
         }
 
-        // 2) Obtener el plazo numérico
-        String plazoTxt = vista.txtPlazoCredito.getText().trim();
-        Integer plazoCredito = null;
-        if (!plazoTxt.isEmpty()) {
-            try {
-                plazoCredito = Integer.parseInt(plazoTxt);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(vista,
-                        "El Plazo de Crédito debe ser numérico.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
+        int cantidad;
+        try {
+            cantidad = Integer.parseInt(txtCant);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "La cantidad debe ser numérica.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (resumProd == null) {
+            JOptionPane.showMessageDialog(
+                    modelo.getVista(),
+                    "No hay producto seleccionado.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        float precioFinal = resumProd.getPrecioFinal();
+        float subtotal = precioFinal * cantidad;
+
+        DefaultTableModel dtm = (DefaultTableModel) modelo.getVista().tblProductos.getModel();
+
+        Object[] fila = new Object[]{
+                resumProd.getNombre(),          // Producto
+                resumProd.getPrecioBase(),      // Precio base
+                resumProd.getTotalImpuestos(),  // Impuestos
+                resumProd.getTotalDescuentos(), // Descuentos
+                resumProd.getPrecioFinal(),     // Precio final
+                cantidad,                       // Cantidad
+                subtotal                        // Subtotal
+        };
+
+        dtm.addRow(fila);
+
+        float totalVenta = 0f;
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            Object valor = dtm.getValueAt(i, 6); // columna "Subtotal"
+            if (valor instanceof Number) {
+                totalVenta += ((Number) valor).floatValue();
+            } else if (valor != null) {
+                try {
+                    totalVenta += Float.parseFloat(valor.toString());
+                } catch (NumberFormatException ex) {
+                }
             }
         }
 
-        // 3) Aquí armas tu ModeloCompras y lo mandas al servicio/DAO
-        ModeloCompras compra = new ModeloCompras(vista);
-        compra.setTipoPlazo(tipoPlazo);      // <-- AQUI SE GUARDA D / M / A
-        compra.setPlazoCredito(plazoCredito);
-        // ... setear demás campos: proveedor, método de pago, total, etc.
+        ModeloDetalleCompraDB detalle = new ModeloDetalleCompraDB();
+        detalle.setCod_producto(resumProd.getCodigo());
+        detalle.setDescuentos(resumProd.getTotalDescuentos());
+        detalle.setImpuestos(resumProd.getTotalImpuestos());
+        detalle.setPrecio_bruto(resumProd.getPrecioBase());
+        detalle.setCantidad(cantidad);
+        agregarDetalle(detalle);
 
-        // 4) Llamar a tu implementación para insertar en BD
-        // if (svcCompras.insertarCompra(compra)) { ... }
+        modelo.getVista().txtTotalCompra.setText(String.valueOf(totalVenta));
+
+        modelo.getVista().txtCantidadProducto.setText("");
+        modelo.getVista().txtBuscarProducto.setText("");
+        modelo.getVista().txtNombreProducto.setText("");
+        modelo.getVista().txtStockDisponible.setText("");
+        modelo.getVista().txtPrecioProducto.setText("");
+        resumProd = null;
     }
 
-    // Devuelve "D", "M" o "A" según lo seleccionado en cmbTipoPlazo
-    private String obtenerCodigoTipoPlazoSeleccionado() {
+    public void agregarDetalle(ModeloDetalleCompraDB modeloDetalle){
+        detallleCompraDB.add(modeloDetalle);
+    }
+
+    public void agregarCompra(){
+        int idxProv = modelo.getVista().cmbProveedor.getSelectedIndex();
+        String nitProveedor = (idxProv > 0) ? arrNitProveedores[idxProv - 1] : null;
+
+        int idxRep = modelo.getVista().cmRepresentante.getSelectedIndex();
+        String nitRepresentante = (idxRep > 0) ? arrNitRepresentantes[idxRep - 1] : null;
+
+        int idxMet = modelo.getVista().cmbMetodoDePago.getSelectedIndex();
+        Integer codMetodo = (idxMet > 0) ? arrCodMetodosPago[idxMet - 1] : null;
+
+        comprasDB.setProveedor(nitProveedor);
+        comprasDB.setRepresentante(nitRepresentante);
+        comprasDB.setFecha_operacion(Date.valueOf(LocalDate.now()));
+        comprasDB.setHora_operacion(Timestamp.valueOf(LocalDateTime.now()));
+        comprasDB.setUsuario_sistema(Sesion.getUsuario());
+        comprasDB.setMetodo_pago(codMetodo);
+        comprasDB.setPlazo_credito(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
+        comprasDB.setTipo_plazo(obtenerCodigoTipoPlazoSeleccionado());
+        comprasDB.setEstado("E");
+
+        boolean resultado = compra.insertarCompra(comprasDB, detallleCompraDB);
+        if(resultado){
+            limpiarTodo();
+        } else {
+            System.out.println("Errores");
+        }
+    }
+
+    public void limpiarTodo(){
+        modelo.getVista().txtCantidadProducto.setText("");
+        modelo.getVista().txtBuscarProducto.setText("");
+        modelo.getVista().txtNombreProducto.setText("");
+        modelo.getVista().txtStockDisponible.setText("");
+        modelo.getVista().txtPrecioProducto.setText("");
+        modelo.getVista().tblProductos.setModel(new DefaultTableModel());
+        configurarTabla();
+        modelo.getVista().txtNITProveedor.setText("");
+        modelo.getVista().txtNombreProveedor.setText("");
+        modelo.getVista().txtInfoRepresentante.setText("");
+        modelo.getVista().txtPlazoCredito.setText("");
+
+        // Reset de combos (ahora sí por índice)
+        if (modelo.getVista().cmbMetodoDePago.getItemCount() > 0) {
+            modelo.getVista().cmbMetodoDePago.setSelectedIndex(0);
+        }
+        if (modelo.getVista().cmbTipoPlazo.getItemCount() > 0) {
+            modelo.getVista().cmbTipoPlazo.setSelectedIndex(0);
+        }
+        if (modelo.getVista().cmbProveedor.getItemCount() > 0) {
+            modelo.getVista().cmbProveedor.setSelectedIndex(0);
+        }
+        if (modelo.getVista().cmRepresentante.getItemCount() > 0) {
+            modelo.getVista().cmRepresentante.setSelectedIndex(0);
+        }
+
+        resumProd = null;
+        comprasDB = null;
+        detallleCompraDB = null;
+    }
+
+    private void cargarTiposPlazoEnCombo() {
+        if (modelo.getVista().cmbTipoPlazo == null) return;
+
+        modelo.getVista().cmbTipoPlazo.removeAllItems();
+        modelo.getVista().cmbTipoPlazo.addItem("-- Seleccione --");
+        modelo.getVista().cmbTipoPlazo.addItem("Día");
+        modelo.getVista().cmbTipoPlazo.addItem("Mes");
+        modelo.getVista().cmbTipoPlazo.addItem("Año");
+    }
+
+    private void cargarProveedoresEnCombo() {
         var vista = modelo.getVista();
+        JComboBox<String> cmbProveedor = vista.cmbProveedor;
 
-        // Usa el combo directo, porque en tu vista es public
-        JComboBox<String> cb = vista.cmbTipoPlazo;
-        // Si tuvieras un getter sería:
-        // JComboBox<String> cb = vista.getCmbTipoPlazo();
+        cmbProveedor.removeAllItems();
+        cmbProveedor.addItem("-- Seleccione --");
 
-        if (cb == null) return null;
+        listaProveedores = compra.seleccionarProveedores();
+        arrNitProveedores = new String[listaProveedores.size()];
 
-        Object sel = cb.getSelectedItem();
+        int i = 0;
+        for (ModeloProveedoresDB prov : listaProveedores) {
+            cmbProveedor.addItem(prov.getNombre());   // solo descripción
+            arrNitProveedores[i] = prov.getNit();     // para uso interno
+            i++;
+        }
+    }
+
+    private void cargarMetodosPagoEnCombo() {
+        var vista = modelo.getVista();
+        JComboBox<String> cmbMetodo = vista.cmbMetodoDePago;
+
+        cmbMetodo.removeAllItems();
+        cmbMetodo.addItem("-- Seleccione --");
+
+        listaMetodosPago = compra.seleccionarMetodosPago();
+        arrCodMetodosPago = new int[listaMetodosPago.size()];
+
+        int i = 0;
+        for (ModeloMetodoPagoDB mp : listaMetodosPago) {
+            cmbMetodo.addItem(mp.getMetodo_pago());   // descripción
+            arrCodMetodosPago[i] = mp.getCodigo();    // código real
+            i++;
+        }
+    }
+
+    private void cargarRepresentantesPorProveedor(String nitProveedor) {
+        var vista = modelo.getVista();
+        JComboBox<String> cmbRep = vista.cmRepresentante;
+
+        cmbRep.removeAllItems();
+        cmbRep.addItem("-- Seleccione --");
+
+        // Pedimos al DAO solo los representantes de ese proveedor
+        listaRepresentantes = compra.seleccionarRepresentantes(nitProveedor);
+        arrNitRepresentantes = new String[listaRepresentantes.size()];
+
+        int i = 0;
+        for (ModeloRepresentanteDB rep : listaRepresentantes) {
+            cmbRep.addItem(rep.getNombre());            // nombre_completo de la vista
+            arrNitRepresentantes[i] = rep.getNit();     // NIT del representante
+            i++;
+        }
+    }
+
+    private void onProveedorSeleccionado() {
+        var vista = modelo.getVista();
+        int idx = vista.cmbProveedor.getSelectedIndex();
+
+        // idx 0 = "-- Seleccione --"
+        if (idx <= 0) {
+            vista.txtNITProveedor.setText("");
+            vista.txtNombreProveedor.setText("");
+            // Limpio representantes también
+            vista.cmRepresentante.removeAllItems();
+            vista.cmRepresentante.addItem("-- Seleccione --");
+            return;
+        }
+
+        // Ajustamos porque arrNitProveedores empieza en 0 y el combo en 1
+        String nitProveedor = arrNitProveedores[idx - 1];
+        ModeloProveedoresDB prov = listaProveedores.get(idx - 1);
+
+        vista.txtNITProveedor.setText(prov.getNit());
+        vista.txtNombreProveedor.setText(prov.getNombre());
+
+        // Ahora cargamos representantes para este proveedor
+        cargarRepresentantesPorProveedor(nitProveedor);
+    }
+
+    private void onRepresentanteSeleccionado() {
+        var vista = modelo.getVista();
+        int idx = vista.cmRepresentante.getSelectedIndex();
+
+        if (idx <= 0 || listaRepresentantes == null || listaRepresentantes.isEmpty()) {
+            vista.txtInfoRepresentante.setText("");
+            return;
+        }
+
+        ModeloRepresentanteDB rep = listaRepresentantes.get(idx - 1);
+        vista.txtInfoRepresentante.setText(rep.getNombre());
+    }
+
+    private String obtenerCodigoTipoPlazoSeleccionado() {
+        if (modelo.getVista().cmbTipoPlazo == null) return null;
+
+        Object sel = modelo.getVista().cmbTipoPlazo.getSelectedItem();
         if (sel == null) return null;
 
         String texto = sel.toString().trim();
@@ -270,5 +461,4 @@ public class ControladorCompras implements ActionListener, MouseListener {
         // "-- Seleccione --" u otra cosa
         return null;
     }
-
 }

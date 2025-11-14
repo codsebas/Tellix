@@ -89,4 +89,22 @@ public class Conector {
         return ps;
     }
 
+    public PreparedStatement prepararCompra(String sql, boolean retornarLlaves) {
+        if (this.link == null) {
+            System.out.println("ERROR: La conexión no está activa. Llama a conectar().");
+            return null;
+        }
+        try {
+            if (retornarLlaves) {
+                ps = link.prepareStatement(sql, new String[]{"NO_DOCUMENTO"});
+            } else {
+                ps = link.prepareStatement(sql);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return ps;
+    }
+
+
 }

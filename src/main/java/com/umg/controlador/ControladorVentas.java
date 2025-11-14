@@ -26,10 +26,8 @@ import com.umg.seguridad.Sesion;
 public class ControladorVentas implements ActionListener, MouseListener {
     ModeloVentas modelo;
 
-    // ===== Servicio para métodos de liquidación (igual que en Compras) =====
     private final IMetodosDeLiquidacion svcMetodos = new MetodosDeLiquidacionImp();
 
-    // Componentes de la vista
     private JPanel btnNuevo, btnActualizar, btnEliminar, btnBuscar, btnLimpiar;
     private JLabel lblNuevo, lblActualizar, lblEliminar, lblBuscar, lblLimpiar;
     private VentaImp venta = new VentaImp();
@@ -39,7 +37,6 @@ public class ControladorVentas implements ActionListener, MouseListener {
     private List<ModeloDetalleVentaDB> detalleVentaDB = new ArrayList();
     private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
 
-    // Combos para método de pago y tipo de plazo
     private JComboBox<String> cmbMetodoDePago;
     private JComboBox<String> cmbTipoPlazo;
 
@@ -72,8 +69,6 @@ public class ControladorVentas implements ActionListener, MouseListener {
         inicializarIconos();
         configurarTabla();
 
-        // ====== Combos de Método de Pago y Tipo de Plazo ======
-        // Ojo: uso los nombres como en Compras. Si en tu vista se llaman diferente, solo cambia aquí.
         cmbMetodoDePago = vista.cmbMetodoDePago;
         cmbTipoPlazo    = vista.cmbTipoPlazo;
 
@@ -81,9 +76,6 @@ public class ControladorVentas implements ActionListener, MouseListener {
         cargarTiposPlazoEnCombo();
     }
 
-    // =========================================================
-    // CARGAR MÉTODOS DE PAGO EN EL COMBO (desde metodo_liquidacion)
-    // =========================================================
     private void cargarMetodosDePagoEnCombo() {
         if (cmbMetodoDePago == null) return;
 
@@ -101,12 +93,6 @@ public class ControladorVentas implements ActionListener, MouseListener {
         }
     }
 
-    // Si luego quieres el CÓDIGO del método seleccionado, podemos hacer
-    // un mapa desc→código igual que en Representantes / Compras.
-
-    // =========================================================
-    // CARGAR TIPO DE PLAZO EN EL COMBO (Día / Mes / Año -> D/M/A)
-    // =========================================================
     private void cargarTiposPlazoEnCombo() {
         if (cmbTipoPlazo == null) return;
 
@@ -138,10 +124,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
         return null;
     }
 
-    // =========================================================
-    // REGISTRAR VENTA (aquí usas D/M/A cuando guardes en BD)
-    // =========================================================
-    private void onRegistrarVenta() {
+    private void registrarComboBox() {
         var vista = modelo.getVista();
 
         // 1) Tipo de plazo en formato D / M / A
@@ -173,33 +156,15 @@ public class ControladorVentas implements ActionListener, MouseListener {
             }
         }
 
-        // 3) Aquí armas tu ModeloVentaDB / ModeloVentas y le seteas D/M/A
-        //    (ajusta según tu modelo real)
-        ventaDB.setTipoPlazo(tipoPlazo);       // <-- AQUÍ QUEDA SOLO D / M / A
+        ventaDB.setTipoPlazo(tipoPlazo);       // <-- AQUÍ QUEDA SOLO D / M / ¿¿¿A
         ventaDB.setPlazoCredito(plazoCredito); // si tu modelo lo tiene
 
-        // Aquí también deberás setear:
-        // - NIT cliente
-        // - Método de pago (código)
-        // - Total de la venta
-        // - etc.
-        //
-        // y luego mandar a guardar con tu VentaImp:
-        //
-        // boolean ok = venta.insertarVenta(ventaDB, detalleVentaDB, ...);
-        // if (ok) { ... }
     }
 
-    // =========================================================
-    // ActionListener
-    // =========================================================
     @Override
     public void actionPerformed(ActionEvent e) {
     }
 
-    // =========================================================
-    // MouseListener
-    // =========================================================
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getComponent().equals(modelo.getVista().btnBuscarCliente)) {
@@ -215,9 +180,6 @@ public class ControladorVentas implements ActionListener, MouseListener {
 
         } else if (e.getComponent().equals(modelo.getVista().btnNuevo)) {
 
-        } else if (e.getComponent().equals(modelo.getVista().btnInsertar)) {
-            // Aquí llamamos a registrar venta para usar D/M/A
-            onRegistrarVenta();
         }
     }
 
@@ -405,13 +367,11 @@ public class ControladorVentas implements ActionListener, MouseListener {
     }
 
     public void agregarVenta(){
+        registrarComboBox();
         ventaDB.setNit(modelo.getVista().txtNITCliente.getText());
         ventaDB.setFechaOperacion(Date.valueOf(LocalDate.now()));
         ventaDB.setHoraOperacion(Timestamp.valueOf(LocalDateTime.now()));
         ventaDB.setUsuarioSistema(Sesion.getUsuario());
-        ventaDB.setMetodoPago(3);
-        ventaDB.setPlazoCredito(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
-        ventaDB.setTipoPlazo("");
         ventaDB.setEstado("E");
 
         boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB);
