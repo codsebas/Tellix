@@ -1,14 +1,12 @@
 package com.umg.implementacion;
 import com.umg.interfaces.IVenta;
-import com.umg.modelo.ModeloClienteVistaRes;
-import com.umg.modelo.ModeloDetalleVentaDB;
-import com.umg.modelo.ModeloResumProd;
-import com.umg.modelo.ModeloVentaDB;
+import com.umg.modelo.*;
 import com.umg.seguridad.Sesion;
 import sql.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentaImp implements IVenta {
@@ -243,6 +241,30 @@ public class VentaImp implements IVenta {
     @Override
     public boolean insertarCuentaPorCobrar() {
         return false;
+    }
+
+    @Override
+    public List<ModeloMetodoPagoDB> seleccionarMetodosPago() {
+        List<ModeloMetodoPagoDB> lista = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.preparar(querys.getSELECT_ALL_METODOS_PAGO());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ModeloMetodoPagoDB modelo = new ModeloMetodoPagoDB();
+
+                modelo.setCodigo(rs.getInt("codigo"));
+                modelo.setMetodo_pago(rs.getString("descripcion"));
+
+                lista.add(modelo);
+            }
+
+            return lista;
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al seleccionar métodos de pago", e);
+        }
     }
 
 }
