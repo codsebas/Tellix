@@ -481,7 +481,7 @@ public class VistaRepresentantes extends javax.swing.JPanel {
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tblClientes;
-    private javax.swing.JTable tblClientes1;
+    public javax.swing.JTable tblClientes1;
     public javax.swing.JTextField txtApellidoCasada;
     public javax.swing.JTextField txtBuscar;
     public javax.swing.JTextField txtDireccionFiscal;

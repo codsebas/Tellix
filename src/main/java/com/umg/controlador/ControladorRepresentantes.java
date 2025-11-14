@@ -143,7 +143,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
                     if (row < 0 || row >= bufferContactos.size()) return;
                     ContactoTmp c = bufferContactos.get(row);
                     v.txtInfoContacto.setText(nvl(c.info));
-                    v.txtTelContacto.setText(nvl(c.telefono));
+                  //  v.txtTelContacto.setText(nvl(c.telefono));
                     setComboTipoContactoByCode(c.tipoContacto);
                 }
             });
@@ -301,7 +301,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         ContactoTmp c = new ContactoTmp();
         c.tipoContacto = leerTipoContactoDesdeUI();
         c.info         = safe(v.txtInfoContacto.getText());
-        c.telefono     = safe(v.txtTelContacto.getText());
+        //c.telefono     = safe(v.txtTelContacto.getText());
         c.correlativo  = bufferContactos.size() + 1;
         bufferContactos.add(c);
         refrescarTablaContactos();
@@ -316,7 +316,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         ContactoTmp c = bufferContactos.get(row);
         c.tipoContacto = leerTipoContactoDesdeUI();
         c.info         = safe(v.txtInfoContacto.getText());
-        c.telefono     = safe(v.txtTelContacto.getText());
+     //   c.telefono     = safe(v.txtTelContacto.getText());
         refrescarTablaContactos();
     }
 
@@ -559,7 +559,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
 
         // Contactos
         v.txtInfoContacto.setText("");
-        v.txtTelContacto.setText("");
+     //   v.txtTelContacto.setText("");
         JComboBox<String> cb = modelo.getVista().getCmbTipoContacto();
         if (cb != null && cb.getItemCount() > 0) cb.setSelectedIndex(0);
 
