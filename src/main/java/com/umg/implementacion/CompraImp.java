@@ -293,7 +293,7 @@ public class CompraImp implements ICompra {
             ps.setFloat(5, modelo.getValor_pagado());
             ps.setDate(6, modelo.getFecha_limite());
             ps.setString(7, modelo.getNumero_cuenta());
-            ps.setString(8, modelo.getBanco());
+            ps.setInt(8, modelo.getBanco());
             int files = ps.executeUpdate();
             resultado = (files > 0);
         } catch(Exception e){

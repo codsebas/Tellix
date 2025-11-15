@@ -10,12 +10,12 @@ public class ModeloCuentasXPagarDB {
     private float valor_pagado;
     private Date fecha_limite;
     private String numero_cuenta;
-    private String banco;
+    private int banco;
 
     public ModeloCuentasXPagarDB() {
     }
 
-    public ModeloCuentasXPagarDB(int no_documento, String estado, int metodo_pago, float valor_total, float valor_pagado, Date fecha_limite, String numero_cuenta, String banco) {
+    public ModeloCuentasXPagarDB(int no_documento, String estado, int metodo_pago, float valor_total, float valor_pagado, Date fecha_limite, String numero_cuenta, int banco) {
         this.no_documento = no_documento;
         this.estado = estado;
         this.metodo_pago = metodo_pago;
@@ -82,11 +82,11 @@ public class ModeloCuentasXPagarDB {
         this.numero_cuenta = numero_cuenta;
     }
 
-    public String getBanco() {
+    public int getBanco() {
         return banco;
     }
 
-    public void setBanco(String banco) {
+    public void setBanco(int banco) {
         this.banco = banco;
     }
 }

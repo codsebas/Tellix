@@ -52,10 +52,8 @@ public class VistaVentas extends javax.swing.JPanel {
         btnBuscarCliente = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         lblBuscarCliente = new javax.swing.JLabel();
-        txtBanco = new javax.swing.JTextField();
         txtNumeroCuenta = new javax.swing.JTextField();
         txtNITCliente = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtNombreCliente = new javax.swing.JTextField();
         lblPlazoCredito = new javax.swing.JLabel();
@@ -163,10 +161,6 @@ public class VistaVentas extends javax.swing.JPanel {
 
         jPanel2.add(btnBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
 
-        txtBanco.setBackground(new java.awt.Color(255, 255, 255));
-        txtBanco.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtBanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, 200, 30));
-
         txtNumeroCuenta.setBackground(new java.awt.Color(255, 255, 255));
         txtNumeroCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtNumeroCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 30));
@@ -175,12 +169,6 @@ public class VistaVentas extends javax.swing.JPanel {
         txtNITCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtNITCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         jPanel2.add(txtNITCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 200, 30));
-
-        jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Banco");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 200, 20));
 
         jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(33, 37, 41));
@@ -377,7 +365,6 @@ public class VistaVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -393,7 +380,6 @@ public class VistaVentas extends javax.swing.JPanel {
     public javax.swing.JLabel lblTipoPlazo;
     private javax.swing.JPanel panelFondo;
     public javax.swing.JTable tblProductos;
-    public javax.swing.JTextField txtBanco;
     public javax.swing.JTextField txtBuscarCliente;
     public javax.swing.JTextField txtBuscarProducto;
     public javax.swing.JTextField txtCantidadProducto;
