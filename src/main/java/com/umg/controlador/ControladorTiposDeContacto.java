@@ -49,12 +49,7 @@ public class ControladorTiposDeContacto implements ActionListener, MouseListener
 
         inicializarIconos();
 
-        // Listeners de panel-botón
-        btnNuevo.addMouseListener(this);
-        btnActualizar.addMouseListener(this);
-        btnEliminar.addMouseListener(this);
-        btnBuscar.addMouseListener(this);
-        btnLimpiar.addMouseListener(this);
+
 
         // Selección en tabla -> llenar campos
         if (vista.tblTiposDeContacto != null) {

@@ -49,8 +49,11 @@ public class VistaVentas extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblActualizar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        btnBuscarCliente = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        lblBuscarCliente = new javax.swing.JLabel();
+        txtNumeroCuenta = new javax.swing.JTextField();
         txtNITCliente = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtNombreCliente = new javax.swing.JTextField();
         lblPlazoCredito = new javax.swing.JLabel();
@@ -61,9 +64,8 @@ public class VistaVentas extends javax.swing.JPanel {
         cmbTipoPlazo = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         txtBuscarCliente = new javax.swing.JTextField();
-        btnBuscarCliente = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        lblBuscarCliente = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         txtBuscarProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnBuscarProducto = new javax.swing.JPanel();
@@ -144,71 +146,6 @@ public class VistaVentas extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(245, 247, 250));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNITCliente.setEditable(false);
-        txtNITCliente.setBackground(new java.awt.Color(255, 255, 255));
-        txtNITCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtNITCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 200, 30));
-
-        jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("NIT Cliente");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 200, 20));
-
-        jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Nombre Cliente");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 200, 20));
-
-        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombreCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, 30));
-
-        lblPlazoCredito.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        lblPlazoCredito.setForeground(new java.awt.Color(33, 37, 41));
-        lblPlazoCredito.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblPlazoCredito.setText("Plazo de Crédito");
-        jPanel2.add(lblPlazoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 200, 20));
-
-        txtPlazoCredito.setBackground(new java.awt.Color(255, 255, 255));
-        txtPlazoCredito.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtPlazoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 200, 30));
-
-        jLabel12.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("Método de Pago");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 200, 20));
-
-        lblTipoPlazo.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        lblTipoPlazo.setForeground(new java.awt.Color(33, 37, 41));
-        lblTipoPlazo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTipoPlazo.setText("Tipo de Plazo");
-        jPanel2.add(lblTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 200, 20));
-
-        cmbMetodoDePago.setBackground(new java.awt.Color(255, 255, 255));
-        cmbMetodoDePago.setForeground(new java.awt.Color(108, 117, 125));
-        cmbMetodoDePago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbMetodoDePago.setBorder(null);
-        jPanel2.add(cmbMetodoDePago, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 30));
-
-        cmbTipoPlazo.setBackground(new java.awt.Color(255, 255, 255));
-        cmbTipoPlazo.setForeground(new java.awt.Color(108, 117, 125));
-        cmbTipoPlazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbTipoPlazo.setBorder(null);
-        jPanel2.add(cmbTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 200, 30));
-
-        jLabel20.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel20.setText("Buscar Cliente");
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 200, 20));
-
-        txtBuscarCliente.setBackground(new java.awt.Color(255, 255, 255));
-        txtBuscarCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 200, 30));
-
         btnBuscarCliente.setBackground(new java.awt.Color(245, 247, 250));
         btnBuscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -223,6 +160,81 @@ public class VistaVentas extends javax.swing.JPanel {
         btnBuscarCliente.add(lblBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
         jPanel2.add(btnBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, 30));
+
+        txtNumeroCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        txtNumeroCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtNumeroCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 30));
+
+        txtNITCliente.setEditable(false);
+        txtNITCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtNITCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtNITCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 200, 30));
+
+        jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("Nombre Cliente");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 200, 20));
+
+        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombreCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 200, 30));
+
+        lblPlazoCredito.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        lblPlazoCredito.setForeground(new java.awt.Color(33, 37, 41));
+        lblPlazoCredito.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPlazoCredito.setText("Plazo de Crédito");
+        jPanel2.add(lblPlazoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 200, 20));
+
+        txtPlazoCredito.setBackground(new java.awt.Color(255, 255, 255));
+        txtPlazoCredito.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtPlazoCredito, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 200, 30));
+
+        jLabel12.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("Método de Pago");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 200, 20));
+
+        lblTipoPlazo.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        lblTipoPlazo.setForeground(new java.awt.Color(33, 37, 41));
+        lblTipoPlazo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTipoPlazo.setText("Tipo de Plazo");
+        jPanel2.add(lblTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 20));
+
+        cmbMetodoDePago.setBackground(new java.awt.Color(255, 255, 255));
+        cmbMetodoDePago.setForeground(new java.awt.Color(108, 117, 125));
+        cmbMetodoDePago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbMetodoDePago.setBorder(null);
+        jPanel2.add(cmbMetodoDePago, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 200, 30));
+
+        cmbTipoPlazo.setBackground(new java.awt.Color(255, 255, 255));
+        cmbTipoPlazo.setForeground(new java.awt.Color(108, 117, 125));
+        cmbTipoPlazo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoPlazo.setBorder(null);
+        jPanel2.add(cmbTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 200, 30));
+
+        jLabel20.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel20.setText("Buscar Cliente");
+        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 200, 20));
+
+        txtBuscarCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscarCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 200, 30));
+
+        jLabel7.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setText("NIT Cliente");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 200, 20));
+
+        jLabel11.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(33, 37, 41));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Numero de cuenta");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 200, 20));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 230, 670));
 
@@ -342,6 +354,7 @@ public class VistaVentas extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> cmbTipoPlazo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -352,8 +365,8 @@ public class VistaVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -373,6 +386,7 @@ public class VistaVentas extends javax.swing.JPanel {
     public javax.swing.JTextField txtNITCliente;
     public javax.swing.JTextField txtNombreCliente;
     public javax.swing.JTextField txtNombreProducto;
+    public javax.swing.JTextField txtNumeroCuenta;
     public javax.swing.JTextField txtPlazoCredito;
     public javax.swing.JTextField txtPrecioProducto;
     public javax.swing.JTextField txtStockDisponible;

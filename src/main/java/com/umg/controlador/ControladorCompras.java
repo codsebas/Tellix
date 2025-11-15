@@ -37,6 +37,7 @@ public class ControladorCompras implements ActionListener, MouseListener {
 
     private  ModeloResumProd resumProd = new ModeloResumProd();
     private  ModeloComprasDB comprasDB = new ModeloComprasDB();
+    private ModeloCuentasXPagarDB cuentasXPagarDB = new ModeloCuentasXPagarDB();
     private  List<ModeloDetalleCompraDB> detallleCompraDB = new ArrayList<>();
 
     private List<ModeloProveedoresDB> listaProveedores = new ArrayList<>();
@@ -299,7 +300,18 @@ public class ControladorCompras implements ActionListener, MouseListener {
         comprasDB.setTipo_plazo(obtenerCodigoTipoPlazoSeleccionado());
         comprasDB.setEstado("E");
 
-        boolean resultado = compra.insertarCompra(comprasDB, detallleCompraDB);
+        cuentasXPagarDB.setEstado("E");
+        cuentasXPagarDB.setMetodo_pago(codMetodo);
+        cuentasXPagarDB.setValor_total(Float.parseFloat(modelo.getVista().txtTotalCompra.getText()));
+
+        Date fechaActual = comprasDB.getFecha_operacion();
+        LocalDate fechaLimite = fechaActual.toLocalDate().plusDays(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
+        cuentasXPagarDB.setFecha_limite(Date.valueOf(fechaLimite));
+        cuentasXPagarDB.setValor_pagado(0);
+        cuentasXPagarDB.setBanco(Integer.parseInt(modelo.getVista().txtBanco.getText()));
+        cuentasXPagarDB.setNumero_cuenta(modelo.getVista().txtNumeroCuenta.getText());
+
+        boolean resultado = compra.insertarCompra(comprasDB, detallleCompraDB, cuentasXPagarDB);
         if(resultado){
             limpiarTodo();
         } else {
@@ -319,8 +331,10 @@ public class ControladorCompras implements ActionListener, MouseListener {
         modelo.getVista().txtNombreProveedor.setText("");
         modelo.getVista().txtInfoRepresentante.setText("");
         modelo.getVista().txtPlazoCredito.setText("");
+        modelo.getVista().txtTotalCompra.setText("");
+        modelo.getVista().txtNumeroCuenta.setText("");
+        modelo.getVista().txtBanco.setText("");
 
-        // Reset de combos (ahora sí por índice)
         if (modelo.getVista().cmbMetodoDePago.getItemCount() > 0) {
             modelo.getVista().cmbMetodoDePago.setSelectedIndex(0);
         }

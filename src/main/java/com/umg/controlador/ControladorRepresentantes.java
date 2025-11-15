@@ -424,7 +424,7 @@ public class ControladorRepresentantes implements ActionListener, MouseListener 
         DefaultTableModel m = new DefaultTableModel() {
             @Override public boolean isCellEditable(int r,int c){ return false; }
         };
-        m.setColumnIdentifiers(new Object[]{"No.","Tipo","Información","Teléfono"});
+        m.setColumnIdentifiers(new Object[]{"No.","Tipo","Información"});
         for (ContactoTmp c : bufferContactos) {
             String tipo = (c.tipoContacto==null)? "" : tcod2desc.getOrDefault(c.tipoContacto, String.valueOf(c.tipoContacto));
             m.addRow(new Object[]{ c.correlativo, tipo, nvl(c.info), nvl(c.telefono) });

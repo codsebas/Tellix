@@ -89,16 +89,16 @@ public class Sql {
 """;
     // --- CONSTANTES PARA TABLA METODOSDELIQUIDACION (CRUD) ---
     // ---------------------------------------------------------------------
-    private final String INSERTAR_METODOSDELIQUIDACION = "INSERT INTO metodosdeliquidacion (codigo, descripcion) VALUES (?, ?)";
-    private final String CONSULTA_TODAS_METODOSDELIQUIDACION = "SELECT codigo, descripcion FROM metodosdeliquidacion";
-    private final String CONSULTA_METODOSDELIQUIDACION_POR_CODIGO = "SELECT codigo, descripcion FROM metodosdeliquidacion WHERE codigo = ?";
-    private final String ACTUALIZAR_METODOSDELIQUIDACION = "UPDATE metodosdeliquidacion SET descripcion = ? WHERE codigo = ?";
-    private final String ELIMINAR_METODOSDELIQUIDACION = "DELETE FROM metodosdeliquidacion WHERE codigo = ?";
+    private final String INSERTAR_METODOSDELIQUIDACION = "INSERT INTO tellix.metodosdeliquidacion (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_METODOSDELIQUIDACION = "SELECT codigo, descripcion FROM tellix.metodosdeliquidacion";
+    private final String CONSULTA_METODOSDELIQUIDACION_POR_CODIGO = "SELECT codigo, descripcion FROM tellix.metodosdeliquidacion WHERE codigo = ?";
+    private final String ACTUALIZAR_METODOSDELIQUIDACION = "UPDATE tellix.metodosdeliquidacion SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_METODOSDELIQUIDACION = "DELETE FROM tellix.metodosdeliquidacion WHERE codigo = ?";
     // Para llenar ComboBox por código
-    private final String CONSULTA_CODIGOS_METODOSDELIQUIDACION = "SELECT codigo FROM metodosdeliquidacion ORDER BY codigo";
+    private final String CONSULTA_CODIGOS_METODOSDELIQUIDACION = "SELECT codigo FROM tellix.metodosdeliquidacion ORDER BY codigo";
 
     // Para llenar ComboBox por descripción
-    private final String CONSULTA_DESCRIPCIONES_METODOSDELIQUIDACION = "SELECT descripcion FROM categoria ORDER BY descripcion";
+    private final String CONSULTA_DESCRIPCIONES_METODOSDELIQUIDACION = "SELECT descripcion FROM tellix.categoria ORDER BY descripcion";
 
     // Para búsqueda insensible a mayúsculas/minúsculas
     private final String BUSCAR_METODOSDELIQUIDACION = """
@@ -149,21 +149,21 @@ public class Sql {
 """;
     // --- CONSTANTES PARA TABLA TIPOSDECONTACTO (CRUD) ---
     // ---------------------------------------------------------------------
-    private final String INSERTAR_TIPOSDECONTACTO = "INSERT INTO tiposdecontacto (codigo, descripcion) VALUES (?, ?)";
-    private final String CONSULTA_TODAS_TIPOSDECONTACTO = "SELECT codigo, descripcion FROM tiposdecontacto";
-    private final String CONSULTA_TIPOSDECONTACTO_POR_CODIGO = "SELECT codigo, descripcion FROM tiposdecontacto WHERE codigo = ?";
-    private final String ACTUALIZAR_TIPOSDECONTACTO = "UPDATE tiposdeecontacto SET descripcion = ? WHERE codigo = ?";
-    private final String ELIMINAR_TIPOSDECONTACTO = "DELETE FROM c<tiposdeontacto WHERE codigo = ?";
+    private final String INSERTAR_TIPOSDECONTACTO = "INSERT INTO tellix.tiposdecontacto (codigo, descripcion) VALUES (?, ?)";
+    private final String CONSULTA_TODAS_TIPOSDECONTACTO = "SELECT codigo, descripcion FROM tellix.tiposdecontacto";
+    private final String CONSULTA_TIPOSDECONTACTO_POR_CODIGO = "SELECT codigo, descripcion FROM tellix.tiposdecontacto WHERE codigo = ?";
+    private final String ACTUALIZAR_TIPOSDECONTACTO = "UPDATE tellix.tiposdeecontacto SET descripcion = ? WHERE codigo = ?";
+    private final String ELIMINAR_TIPOSDECONTACTO = "DELETE FROM tellix.tiposdeontacto WHERE codigo = ?";
     // Para llenar ComboBox por código
-    private final String CONSULTA_CODIGOS_TIPOSDECONTACTO = "SELECT codigo FROM contacto ORDER BY codigo";
+    private final String CONSULTA_CODIGOS_TIPOSDECONTACTO = "SELECT codigo FROM tellix.contacto ORDER BY codigo";
 
     // Para llenar ComboBox por descripción
-    private final String CONSULTA_DESCRIPCIONES_TIPOSDECONTACTO = "SELECT descripcion FROM contacto ORDER BY descripcion";
+    private final String CONSULTA_DESCRIPCIONES_TIPOSDECONTACTO = "SELECT descripcion FROM tellix.contacto ORDER BY descripcion";
 
     // Para búsqueda insensible a mayúsculas/minúsculas
     private final String BUSCAR_TIPOSDECONTACTO = """
     SELECT codigo, descripcion 
-    FROM tiposdeontacto 
+    FROM tellix.tiposdeontacto 
     WHERE UPPER(codigo) LIKE UPPER(?) OR UPPER(descripcion) LIKE UPPER(?) 
     ORDER BY codigo
 """;

@@ -52,6 +52,18 @@ public class QuerysVentas {
                     "FROM TELLIX.METODO_LIQUIDACION " +
                     "ORDER BY descripcion";
 
+    private final String INSERTAR_CUENTA_POR_COBRAR = "INSERT INTO TELLIX.CUENTA_POR_COBRAR (" +
+            "secuencia, " +
+            "estado, " +
+            "metodo_pago, " +
+            "valor_total, " +
+            "valor_pagado, " +
+            "fecha_limite, " +
+            "numero_cuenta, " +
+            "cliente_nit) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
     public String getSelectAllVentas() { return SELECT_ALL_VENTAS; }
     public String getSelectUnaVenta() { return SELECT_UNA_VENTA; }
     public String getSelectDetVenta() { return SELECT_DET_VENTA; }
@@ -60,4 +72,5 @@ public class QuerysVentas {
     public String getINSERTAR_INVENTARIO() { return INSERTAR_INVENTARIO; }
     public String getACTUALIZAR_STOCK_PRODUCTO() { return ACTUALIZAR_STOCK_PRODUCTO; }
     public String getSELECT_ALL_METODOS_PAGO(){ return SELECT_ALL_METODOS_PAGO;}
+    public String getINSERTAR_CUENTA_POR_COBRAR(){ return INSERTAR_CUENTA_POR_COBRAR; }
 }

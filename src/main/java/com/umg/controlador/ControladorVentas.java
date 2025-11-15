@@ -36,6 +36,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
     private ModeloVentaDB ventaDB = new ModeloVentaDB();
     private List<ModeloDetalleVentaDB> detalleVentaDB = new ArrayList();
     private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
+    private ModeloCuentasXCobrarDB cuentasCobrar  = new ModeloCuentasXCobrarDB();
 
     private JComboBox<String> cmbMetodoDePago;
     private JComboBox<String> cmbTipoPlazo;
@@ -383,7 +384,18 @@ public class ControladorVentas implements ActionListener, MouseListener {
         ventaDB.setTipoPlazo(obtenerCodigoTipoPlazoSeleccionado());
         ventaDB.setEstado("E");
 
-        boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB);
+        cuentasCobrar.setEstado("E");
+        cuentasCobrar.setMetodo_pago(codMetodo);
+        cuentasCobrar.setValor_total(Float.parseFloat(modelo.getVista().txtTotalVenta.getText()));
+        cuentasCobrar.setValor_pagado(0);
+
+        Date fechaActual = ventaDB.getFechaOperacion();
+        LocalDate fechaLimite = fechaActual.toLocalDate().plusDays(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
+        cuentasCobrar.setFecha_limite(Date.valueOf(fechaLimite));
+        cuentasCobrar.setNit_cliente(modelo.getVista().txtNITCliente.getText());
+        cuentasCobrar.setNumero_cuenta(modelo.getVista().txtNumeroCuenta.getText());
+
+        boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB, cuentasCobrar);
         if(resultado){
             limpiarTodo();
         } else {
@@ -409,6 +421,8 @@ public class ControladorVentas implements ActionListener, MouseListener {
         modelo.getVista().txtPlazoCredito.setText("");
         modelo.getVista().cmbMetodoDePago.setSelectedItem(0);
         modelo.getVista().cmbTipoPlazo.setSelectedItem(0);
+        modelo.getVista().txtTotalVenta.setText("");
+        modelo.getVista().txtNumeroCuenta.setText("");
         resumProd = null;
         ventaDB = null;
         detalleVentaDB = null;

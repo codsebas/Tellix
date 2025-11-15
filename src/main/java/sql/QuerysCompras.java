@@ -73,6 +73,18 @@ public class QuerysCompras {
                     "FROM TELLIX.METODO_LIQUIDACION " +
                     "ORDER BY descripcion";
 
+    private final String INSERTAR_CUENTA_POR_PAGAR = "INSERT INTO TELLIX.CUENTA_POR_PAGAR (" +
+            "no_documento, " +
+            "estado, " +
+            "metodo_pago, " +
+            "valor_total, " +
+            "valor_pagado, " +
+            "fecha_limite, " +
+            "numero_cuenta, " +
+            "banco) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+
     // Getters existentes
     public String getSelectAllCompras()          { return SELECT_ALL_COMPRAS; }
     public String getSelectUnaCompra()           { return SELECT_UNA_COMPRA; }
@@ -86,4 +98,6 @@ public class QuerysCompras {
     public String getSelectAllProveedores()      { return SELECT_ALL_PROVEEDORES; }
     public String getSelectAllRepresentantes()   { return SELECT_ALL_REPRESENTANTES; }
     public String getSelectAllMetodosPago()      { return SELECT_ALL_METODOS_PAGO; }
+
+    public String getINSERTAR_CUENTA_POR_PAGAR() { return INSERTAR_CUENTA_POR_PAGAR; }
 }
