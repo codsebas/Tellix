@@ -16,7 +16,9 @@ public class VentaImp implements IVenta {
     private final query_vistas_db vistas = new query_vistas_db();
 
     @Override
-    public boolean insertarVenta(ModeloVentaDB venta, List<ModeloDetalleVentaDB> detalle) {
+    public boolean insertarVenta(ModeloVentaDB venta,
+                                 List<ModeloDetalleVentaDB> detalle,
+                                 ModeloCuentasXCobrarDB cuenta) {
         boolean resultado = false;
 
         try {
@@ -39,13 +41,25 @@ public class VentaImp implements IVenta {
             } else {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
-                        int sec = rs.getInt(1);
+                        int sec = rs.getInt(1); // secuencia de la venta
 
                         for (ModeloDetalleVentaDB det : detalle) {
                             det.setSecuencia(sec);
                         }
 
-                        resultado = insertarDetalleVenta(detalle);
+                        boolean okCuenta = true;
+                        if (cuenta != null) {
+                            cuenta.setSecuencia(sec);
+                        }
+
+                        boolean okDetalle = insertarDetalleVenta(detalle);
+
+                        if (cuenta != null) {
+                            okCuenta = insertarCuentaxCobrar(cuenta);
+                        }
+
+                        resultado = okDetalle && okCuenta;
+
                     } else {
                         resultado = false;
                     }
@@ -265,6 +279,27 @@ public class VentaImp implements IVenta {
         } catch (Exception e) {
             throw new RuntimeException("Error al seleccionar métodos de pago", e);
         }
+    }
+
+    @Override
+    public boolean insertarCuentaxCobrar(ModeloCuentasXCobrarDB modelo) {
+        boolean resultado = false;
+        try{
+            PreparedStatement ps = con.preparar(querys.getINSERTAR_CUENTA_POR_COBRAR());
+            ps.setInt(1, modelo.getSecuencia());
+            ps.setString(2, modelo.getEstado());
+            ps.setInt(3, modelo.getMetodo_pago());
+            ps.setFloat(4, modelo.getValor_total());
+            ps.setFloat(5, modelo.getValor_pagado());
+            ps.setDate(6, modelo.getFecha_limite());
+            ps.setString(7, modelo.getNumero_cuenta());
+            ps.setString(8, modelo.getNit_cliente());
+            int files = ps.executeUpdate();
+            resultado = (files > 0);
+        } catch(Exception e){
+            throw new RuntimeException("Error al insertar Cuenta por Cobrar", e);
+        }
+        return resultado;
     }
 
 }

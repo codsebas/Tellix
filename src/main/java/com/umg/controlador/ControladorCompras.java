@@ -37,6 +37,7 @@ public class ControladorCompras implements ActionListener, MouseListener {
 
     private  ModeloResumProd resumProd = new ModeloResumProd();
     private  ModeloComprasDB comprasDB = new ModeloComprasDB();
+    private ModeloCuentasXPagarDB cuentasXPagarDB = new ModeloCuentasXPagarDB();
     private  List<ModeloDetalleCompraDB> detallleCompraDB = new ArrayList<>();
 
     private List<ModeloProveedoresDB> listaProveedores = new ArrayList<>();
@@ -299,7 +300,16 @@ public class ControladorCompras implements ActionListener, MouseListener {
         comprasDB.setTipo_plazo(obtenerCodigoTipoPlazoSeleccionado());
         comprasDB.setEstado("E");
 
-        boolean resultado = compra.insertarCompra(comprasDB, detallleCompraDB);
+        cuentasXPagarDB.setEstado("E");
+        cuentasXPagarDB.setMetodo_pago(codMetodo);
+        cuentasXPagarDB.setValor_total(Float.parseFloat(modelo.getVista().txtTotalCompra.getText()));
+
+        Date fechaActual = comprasDB.getFecha_operacion();
+        LocalDate fechaLimite = fechaActual.toLocalDate().plusDays(Integer.parseInt(modelo.getVista().txtPlazoCredito.getText()));
+        cuentasXPagarDB.setFecha_limite(Date.valueOf(fechaLimite));
+        cuentasXPagarDB.setValor_pagado(0);
+
+        boolean resultado = compra.insertarCompra(comprasDB, detallleCompraDB, cuentasXPagarDB);
         if(resultado){
             limpiarTodo();
         } else {

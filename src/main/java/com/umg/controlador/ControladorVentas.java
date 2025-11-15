@@ -36,6 +36,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
     private ModeloVentaDB ventaDB = new ModeloVentaDB();
     private List<ModeloDetalleVentaDB> detalleVentaDB = new ArrayList();
     private ModeloClienteVistaRes clienteRes = new ModeloClienteVistaRes();
+    private ModeloCuentasXCobrarDB cuentasCobrar = new ModeloCuentasXCobrarDB();
 
     private JComboBox<String> cmbMetodoDePago;
     private JComboBox<String> cmbTipoPlazo;
@@ -383,7 +384,7 @@ public class ControladorVentas implements ActionListener, MouseListener {
         ventaDB.setTipoPlazo(obtenerCodigoTipoPlazoSeleccionado());
         ventaDB.setEstado("E");
 
-        boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB);
+        boolean resultado = venta.insertarVenta(ventaDB, detalleVentaDB, cuentasCobrar);
         if(resultado){
             limpiarTodo();
         } else {

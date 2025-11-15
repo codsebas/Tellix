@@ -20,12 +20,15 @@ public class CompraImp implements ICompra {
     private final query_vistas_db vistas = new query_vistas_db();
 
     @Override
-    public boolean insertarCompra(ModeloComprasDB compra, List<ModeloDetalleCompraDB> detalle) {
+    public boolean insertarCompra(ModeloComprasDB compra,
+                                  List<ModeloDetalleCompraDB> detalle,
+                                  ModeloCuentasXPagarDB cuentas) {
         boolean resultado = false;
 
-        try{
+        try {
+
             PreparedStatement ps = con.prepararCompra(querys.getInsertCompra(), true);
-            ps.setString(1,compra.getProveedor());
+            ps.setString(1, compra.getProveedor());
             ps.setString(2, compra.getRepresentante());
             ps.setDate(3, compra.getFecha_operacion());
             ps.setTimestamp(4, compra.getHora_operacion());
@@ -37,33 +40,45 @@ public class CompraImp implements ICompra {
 
             int filas = ps.executeUpdate();
 
-            if(filas == 0){
+            if (filas == 0) {
                 resultado = false;
             } else {
-                try(ResultSet rs = ps.getGeneratedKeys()){
-                    if(rs.next()){
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
                         int no_doc = rs.getInt(1);
 
-                        for(ModeloDetalleCompraDB det : detalle){
+                        for (ModeloDetalleCompraDB det : detalle) {
                             det.setNo_documento(no_doc);
                         }
 
-                        resultado = insertarDetalleCompra(detalle);
+                        if (cuentas != null) {
+                            cuentas.setNo_documento(no_doc);
+                        }
+
+                        boolean okDetalle = insertarDetalleCompra(detalle);
+
+                        boolean okCuenta = true;
+                        if (cuentas != null) {
+                            okCuenta = insertarCuentaxPagar(cuentas);
+                        }
+                        resultado = okDetalle && okCuenta;
+
                     } else {
                         resultado = false;
                     }
-                } catch (Exception e){
-                    System.out.println("Eror al obtener la llave generada " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error al obtener la llave generada " + e.getMessage());
                     resultado = false;
                 }
             }
 
-        } catch (Exception e){
-            System.out.println("No se pudo insertar venta " +e.getMessage());
+        } catch (Exception e) {
+            System.out.println("No se pudo insertar compra " + e.getMessage());
             resultado = false;
         }
         return resultado;
     }
+
 
     @Override
     public boolean insertarDetalleCompra(List<ModeloDetalleCompraDB> detalle) {
@@ -266,6 +281,26 @@ public class CompraImp implements ICompra {
         }
     }
 
+    @Override
+    public boolean insertarCuentaxPagar(ModeloCuentasXPagarDB modelo) {
+        boolean resultado = false;
+        try{
+            PreparedStatement ps = con.preparar(querys.getINSERTAR_CUENTA_POR_PAGAR());
+            ps.setInt(1, modelo.getNo_documento());
+            ps.setString(2, modelo.getEstado());
+            ps.setInt(3, modelo.getMetodo_pago());
+            ps.setFloat(4, modelo.getValor_total());
+            ps.setFloat(5, modelo.getValor_pagado());
+            ps.setDate(6, modelo.getFecha_limite());
+            ps.setString(7, modelo.getNumero_cuenta());
+            ps.setString(8, modelo.getBanco());
+            int files = ps.executeUpdate();
+            resultado = (files > 0);
+        } catch(Exception e){
+            throw new RuntimeException("Error al insertar Cuenta por Pagar", e);
+        }
+        return resultado;
+    }
 
 
 }

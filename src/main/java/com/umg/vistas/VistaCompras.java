@@ -55,6 +55,8 @@ public class VistaCompras extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblRegistrarCompra = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        txtBanco = new javax.swing.JTextField();
+        txtNumeroCuenta = new javax.swing.JTextField();
         txtNITProveedor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -70,6 +72,8 @@ public class VistaCompras extends javax.swing.JPanel {
         txtInfoRepresentante = new javax.swing.JTextField();
         cmRepresentante = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
+        lblTipoPlazo1 = new javax.swing.JLabel();
+        lblTipoPlazo2 = new javax.swing.JLabel();
         txtBuscarProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnBuscarProducto = new javax.swing.JPanel();
@@ -150,6 +154,14 @@ public class VistaCompras extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(245, 247, 250));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtBanco.setBackground(new java.awt.Color(255, 255, 255));
+        txtBanco.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtBanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 600, 200, 30));
+
+        txtNumeroCuenta.setBackground(new java.awt.Color(255, 255, 255));
+        txtNumeroCuenta.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtNumeroCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 200, 30));
+
         txtNITProveedor.setEditable(false);
         txtNITProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtNITProveedor.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
@@ -190,8 +202,8 @@ public class VistaCompras extends javax.swing.JPanel {
         lblTipoPlazo.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         lblTipoPlazo.setForeground(new java.awt.Color(33, 37, 41));
         lblTipoPlazo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTipoPlazo.setText("Tipo de Plazo");
-        jPanel2.add(lblTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 20));
+        lblTipoPlazo.setText("Banco");
+        jPanel2.add(lblTipoPlazo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 200, 20));
 
         cmbMetodoDePago.setBackground(new java.awt.Color(255, 255, 255));
         cmbMetodoDePago.setForeground(new java.awt.Color(108, 117, 125));
@@ -233,6 +245,18 @@ public class VistaCompras extends javax.swing.JPanel {
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel22.setText("Proveedor");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, 20));
+
+        lblTipoPlazo1.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        lblTipoPlazo1.setForeground(new java.awt.Color(33, 37, 41));
+        lblTipoPlazo1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTipoPlazo1.setText("Tipo de Plazo");
+        jPanel2.add(lblTipoPlazo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 200, 20));
+
+        lblTipoPlazo2.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
+        lblTipoPlazo2.setForeground(new java.awt.Color(33, 37, 41));
+        lblTipoPlazo2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTipoPlazo2.setText("Numero de cuenta");
+        jPanel2.add(lblTipoPlazo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 200, 20));
 
         panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 230, 670));
 
@@ -375,14 +399,18 @@ public class VistaCompras extends javax.swing.JPanel {
     public javax.swing.JLabel lblPlazoCredito;
     public javax.swing.JLabel lblRegistrarCompra;
     public javax.swing.JLabel lblTipoPlazo;
+    public javax.swing.JLabel lblTipoPlazo1;
+    public javax.swing.JLabel lblTipoPlazo2;
     private javax.swing.JPanel panelFondo;
     public javax.swing.JTable tblProductos;
+    public javax.swing.JTextField txtBanco;
     public javax.swing.JTextField txtBuscarProducto;
     public javax.swing.JTextField txtCantidadProducto;
     public javax.swing.JTextField txtInfoRepresentante;
     public javax.swing.JTextField txtNITProveedor;
     public javax.swing.JTextField txtNombreProducto;
     public javax.swing.JTextField txtNombreProveedor;
+    public javax.swing.JTextField txtNumeroCuenta;
     public javax.swing.JTextField txtPlazoCredito;
     public javax.swing.JTextField txtPrecioProducto;
     public javax.swing.JTextField txtStockDisponible;
