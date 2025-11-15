@@ -54,29 +54,22 @@ public class VistaEmpleados extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblActualizar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtCodigo = new javax.swing.JTextField();
+        txtCodigoEmpleado = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtDpi = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        txtPrimerNombre = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtStockMinimo = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        txtStockActual = new javax.swing.JTextField();
+        txxSegundoApellido = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtCantidad = new javax.swing.JTextField();
+        txtApellidoCasada = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         cmbMedida = new javax.swing.JComboBox<>();
-        cmbCategoria = new javax.swing.JComboBox<>();
-        cmbMarca = new javax.swing.JComboBox<>();
-        txtCantidad1 = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        btnLimpiar = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        lblLimpiar = new javax.swing.JLabel();
+        txtSegundoNombre = new javax.swing.JTextField();
+        txtStockMinimo1 = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JPanel();
@@ -84,6 +77,9 @@ public class VistaEmpleados extends javax.swing.JPanel {
         lblBuscar = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         cmbOrdenarPor = new javax.swing.JComboBox<>();
+        btnLimpiar = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        lblLimpiar = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -115,9 +111,9 @@ public class VistaEmpleados extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblProductos);
 
-        panelTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 530));
+        panelTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 530));
 
-        panelFondo.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 660, 530));
+        panelFondo.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 580, 530));
 
         btnNuevo.setBackground(new java.awt.Color(245, 247, 250));
         btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -132,7 +128,7 @@ public class VistaEmpleados extends javax.swing.JPanel {
         lblNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
         btnNuevo.add(lblNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        panelFondo.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 630, 100, 30));
+        panelFondo.add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 630, 100, 30));
 
         btnEliminar.setBackground(new java.awt.Color(245, 247, 250));
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -147,7 +143,7 @@ public class VistaEmpleados extends javax.swing.JPanel {
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
         btnEliminar.add(lblEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        panelFondo.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 630, 100, 30));
+        panelFondo.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 630, 100, 30));
 
         btnActualizar.setBackground(new java.awt.Color(245, 247, 250));
         btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -162,135 +158,87 @@ public class VistaEmpleados extends javax.swing.JPanel {
         lblActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
         btnActualizar.add(lblActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
 
-        panelFondo.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 630, 100, 30));
+        panelFondo.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(245, 247, 250));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCodigo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 200, 30));
+        txtCodigoEmpleado.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtCodigoEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 200, 30));
 
         jLabel5.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(33, 37, 41));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Código");
+        jLabel5.setText("Codigo Empleado");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 200, 20));
 
         jLabel6.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(33, 37, 41));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("Nombre");
+        jLabel6.setText("Documento Identificación");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 20));
 
-        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 30));
+        txtDpi.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtDpi, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 200, 30));
 
         jLabel7.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(33, 37, 41));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("Descripción");
+        jLabel7.setText("Primer Nombre");
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 200, 20));
 
-        txtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
-        txtDescripcion.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 200, 30));
+        txtPrimerNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtPrimerNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 200, 30));
 
         jLabel8.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(33, 37, 41));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("Stock Mínimo");
+        jLabel8.setText("Segundo Nombre");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 160, 20));
 
-        txtStockMinimo.setBackground(new java.awt.Color(255, 255, 255));
-        txtStockMinimo.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtStockMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 160, 30));
-
-        jLabel9.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel9.setText("Stock Actual");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 160, 20));
-
-        txtStockActual.setBackground(new java.awt.Color(255, 255, 255));
-        txtStockActual.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 160, 30));
+        txxSegundoApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txxSegundoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 200, 30));
 
         jLabel10.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(33, 37, 41));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("Cantidad");
+        jLabel10.setText("Nombre Jefe");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 200, 20));
 
-        txtCantidad.setBackground(new java.awt.Color(255, 255, 255));
-        txtCantidad.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 200, 30));
+        txtApellidoCasada.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtApellidoCasada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 200, 30));
 
         jLabel11.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(33, 37, 41));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("Medida");
+        jLabel11.setText("Apellido De Casada");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 20));
 
         jLabel12.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(33, 37, 41));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("Categoría");
+        jLabel12.setText("Primer Apellido");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 200, 20));
 
         jLabel13.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(33, 37, 41));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Marca");
+        jLabel13.setText("Segundo Apellido");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 200, 20));
 
-        cmbMedida.setBackground(new java.awt.Color(255, 255, 255));
         cmbMedida.setForeground(new java.awt.Color(108, 117, 125));
         cmbMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbMedida.setBorder(null);
-        jPanel2.add(cmbMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 200, 30));
+        jPanel2.add(cmbMedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 200, 30));
 
-        cmbCategoria.setBackground(new java.awt.Color(255, 255, 255));
-        cmbCategoria.setForeground(new java.awt.Color(108, 117, 125));
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbCategoria.setBorder(null);
-        jPanel2.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
+        txtSegundoNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtSegundoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 200, 30));
 
-        cmbMarca.setBackground(new java.awt.Color(255, 255, 255));
-        cmbMarca.setForeground(new java.awt.Color(108, 117, 125));
-        cmbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbMarca.setBorder(null);
-        jPanel2.add(cmbMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 200, 30));
+        txtStockMinimo1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
+        jPanel2.add(txtStockMinimo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 30));
 
-        txtCantidad1.setBackground(new java.awt.Color(255, 255, 255));
-        txtCantidad1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
-        jPanel2.add(txtCantidad1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 200, 30));
+        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 360, 560));
 
-        jLabel17.setFont(new java.awt.Font("Skoda Pro", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(33, 37, 41));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel17.setText("Precio");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 200, 20));
-
-        btnLimpiar.setBackground(new java.awt.Color(245, 247, 250));
-        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel18.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setText("Limpiar");
-        btnLimpiar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        lblLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
-        btnLimpiar.add(lblLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
-
-        jPanel2.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 100, 30));
-
-        panelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 50, 360, 560));
-
-        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 102)));
         panelFondo.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, 30));
 
@@ -321,18 +269,34 @@ public class VistaEmpleados extends javax.swing.JPanel {
         jLabel16.setText("Ordenar Por");
         panelFondo.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 20));
 
-        cmbOrdenarPor.setBackground(new java.awt.Color(255, 255, 255));
         cmbOrdenarPor.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
         cmbOrdenarPor.setForeground(new java.awt.Color(108, 117, 125));
         cmbOrdenarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo", "Nombre", "Categoría", "Stock", "Precio" }));
         cmbOrdenarPor.setBorder(null);
-        panelFondo.add(cmbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 200, 30));
+        panelFondo.add(cmbOrdenarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, 110, 30));
+
+        btnLimpiar.setBackground(new java.awt.Color(245, 247, 250));
+        btnLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel18.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Limpiar");
+        btnLimpiar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+
+        lblLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBoton1.png"))); // NOI18N
+        btnLimpiar.add(lblLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 30));
+
+        panelFondo.add(btnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 670, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 958, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 122, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,9 +311,7 @@ public class VistaEmpleados extends javax.swing.JPanel {
     public javax.swing.JPanel btnEliminar;
     public javax.swing.JPanel btnLimpiar;
     public javax.swing.JPanel btnNuevo;
-    private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JComboBox<String> cmbMarca;
-    private javax.swing.JComboBox<String> cmbMedida;
+    public javax.swing.JComboBox<String> cmbMedida;
     private javax.swing.JComboBox<String> cmbOrdenarPor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -359,7 +321,6 @@ public class VistaEmpleados extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -368,7 +329,6 @@ public class VistaEmpleados extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JLabel lblActualizar;
@@ -379,14 +339,14 @@ public class VistaEmpleados extends javax.swing.JPanel {
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelTabla;
     private javax.swing.JTable tblProductos;
+    public javax.swing.JTextField txtApellidoCasada;
     public javax.swing.JTextField txtBuscar;
-    public javax.swing.JTextField txtCantidad;
-    public javax.swing.JTextField txtCantidad1;
-    public javax.swing.JTextField txtCodigo;
-    public javax.swing.JTextField txtDescripcion;
-    public javax.swing.JTextField txtNombre;
-    public javax.swing.JTextField txtStockActual;
-    public javax.swing.JTextField txtStockMinimo;
+    public javax.swing.JTextField txtCodigoEmpleado;
+    public javax.swing.JTextField txtDpi;
+    public javax.swing.JTextField txtPrimerNombre;
+    public javax.swing.JTextField txtSegundoNombre;
+    public javax.swing.JTextField txtStockMinimo1;
+    public javax.swing.JTextField txxSegundoApellido;
     // End of variables declaration//GEN-END:variables
 
     public void setControlador (ControladorEmpleados controlador) {

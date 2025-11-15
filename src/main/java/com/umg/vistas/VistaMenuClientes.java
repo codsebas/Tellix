@@ -34,6 +34,10 @@ public class VistaMenuClientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnTiposDeCliente1 = new javax.swing.JPanel();
+        lblIconoTiposDeCliente1 = new javax.swing.JLabel();
+        lblTiposDeCliente1 = new javax.swing.JLabel();
+        lblTiposDeClienteSeleccionado1 = new javax.swing.JLabel();
         panelFondo = new javax.swing.JPanel();
         panelMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -45,7 +49,27 @@ public class VistaMenuClientes extends javax.swing.JPanel {
         lblIconoTiposDeCliente = new javax.swing.JLabel();
         lblTiposDeCliente = new javax.swing.JLabel();
         lblTiposDeClienteSeleccionado = new javax.swing.JLabel();
+        btnEmpleados = new javax.swing.JPanel();
+        lblIconoEmpleados = new javax.swing.JLabel();
+        lblEmpleados = new javax.swing.JLabel();
+        lblTiposDeEmpleados = new javax.swing.JLabel();
         contenedor = new javax.swing.JPanel();
+
+        btnTiposDeCliente1.setBackground(new java.awt.Color(245, 247, 250));
+        btnTiposDeCliente1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTiposDeCliente1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIconoTiposDeCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
+        btnTiposDeCliente1.add(lblIconoTiposDeCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        lblTiposDeCliente1.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblTiposDeCliente1.setForeground(new java.awt.Color(51, 51, 51));
+        lblTiposDeCliente1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTiposDeCliente1.setText("Tipos de Cliente");
+        btnTiposDeCliente1.add(lblTiposDeCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+
+        lblTiposDeClienteSeleccionado1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnTiposDeCliente1.add(lblTiposDeClienteSeleccionado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
 
         setMinimumSize(new java.awt.Dimension(1080, 720));
         setPreferredSize(new java.awt.Dimension(1080, 720));
@@ -98,6 +122,24 @@ public class VistaMenuClientes extends javax.swing.JPanel {
 
         panelMenu.add(btnTiposDeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 180, 40));
 
+        btnEmpleados.setBackground(new java.awt.Color(245, 247, 250));
+        btnEmpleados.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblIconoEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoClientes.png"))); // NOI18N
+        btnEmpleados.add(lblIconoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 40));
+
+        lblEmpleados.setFont(new java.awt.Font("Skoda Pro", 0, 14)); // NOI18N
+        lblEmpleados.setForeground(new java.awt.Color(51, 51, 51));
+        lblEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblEmpleados.setText("Empleados");
+        btnEmpleados.add(lblEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 140, 40));
+
+        lblTiposDeEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/umg/iconos/IconoBotonesSeleccionados.png"))); // NOI18N
+        btnEmpleados.add(lblTiposDeEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 40));
+
+        panelMenu.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, 40));
+
         panelFondo.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
         contenedor.setBackground(new java.awt.Color(245, 247, 250));
@@ -118,16 +160,24 @@ public class VistaMenuClientes extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel btnEmpleados;
     public javax.swing.JPanel btnGestionClientes;
     public javax.swing.JPanel btnTiposDeCliente;
+    public javax.swing.JPanel btnTiposDeCliente1;
     public javax.swing.JPanel contenedor;
     private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel lblEmpleados;
     public javax.swing.JLabel lblGestionClientes;
     public javax.swing.JLabel lblGestionClientesSeleccionado;
+    public javax.swing.JLabel lblIconoEmpleados;
     public javax.swing.JLabel lblIconoGestionClientes;
     public javax.swing.JLabel lblIconoTiposDeCliente;
+    public javax.swing.JLabel lblIconoTiposDeCliente1;
     public javax.swing.JLabel lblTiposDeCliente;
+    public javax.swing.JLabel lblTiposDeCliente1;
     public javax.swing.JLabel lblTiposDeClienteSeleccionado;
+    public javax.swing.JLabel lblTiposDeClienteSeleccionado1;
+    public javax.swing.JLabel lblTiposDeEmpleados;
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
@@ -135,5 +185,6 @@ public class VistaMenuClientes extends javax.swing.JPanel {
     public void setControlador(ControladorMenuClientes controlador) {
         this.btnGestionClientes.addMouseListener(controlador);
         this.btnTiposDeCliente.addMouseListener(controlador);
+        this.btnEmpleados.addMouseListener(controlador);
     }
 }

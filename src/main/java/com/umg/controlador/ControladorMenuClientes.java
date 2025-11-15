@@ -2,6 +2,7 @@ package com.umg.controlador;
 
 import com.umg.modelo.ModeloMenuClientes;
 import com.umg.vistas.VistaClientes;
+import com.umg.vistas.VistaEmpleados;
 import com.umg.vistas.VistaTiposDeCliente;
 
 import javax.swing.*;
@@ -20,15 +21,16 @@ public class ControladorMenuClientes implements MouseListener {
     Color grisOscuro = new Color(51,51,51);
     Color blancoPuro = new Color(255,255,255);
 
-    private JPanel btnGestionClientes, btnTiposDeCliente;
-    private JLabel lblGestionClientes, lblTiposDeCliente;
-    private JLabel lblIconoGestionClientes, lblIconoTiposDeCliente;
-    private JLabel lblGestionClientesSeleccionado, lblTiposDeClienteSeleccionado;
+    private JPanel btnGestionClientes, btnTiposDeCliente, btnEmpleados;
+    private JLabel lblGestionClientes, lblTiposDeCliente, lblEmpleados;
+    private JLabel lblIconoGestionClientes, lblIconoTiposDeCliente,lblIconoEmpleados ;
+    private JLabel lblGestionClientesSeleccionado, lblTiposDeClienteSeleccionado,lblTiposDeEmpleados;
 
     private JPanel botonSeleccionado = null;
 
     VistaClientes vistaClientes = new VistaClientes();
     VistaTiposDeCliente vistaTiposDeCliente = new VistaTiposDeCliente();
+    VistaEmpleados vistaEmpleados =  new VistaEmpleados();
 
     public ControladorMenuClientes(ModeloMenuClientes modelo) {
         this.modelo = modelo;
@@ -37,27 +39,35 @@ public class ControladorMenuClientes implements MouseListener {
 
         btnGestionClientes = vista.btnGestionClientes;
         btnTiposDeCliente = vista.btnTiposDeCliente;
+        btnEmpleados = vista.btnEmpleados;
 
         lblGestionClientes =  vista.lblGestionClientes;
         lblTiposDeCliente =  vista.lblTiposDeCliente;
+        lblEmpleados = vista.lblEmpleados;
 
         lblGestionClientes.setName("texto");
         lblTiposDeCliente.setName("texto");
+        lblEmpleados.setName("texto");
 
         lblIconoGestionClientes = vista.lblIconoGestionClientes;
         lblIconoTiposDeCliente = vista.lblIconoTiposDeCliente;
+        lblIconoEmpleados = vista.lblIconoEmpleados;
 
         lblIconoGestionClientes.setName("icono");
         lblIconoTiposDeCliente.setName("icono");
+        lblIconoEmpleados.setName("texto");
 
         lblGestionClientesSeleccionado = vista.lblGestionClientesSeleccionado;
         lblTiposDeClienteSeleccionado = vista.lblTiposDeClienteSeleccionado;
+        lblTiposDeEmpleados=vista.lblTiposDeEmpleados;
 
         lblGestionClientesSeleccionado.setName("efecto");
         lblTiposDeClienteSeleccionado.setName("efecto");
+        lblTiposDeEmpleados.setName("efecto");
 
         lblGestionClientesSeleccionado.setVisible(false);
         lblTiposDeClienteSeleccionado.setVisible(false);
+        lblTiposDeEmpleados.setVisible(false);
 
         inicializarIconos();
     }
@@ -70,6 +80,8 @@ public class ControladorMenuClientes implements MouseListener {
             accionBotones(btnGestionClientes, e, vistaClientes);
         } else if(source.equals(btnTiposDeCliente)) {
             accionBotones(btnTiposDeCliente, e, vistaTiposDeCliente);
+        }else if(source.equals(btnEmpleados)) {
+            accionBotones(btnEmpleados, e, vistaEmpleados);
         }
     }
 
